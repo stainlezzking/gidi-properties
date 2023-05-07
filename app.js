@@ -2,21 +2,18 @@ const express = require("express")
 const app = express()
 
 
+
+
 app.set("view engine", "ejs")
 
 app.use("/x-x", express.static("public"))
 
+// local imports
+const frontRouter = require("./Routes/frontpage")
 
-app.get("/", function(req,res){
-    res.render("index")
-})
-app.get("/listing", function(req,res){
-    res.render("listing")
-})
+app.use("/", frontRouter)
 
-app.get("/details", function(req,res){
-    res.render("details")
-})
+
 app.get("/addproperty", function(req,res){
     res.render("newproperty")
 })
