@@ -10,13 +10,11 @@ app.use("/x-x", express.static("public"))
 
 // local imports
 const frontRouter = require("./Routes/frontpage")
+const dashRouter = require("./Routes/dashboardget.js")
 
 app.use("/", frontRouter)
+app.use("/dashboard", dashRouter)
 
-
-app.get("/addproperty", function(req,res){
-    res.render("newproperty")
-})
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, function(){

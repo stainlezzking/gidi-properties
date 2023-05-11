@@ -520,9 +520,9 @@ h2 {
   color: var(--headings-color);
   display: block;
   font-size: 20px;
-  height: 44px;
+  /* height: 44px;
   line-height: 44px;
-  width: 44px;
+  width: 44px; */
 }
 .header_right_widgets li:last-child a {
   height: auto;

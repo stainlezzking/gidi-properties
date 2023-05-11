@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<!-- Mirrored from creativelayers.net/themes/homez-html/page-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 May 2023 13:11:50 GMT -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="advanced search, agency, agent, classified, directory, house, listing, property, real estate, real estate agency, real estate agent, realestate, realtor, rental">
+<meta name="description" content="Homez - Real Estate HTML Template">
+<meta name="CreativeLayers" content="ATFN">
+ 
+<%- include("../partials/headLinks.ejs") -%>
+
+</head>
+<body>
+<div class="wrapper">
+  <div class="preloader"></div>
+  <!-- header ## -->
+      <%- include("./partials/header.ejs") -%>
+  <!-- ### header end : -->
+
+  <div class="dashboard_content_wrapper">
+    <div class="dashboard dashboard_wrapper pr30 pr0-xl">
+      <!-- desktop side nav -->
+      <%- include("./partials/desk&mobilesidenav.ejs", {desktopdisplay : true}) -%>
+      <!-- desktop side nav:end -->
+      <div class="dashboard__main pl0-md">
+        <div class="dashboard__content bgc-f7">
+          <div class="row pb40">
+            <div class="col-lg-12">
+              <!-- mobile side nav -->
+              <%- include("./partials/desk&mobilesidenav.ejs", {desktopdisplay : false}) -%>
+              <!-- mobile side nav:end -->
+            </div>
+            <div class="col-lg-12">
+              <div class="dashboard_title_area">
+                <h2>Howdy, Ali!</h2>
+                <p class="text">We are glad to see you again!</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-xxl-3">
+              <div class="d-flex justify-content-between statistics_funfact">
+                <div class="details">
+                  <div class="text fz25">All Properties</div>
+                  <div class="title">583</div>
+                </div>
+                <div class="icon text-center"><i class="flaticon-home"></i></div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xxl-3">
+              <div class="d-flex justify-content-between statistics_funfact">
+                <div class="details">
+                  <div class="text fz25">Total Views</div>
+                  <div class="title">192</div>
+                </div>
+                <div class="icon text-center"><i class="flaticon-search-chart"></i></div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xxl-3">
+              <div class="d-flex justify-content-between statistics_funfact">
+                <div class="details">
+                  <div class="text fz25">Total Visitor Reviews</div>
+                  <div class="title">438</div>
+                </div>
+                <div class="icon text-center"><i class="flaticon-review"></i></div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xxl-3">
+              <div class="d-flex justify-content-between statistics_funfact">
+                <div class="details">
+                  <div class="text fz25">Total Favorites</div>
+                  <div class="title">67</div>
+                </div>
+                <div class="icon text-center"><i class="flaticon-like"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-8">
+              <div class="ps-widget bgc-white bdrs12 default-box-shadow2 p30 mb30 overflow-hidden position-relative">
+                <h4 class="title fz17 mb25">Recent Activities</h4>
+                <div class="recent-activity d-sm-flex align-items-center mb20">
+                  <span class="icon me-3 flaticon-home flex-shrink-0"></span>
+                  <p class="text mb-0 flex-grow-1">Your listing <span class="fw600">House on the beverly hills</span> has been approved</p>
+                </div>
+                <div class="recent-activity d-sm-flex align-items-center mb20">
+                  <span class="icon me-3 flaticon-review flex-shrink-0"></span>
+                  <p class="text mb-0 flex-grow-1">Dollie Horton left a review on <span class="fw600">House on the Northridge</span></p>
+                </div>
+                <div class="recent-activity d-sm-flex align-items-center mb20">
+                  <span class="icon me-3 flaticon-like flex-shrink-0"></span>
+                  <p class="text mb-0 flex-grow-1">Someone favorites your <span class="fw600">Triple Story House for Rent</span> listing</p>
+                </div>
+                <div class="recent-activity d-sm-flex align-items-center mb20">
+                  <span class="icon me-3 flaticon-review flex-shrink-0"></span>
+                  <p class="text mb-0 flex-grow-1">Someone favorites your <span class="fw600">Triple Story House for Rent</span> listing</p>
+                </div>
+                <div class="recent-activity d-sm-flex align-items-center mb20">
+                  <span class="icon me-3 flaticon-home flex-shrink-0"></span>
+                  <p class="text mb-0 flex-grow-1">Your listing <span class="fw600">House on the beverly hills</span> has been approved</p>
+                </div>
+                <div class="recent-activity d-sm-flex align-items-center mb20">
+                  <span class="icon me-3 flaticon-review flex-shrink-0"></span>
+                  <p class="text mb-0 flex-grow-1">Dollie Horton left a review on <span class="fw600">House on the Northridge</span></p>
+                </div>
+                <div class="d-grid">
+                  <a href="#" class="ud-btn btn-white2">Veiw More<i class="fal fa-arrow-right-long"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="dashboard_footer pt30 pb10">
+          <div class="container">
+            <div class="row items-center justify-content-center justify-content-md-between">
+              <div class="col-auto">
+                <div class="copyright-widget">
+                  <p class="text">© Homez - All rights reserved</p>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="footer_bottom_right_widgets text-center text-lg-end">
+                  <p><a href="#">Privacy</a>  ·  <a href="#">Terms</a>  ·  <a href="#">Sitemap</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <a class="scrollToHome" href="#"><i class="fas fa-angle-up"></i></a>
+</div>
+
+      <!-- script  -->
+  <%- include("./partials/script.ejs") -%>
+      <!-- script end : -->
+</body>
+
+<!-- Mirrored from creativelayers.net/themes/homez-html/page-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 May 2023 13:11:51 GMT -->
+</html>

@@ -16,7 +16,7 @@ router.get("/details", function(req,res){
 })
 
 router.get("/login", function(req,res){
-    res.render("private/login.ejs")
+    res.render("login.ejs")
 })
 
 
