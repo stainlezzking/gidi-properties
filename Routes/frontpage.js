@@ -15,9 +15,14 @@ router.get("/details", function(req,res){
     res.render("details")
 })
 
-router.get("/login", function(req,res){
-    res.render("login.ejs")
+router.get("/auth/login", function(req,res){
+    res.render("auth.ejs", {login : true})
 })
+
+router.get("/auth/register", function(req,res){
+    res.render("auth.ejs", {login : false})
+})
+
 
 
 module.exports = router

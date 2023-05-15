@@ -1,6 +1,8 @@
 const express = require("express")
 const router = express.Router()
 
+const {ACCS} = require("../modules/db")
+
 router.use(function(req,res,next){
     res.locals.activeurl = req.url;
     console.log(req.url)
