@@ -84,9 +84,9 @@
         <div class="row wow fadeInUp" data-wow-delay="100ms">
           <div class="col-lg-8">
             <div class="single-property-content mb30-md">
-              <h2 class="sp-lg-title">Awesome Interior Apartment</h2>
+              <h2 class="sp-lg-title text-capitalize"><%= `${property.rooms} Flat ${property.proptype}` %></h2>
               <div class="pd-meta mb15 d-md-flex align-items-center">
-                <p class="text fz15 mb-0 pr10 bdrrn-sm">4834 N 10th St, Philadelphia, PA 19141</p>
+                <p class="text fz15 mb-0 pr10 bdrrn-sm">4834 N 10th St, Philadelphia, PA 19141 [sattelite, Amuwo odofin]</p>
               </div>
               <div class="property-meta d-flex align-items-center">
                 <a class="ff-heading text-thm fz15 bdrr1 pr10 bdrrn-sm" href="#"><i class="fas fa-circle fz10 pe-2"></i>For sale</a>
@@ -104,7 +104,7 @@
                   <a class="icon mr10" href="#"><span class="flaticon-share-1"></span></a>
                   <a class="icon" href="#"><span class="flaticon-printer"></span></a>
                 </div>
-                <h3 class="price mb-0">$958,000</h3>
+                <h3 class="price mb-0">$<%= property.cost.toLocaleString() %></h3>
                 <p class="text space fz15">$2,300/sq ft</p>
               </div>
             </div>

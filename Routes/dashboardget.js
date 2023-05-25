@@ -1,11 +1,16 @@
 const express = require("express")
 const router = express.Router()
 
-const {ACCS} = require("../modules/db")
+const {ACCS, APARTMENTS} = require("../modules/db")
 
-router.use(function(req,res,next){
+router.use(async function(req,res,next){
     res.locals.activeurl = req.url;
-    console.log(req.url)
+    res.locals.user = {}
+    if(req.url == "/"){
+        res.locals.count =  await APARTMENTS.find().count()
+        res.locals.accounts =  await ACCS.find().count()
+        res.locals.lands =  await ACCS.find().count()
+    }
     next()
 })
 
@@ -32,7 +37,6 @@ router.get("/manageaccounts", function(req,res){
 router.get("/userListing", function(req,res){
     res.render("private/userListings")
 })
-
 
 
 module.exports = router

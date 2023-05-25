@@ -1,4 +1,6 @@
 const md5 = require('md5')
+const express = require("express")
+const {ACCS} = require("./db")
 module.exports = passportAuth = function(app, session, passport, localStrategy, ACCS) {
     // session
     app.use(session({
@@ -38,4 +40,38 @@ module.exports = passportAuth = function(app, session, passport, localStrategy, 
         .then(user=> done(null,user))
         .catch(e=> done(e))
     });
+
+
+
+    // ALL LOGIN ROUTES
+
+//  LOgin authentication
+app.post("/auth/login", express.urlencoded({ extended: false }),
+function(req, res, next) {
+    next()
+},
+passport.authenticate("account", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/auth/login",
+    failureFlash: true,
+})
+);
+
+
+app.post("/auth/register", express.urlencoded({ extended: false }), async function(req, res, next) {
+try{
+    const user = await ACCS.findOne({ _id : req.body.email.toLowerCase()});
+    if (user) return next({m : "This email has been used", r: "/auth/register", showflash : true})
+    await ACCS.create({...req.body, email : req.body.email.toLowerCase(), password : md5(req.body.password)})
+    return next()
+}catch(e){
+    console.log(e)
+   return  next({m : "A 500 code error, please try again", r : "/auth/register", showflash: true})
+}
+}, passport.authenticate("account", {
+successRedirect: "/dashboard",
+failureRedirect: "/auth/register",
+failureFlash: true,
+}))
+
 }

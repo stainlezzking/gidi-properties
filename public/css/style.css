@@ -1,13 +1,5 @@
 @charset "UTF-8";
-/*
-Project/Template Name:  Homez - Real Estate HTML Template
-Template Url:  
-Author: CreativeLayers
-Author Url: https://themeforest.net/user/creativelayers/portfolio
-Version: 1.0.0
-Description: Zeomart - Multi-Vendor & Marketplace HTML Template
-Tag: advanced search, agency, agent, classified, directory, house, listing, property, real estate, real estate agency, real estate agent, realestate, realtor, rental
-*/
+
 /* == Table Of Content  == */
 /* Variables */
 /* Mixins */
@@ -961,6 +953,9 @@ h2 {
   width: 16px;
 }
 @media (max-width: 575.98px) {
+  .dashboard__content.property-page{
+    padding: 40px 15px 20px;
+  }
   .inbox_user_list .m_notif {
     position: relative;
     right: auto;

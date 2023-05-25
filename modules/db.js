@@ -1,13 +1,16 @@
 const mongoose = require("mongoose")
 require("dotenv").config();
 mongoose.set('strictQuery', false);
+
+// local imports
+
+//  connection
 let online = ``
 let localhost = "mongodb://127.0.0.1:27017/gidi";
 mongoose.connect(localhost, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(function(req, res) {
     console.log("DB connected successfully");
 })
-
 
 const accounts = mongoose.Schema({
     name : String,
@@ -16,37 +19,72 @@ const accounts = mongoose.Schema({
     password : String,
     agent : {type : Boolean, default : true},
     admin : {type : Boolean, default : false},
+    disabled : {type : Boolean, default : false}
 })
 
-const house = mongoose.Schema({
+const apartmentobject = {
     rooms : Number,
-    bathroom : Number,
-    parlour : Boolean,
+    bathrooms : Number,
+    parlour : Number,
     kitchen : Number,
-    store : Boolean,
-    pop : Boolean,
-    Borehole : Boolean,
-    well : Boolean,
-    estate : Boolean,
+    toilets : Number,
     address : String,
+    localgovs : String,
     carousel : [String],
     frontImage : String,
     youtube : String,
-    postedBy : {type : mongoose.Schema.Types.ObjectId, ref : "agent"},
+    cost : Number,
+    descripion : String,
+    contacts : [{ name : String, reach : String, whois : String }],
+    proptype : {type : String, default : "apartment"},
+    amenities : [String]
+}
+
+const apartmenthistory = mongoose.Schema(apartmentobject)
+
+// make a child schema for when it is edited 
+const apartment = mongoose.Schema({
+    // selfcon and rooms props
+    ...apartmentobject,
+    postedBy : {type : mongoose.Schema.Types.ObjectId, ref : "account"},
     admin : {type : Boolean, default : false},
     // fetch postedBy in details page as ref
-    contact : [{ name : String, reach : String, whois : String }],
     postedby : mongoose.Schema.Types.ObjectId,
+    
+    history : apartmenthistory,
+    // admin process
+    editied : {type : Boolean, default : true},
+    privatenote : String,
 
 })
 
+const privateprops = mongoose.Schema({
+    // enum : [duplex, bungalow]
 
+})
+const siteinfo = mongoose.Schema({
+    division : [{street : String, hide : Boolean, group : [String]}],
+},{timestamps : true})
+
+const activities = mongoose.Schema({
+    name : String,
+    madeby : mongoose.Schema.Types.ObjectId,
+    property : mongoose.Schema.Types.ObjectId,
+    attended : mongoose.Schema.Types.ObjectId,
+}, {timestamps : true})
+
+
+// Declaring models
+const SITE = mongoose.model("siteinfo", siteinfo)
 const ACCS = mongoose.model("account", accounts)
-const HOUSES = mongoose.model("house", house)
+const APARTMENTS = mongoose.model("apartments", apartment)
+const ACTIVE = mongoose.model("activities", activities)
+// const PRIVATEPROPERTY = mongoose.model("privateprop", privateprops)
 
-// HOUSE.create({
+
+// apartment.create({
 //     rooms : 1, bathroom : 2, kitchen : 1
 // })
 // .then(d=> console.log(d))
 
-module.exports = {ACCS, HOUSES}
+module.exports = {ACCS, APARTMENTS, SITE, ACTIVE}

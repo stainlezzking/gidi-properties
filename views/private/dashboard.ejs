@@ -35,8 +35,8 @@
             </div>
             <div class="col-lg-12">
               <div class="dashboard_title_area">
-                <h2>Howdy, Ali!</h2>
-                <p class="text">We are glad to see you again!</p>
+                <h2>Good day, </h2>
+                <p class="text"><%= user.admin ? 'You\'re an admin! all powers belong to you' : "Welcome " + user.name %></p>
               </div>
             </div>
           </div>
@@ -44,8 +44,8 @@
             <div class="col-sm-6 col-xxl-3">
               <div class="d-flex justify-content-between statistics_funfact">
                 <div class="details">
-                  <div class="text fz25">All Properties</div>
-                  <div class="title">583</div>
+                  <div class="text fz25">All Apartments</div>
+                  <div class="title"><%= count %></div>
                 </div>
                 <div class="icon text-center"><i class="flaticon-home"></i></div>
               </div>
@@ -53,7 +53,7 @@
             <div class="col-sm-6 col-xxl-3">
               <div class="d-flex justify-content-between statistics_funfact">
                 <div class="details">
-                  <div class="text fz25">Total Views</div>
+                  <div class="text fz25">Total Lands</div>
                   <div class="title">192</div>
                 </div>
                 <div class="icon text-center"><i class="flaticon-search-chart"></i></div>
@@ -62,19 +62,19 @@
             <div class="col-sm-6 col-xxl-3">
               <div class="d-flex justify-content-between statistics_funfact">
                 <div class="details">
-                  <div class="text fz25">Total Visitor Reviews</div>
-                  <div class="title">438</div>
+                  <div class="text fz25">Total Agents</div>
+                  <div class="title"><%- accounts %></div>
                 </div>
-                <div class="icon text-center"><i class="flaticon-review"></i></div>
+                <div class="icon text-center"><i class="fa-regular fa-user"></i></div>
               </div>
             </div>
             <div class="col-sm-6 col-xxl-3">
               <div class="d-flex justify-content-between statistics_funfact">
                 <div class="details">
-                  <div class="text fz25">Total Favorites</div>
+                  <div class="text fz25">Total private property</div>
                   <div class="title">67</div>
                 </div>
-                <div class="icon text-center"><i class="flaticon-like"></i></div>
+                <div class="icon text-center"><i class="fa-light fa-house"></i></div>
               </div>
             </div>
           </div>

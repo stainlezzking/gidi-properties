@@ -7,7 +7,7 @@
         </div>
         <p class="fz15 fw400 ff-heading mt30">MANAGE LISTINGS</p>
         <div class="sidebar_list_item ">
-          <a href="/dashboard/newproperty" class="items-center <%= activeurl == '/newproperty' ? '-is-active' : '' %>"><i class="flaticon-new-tab mr15"></i>Add New Property</a>
+          <a href="/dashboard/newproperty" class="items-center <%= activeurl.startsWith('/newproperty') ? '-is-active' : '' %>"><i class="flaticon-new-tab mr15"></i>Add New Property</a>
         </div>
         <div class="sidebar_list_item ">
           <a href="/dashboard/myprops" class="items-center <%= activeurl == '/myprops' ? '-is-active' : '' %>"><i class="flaticon-home mr15"></i>My Properties</a>
