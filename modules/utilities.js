@@ -1,22 +1,50 @@
 
 // module.exports.localgovs = [
-//     {street : "Alimosho", hide : true},
-//     {street : "Ajeromi-ifelodun", hide : true},
-//     {street : "Mushin", hide : true},
-//     {street : "Oshodi-Isolo", hide : true},
-//     {street : "Ojo", hide : true},
-//     {street : "Ikorodu", hide : true},
-//     {street : "Surulere", hide : true},
-//     {street : "Agege", hide : true},
-//     {street : "Ifako-Ijaiye", hide : true},
-//    {street :  "Somolu", hide : true},
-//    {street :  "Amuwo-Odofin", hide : true},
-//    {street :  "Lagos Mainland", hide : true},
-//     {street : "Ikeja", hide : true},
-//     {street : "Eti-Osa", hide : true},
-//     {street : "Badagry", hide : true},
-//     {street : "Apapa", hide : true},
-//     {street : "Lagos Island", hide : true},
-//     {street : "Epe", hide : true},
-//     {street : "Ibeju-Lekki", hide : true}
+//     {street : "Alimosho", hide : true, group : []},
+//     {street : "Ajeromi-ifelodun", hide : true, group : []},
+//     {street : "Mushin", hide : true, group : []},
+//     {street : "Oshodi-Isolo", hide : true, group : []},
+//     {street : "Ojo", hide : true, group : []},
+//     {street : "Ikorodu", hide : true, group : []},
+//     {street : "Surulere", hide : true, group : []},
+//     {street : "Agege", hide : true, group : []},
+//     {street : "Ifako-Ijaiye", hide : true, group : []},
+//    {street :  "Somolu", hide : true, group : []},
+//    {street :  "Amuwo-Odofin", hide : true, group : []},
+//    {street :  "Lagos Mainland", hide : true, group : []},
+//     {street : "Ikeja", hide : true, group : []},
+//     {street : "Eti-Osa", hide : true, group : []},
+//     {street : "Badagry", hide : true, group : []},
+//     {street : "Apapa", hide : true, group : []},
+//     {street : "Lagos Island", hide : true, group : []},
+//     {street : "Epe", hide : true, group : []},
+//     {street : "Ibeju-Lekki", hide : true, group : []}
 // ]
+
+
+module.exports.amenities = [
+    {
+        name : "prepaid Meter",
+        value : "prepaid"
+    },
+    {
+        name : "Running water",
+        value : "borehole"
+    },
+    {
+        name : "Parking space",
+        value : "parking space"
+    },
+    {
+        name : "Well",
+        value : "well"
+    },
+    {
+        name : "P.O.P",
+        value : "pop"
+    },
+    {
+        name : "Estate",
+        value : "estate"
+    },
+]

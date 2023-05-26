@@ -55,15 +55,12 @@
               <div class="row wow fadeInUp" data-wow-delay="300ms">
                 <div class="col-lg-12">
                   <div class="ps-v4-hero-slider dots_none slider-dib-sm slider-1-grid vam_nav_style owl-theme owl-carousel">
-                    <div class="item">
-                      <img class="bdrs12" src="/x-x/images/listings/listing-single-slide1.jpg" alt="">
-                    </div>
-                    <div class="item">
-                      <img class="bdrs12" src="/x-x/images/listings/listing-single-slide2.jpg" alt="">
-                    </div>
-                    <div class="item">
-                      <img class="bdrs12" src="/x-x/images/listings/listing-single-slide3.jpg" alt="">
-                    </div>
+                    <% property.carousel.forEach(image=>{ %>
+                      <% console.log(image) %>
+                      <div class="item">
+                        <img class="bdrs12" src="<%= image %>" alt="">
+                      </div>
+                    <%})%>
                   </div>
                 </div>
               </div>
@@ -86,12 +83,11 @@
             <div class="single-property-content mb30-md">
               <h2 class="sp-lg-title text-capitalize"><%= `${property.rooms} Flat ${property.proptype}` %></h2>
               <div class="pd-meta mb15 d-md-flex align-items-center">
-                <p class="text fz15 mb-0 pr10 bdrrn-sm">4834 N 10th St, Philadelphia, PA 19141 [sattelite, Amuwo odofin]</p>
+                <p class="text fz15 mb-0 pr10 bdrrn-sm"> <%= property.area + ", " + property.localgovs %></p>
               </div>
               <div class="property-meta d-flex align-items-center">
-                <a class="ff-heading text-thm fz15 bdrr1 pr10 bdrrn-sm" href="#"><i class="fas fa-circle fz10 pe-2"></i>For sale</a>
-                <a class="ff-heading bdrr1 fz15 pr10 ml10 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i>1 years ago</a>
-                <a class="ff-heading ml10 ml0-sm fz15" href="#"><i class="flaticon-fullscreen pe-2 align-text-top"></i>8721</a>
+                <a class="ff-heading text-thm fz15 bdrr1 pr10 bdrrn-sm" href="#"><i class="fas fa-circle fz10 pe-2"></i>For rent</a>
+                <a class="ff-heading fz15 pr10 ml10 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i> <%= property.updateAt %> </a>
               </div>
             </div>
           </div>
@@ -105,7 +101,6 @@
                   <a class="icon" href="#"><span class="flaticon-printer"></span></a>
                 </div>
                 <h3 class="price mb-0">$<%= property.cost.toLocaleString() %></h3>
-                <p class="text space fz15">$2,300/sq ft</p>
               </div>
             </div>
           </div>
@@ -120,7 +115,7 @@
                     <span class="icon flaticon-bed"></span>
                     <div class="ml15">
                       <h6 class="mb-0">Bedroom</h6>
-                      <p class="text mb-0 fz15">3</p>
+                      <p class="text mb-0 fz15"><%= property.rooms %></p>
                     </div>
                   </div>
                 </div>
@@ -129,7 +124,7 @@
                     <span class="icon flaticon-shower"></span>
                     <div class="ml15">
                       <h6 class="mb-0">Bath</h6>
-                      <p class="text mb-0 fz15">2</p>
+                      <p class="text mb-0 fz15"><%= property.bathrooms %></p>
                     </div>
                   </div>
                 </div>
@@ -137,8 +132,8 @@
                   <div class="overview-element mb25 d-flex align-items-center">
                     <span class="icon flaticon-event"></span>
                     <div class="ml15">
-                      <h6 class="mb-0">Year Built</h6>
-                      <p class="text mb-0 fz15">2022</p>
+                      <h6 class="mb-0">Parlour</h6>
+                      <p class="text mb-0 fz15"><%= property.parlour || 0 %> </p>
                     </div>
                   </div>
                 </div>
@@ -146,8 +141,8 @@
                   <div class="overview-element mb25-xs d-flex align-items-center">
                     <span class="icon flaticon-garage"></span>
                     <div class="ml15">
-                      <h6 class="mb-0">Garage</h6>
-                      <p class="text mb-0 fz15">2</p>
+                      <h6 class="mb-0">Kitchen</h6>
+                      <p class="text mb-0 fz15"><%= property.kitchen || 0 %></p>
                     </div>
                   </div>
                 </div>
@@ -173,172 +168,62 @@
             </div>
             <div class="ps-widget mb30 overflow-hidden position-relative">
               <h4 class="title fz17 mb30">Property Description</h4>
-              <p class="text mb10">This 3-bed with a loft, 2-bath home in the gated community of The Hideout has it all. From the open floor plan to the abundance of light from the windows, this home is perfect for entertaining. The living room and dining room have vaulted ceilings and a beautiful fireplace. You will love spending time on the deck taking in the beautiful views. In the kitchen, you'll find stainless steel appliances and a tile backsplash, as well as a breakfast bar.</p>
+              <p class="text mb10"><%= property.description %></p>
               <div class="agent-single-accordion">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                   <div class="accordion-item">
                     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
                       <div class="accordion-body p-0"><p class="text">Placeholder content for this accordion, which is intended to demonstrate the class. This is the first item's accordion body you get groundbreaking performance and amazing battery life. Add to that a stunning Liquid Retina XDR display, the best camera and audio ever in a Mac notebook, and all the ports you need.</p></div>
                     </div>
-                    <h2 class="accordion-header" id="flush-headingOne">
-                      <button class="accordion-button p-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">Show more</button>
-                    </h2>
                   </div>
-                </div>
-              </div>
-              <h4 class="title fz17 mb30 mt50">Property Details</h4>
-              <div class="row">
-                <div class="col-md-6 col-xl-4">
-                  <div class="d-flex justify-content-between">
-                    <div class="pd-list">
-                      <p class="fw600 mb10 ff-heading dark-color">Property ID</p>
-                      <p class="fw600 mb10 ff-heading dark-color">Price</p>
-                      <p class="fw600 mb10 ff-heading dark-color">Property Size</p>
-                      <p class="fw600 mb10 ff-heading dark-color">Bathrooms</p>
-                      <p class="fw600 mb-0 ff-heading dark-color">Bedrooms</p>
-                    </div>
-                    <div class="pd-list">
-                      <p class="text mb10">RT48</p>
-                      <p class="text mb10">$252,000</p>
-                      <p class="text mb10">1500 Sq Ft</p>
-                      <p class="text mb10">3</p>
-                      <p class="text mb-0">2</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-xl-4 offset-xl-2">
-                  <div class="d-flex justify-content-between">
-                    <div class="pd-list">
-                      <p class="fw600 mb10 ff-heading dark-color">Garage</p>
-                      <p class="fw600 mb10 ff-heading dark-color">Garage Size</p>
-                      <p class="fw600 mb10 ff-heading dark-color">Year Built</p>
-                      <p class="fw600 mb10 ff-heading dark-color">Property Type</p>
-                      <p class="fw600 mb-0 ff-heading dark-color">Property Status</p>
-                    </div>
-                    <div class="pd-list">
-                      <p class="text mb10">2</p>
-                      <p class="text mb10">200 SqFt</p>
-                      <p class="text mb10">2022</p>
-                      <p class="text mb10">Apartment</p>
-                      <p class="text mb-0">For Sale</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="ps-widget mb30 overflow-hidden position-relative">
-              <h4 class="title fz17 mb30 mt30">Address</h4>
-              <div class="row">
-                <div class="col-md-6 col-xl-4">
-                  <div class="d-flex justify-content-between">
-                    <div class="pd-list">
-                      <p class="fw600 mb10 ff-heading dark-color">Address</p>
-                      <p class="fw600 mb10 ff-heading dark-color">City</p>
-                      <p class="fw600 mb-0 ff-heading dark-color">State/county</p>
-                    </div>
-                    <div class="pd-list">
-                      <p class="text mb10">10425 Tabor St</p>
-                      <p class="text mb10">Los Angeles</p>
-                      <p class="text mb-0">California</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-xl-4 offset-xl-2">
-                  <div class="d-flex justify-content-between">
-                    <div class="pd-list">
-                      <p class="fw600 mb10 ff-heading dark-color">Zip/Postal Code</p>
-                      <p class="fw600 mb10 ff-heading dark-color">Area</p>
-                      <p class="fw600 mb-0 ff-heading dark-color">Country</p>
-                    </div>
-                    <div class="pd-list">
-                      <p class="text mb10">90034</p>
-                      <p class="text mb10">Brookside</p>
-                      <p class="text mb-0">United States</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-12">
-                  <iframe class="position-relative bdrs12 mt30 h250" loading="lazy" src="https://maps.google.com/maps?q=London%20Eye%2C%20London%2C%20United%20Kingdom&amp;t=m&amp;z=14&amp;output=embed&amp;iwloc=near" title="London Eye, London, United Kingdom" aria-label="London Eye, London, United Kingdom"></iframe>
                 </div>
               </div>
             </div>
             <div class="ps-widget mb30 overflow-hidden position-relative">
               <h4 class="title fz17 mb30">Features & Amenities</h4>
               <div class="row">
-                <div class="col-sm-6 col-md-4">
-                  <div class="pd-list mb10-sm">
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Air Conditioning</p>
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Barbeque</p>
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Dryer</p>
-                    <p class="text mb-0"><i class="fas fa-circle fz6 align-middle pe-2"></i>Gym</p>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <div class="pd-list">
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Lawn</p>
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Microwave</p>
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Outdoor Shower</p>
-                    <p class="text mb-0"><i class="fas fa-circle fz6 align-middle pe-2"></i>Refrigerator</p>
-                  </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <div class="pd-list">
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Swimming Pool</p>
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>TV Cable</p>
-                    <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Washer</p>
-                    <p class="text mb-0"><i class="fas fa-circle fz6 align-middle pe-2"></i>WiFi6<p>
+                <% property.amenities.forEach(amenity=>{%>
+                    <div class="col-sm-6 col-md-4 mb10-sm">
+                      <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i><%= amenity %></p>
+                    </div>
+                <%})%>
+              </div>
+            </div>
+            <% if(property.youtube){%>
+              <div class="ps-widget mb30 overflow-hidden position-relative">
+                <h4 class="title fz17 mb30">Video</h4>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="property_video bdrs12 w-100">
+                      <a class="video_popup_btn mx-auto popup-img popup-youtube" href="<%= property.youtube %> "><span class="flaticon-play"></span></a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="ps-widget mb30 overflow-hidden position-relative">
-              <h4 class="title fz17 mb30">Energy Class</h4>
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="pd-list d-flex justify-content-between">
-                    <p class="text mb10">Global Energy Performance Index</p>
-                    <p>A+</p>
+            <%}%>
+
+              <div class="ps-widget mb30 overflow-hidden position-relative">
+                <h4 class="title fz17 mb30 mt30">Address</h4>
+                <div class="row">
+                  <div class="col-sm-7 mb30">
+                    <p class="text mb10"><%= property.address %></p>
                   </div>
-                  <div class="pd-list d-flex justify-content-between">
-                    <p class="text mb10">Renewable energy performance index</p>
-                    <p>92.42 kWh / m²a</p>
-                  </div>
-                  <div class="pd-list d-flex justify-content-between">
-                    <p class="text mb10">Energy performance of the building</p>
-                    <p>00.00 kWh / m²a</p>
-                  </div>
-                  <div class="pd-list d-flex justify-content-between">
-                    <p class="text mb10">EPC Current Rating</p>
-                    <p>92</p>
-                  </div>
-                  <div class="pd-list d-flex justify-content-between">
-                    <p class="text mb10">EPC Potential Rating</p>
-                    <p>80+</p>
-                  </div>
-                </div>
-                <div class="col-lg-12 mt20">
-                  <img class="w-100" src="/x-x/images/resource/energy-class.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="ps-widget mb30 overflow-hidden position-relative">
-              <h4 class="title fz17 mb30">Floor Plans</h4>
-              <div class="row">
-                <div class="col-md-12">
-                    <p> 3 floors</p>
-                </div>
-              </div>
-            </div>
-            <div class="ps-widget mb30 overflow-hidden position-relative">
-              <h4 class="title fz17 mb30">Video</h4>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="property_video bdrs12 w-100">
-                    <a class="video_popup_btn mx-auto popup-img popup-youtube" href="https://www.youtube.com/watch?v=oqNZOOWF8qM"><span class="flaticon-play"></span></a>
+                  <div class="col-sm-6">
+                    <div class="d-flex justify-content-between">
+                      <div class="pd-list">
+                        <p class="fw600 mb10 ff-heading dark-color">Local Gov</p>
+                        <p class="fw600 mb-0 ff-heading dark-color">Area</p>
+                      </div>
+                      <div class="pd-list">
+                        <p class="text mb10"><%= property.localgovs %></p>
+                        <p class="text mb10"><%= property.area %></p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+
+          
             <div class="ps-widget mb30 overflow-hidden position-relative">
               <h4 class="title fz17 mb30">What's Nearby?</h4>
               <div class="row">
@@ -560,7 +445,7 @@
           </div>
           <div class="col-lg-4">
             <div class="column">
-              <div class="default-box-shadow1 bdrs12 bdr1 p30 mb30-md bgc-white position-relative">
+              <!-- <div class="default-box-shadow1 bdrs12 bdr1 p30 mb30-md bgc-white position-relative">
                 <h4 class="form-title mb5">Schedule a tour</h4>
                 <p class="text">Choose your preferred day</p>
                 <div class="ps-navtab">
@@ -653,7 +538,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="agen-personal-info position-relative bgc-white default-box-shadow1 bdrs12 p30 mt30">
                 <div class="widget-wrapper mb-0">
                   <h6 class="title fz17 mb30">Get More Information</h6>

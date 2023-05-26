@@ -30,13 +30,14 @@ const apartmentobject = {
     toilets : Number,
     address : String,
     localgovs : String,
+    area : String,
     carousel : [String],
     frontImage : String,
     youtube : String,
     cost : Number,
-    descripion : String,
+    description : String,
     contacts : [{ name : String, reach : String, whois : String }],
-    proptype : {type : String, default : "apartment"},
+    proptype : {type : String, default : "apartment"}, // add to all schemas
     amenities : [String]
 }
 
@@ -63,7 +64,7 @@ const privateprops = mongoose.Schema({
 
 })
 const siteinfo = mongoose.Schema({
-    division : [{street : String, hide : Boolean, group : [String]}],
+    division : [{localgov : String, hide : Boolean, group : [String]}],
 },{timestamps : true})
 
 const activities = mongoose.Schema({

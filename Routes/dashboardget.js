@@ -1,17 +1,28 @@
 const express = require("express")
 const router = express.Router()
 
-const {ACCS, APARTMENTS} = require("../modules/db")
+const {ACCS, APARTMENTS, SITE} = require("../modules/db")
+const { amenities } = require("../modules/utilities")
 
 router.use(async function(req,res,next){
     res.locals.activeurl = req.url;
     res.locals.user = {}
-    if(req.url == "/"){
-        res.locals.count =  await APARTMENTS.find().count()
-        res.locals.accounts =  await ACCS.find().count()
-        res.locals.lands =  await ACCS.find().count()
+    try{
+        if(req.url == "/"){
+            res.locals.count =  await APARTMENTS.find().count()
+            res.locals.accounts =  await ACCS.find().count()
+            res.locals.lands =  await ACCS.find().count()
+        }
+        if(req.url.startsWith("/newproperty") || req.url.startsWith("/newlocation") ){
+            res.locals.amenities = amenities
+            res.locals.division = await SITE.findOne({}, "division").lean().then(d=> d.division.filter(d=> !d.hide))
+        }
+        next()
+
+    }catch(e){
+        console.log(e)
+        next(e)
     }
-    next()
 })
 
 router.get("/", function(req,res){
@@ -20,6 +31,9 @@ router.get("/", function(req,res){
 
 router.get("/newproperty", function(req,res){
     res.render("private/newproperty")
+})
+router.get("/newlocation", function(req,res){
+    res.render("private/newlocation")
 })
 
 router.get("/profile", function(req,res){

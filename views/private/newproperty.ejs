@@ -118,38 +118,13 @@
                               <div class="mb20">
                                 <label class="heading-color ff-heading fw600 mb10">Property type</label>
                                 <div class="location-area">
-                                  <select class="selectpicker" required>
+                                  <select class="selectpicker" required name="proptype">
                                     <option value=""> Select..</option>
-                                    <option value="apt">Apartments</option>
+                                    <option>Self-contain</option>
+                                    <option>Apartment</option>
                                     <option>Bungalow</option>
                                     <option>Houses</option>
                                     <option>Loft</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-sm-6 col-xl-4">
-                              <div class="mb20">
-                                <label class="heading-color ff-heading fw600 mb10">Local Gov</label>
-                                <div class="location-area">
-                                  <select class="selectpicker">
-                                    <option>All Listing</option>
-                                    <option>Active</option>
-                                    <option>Sold</option>
-                                    <option>Processing</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-sm-6 col-xl-4">
-                              <div class="mb20">
-                                <label class="heading-color ff-heading fw600 mb10">Area</label>
-                                <div class="location-area">
-                                  <select class="selectpicker">
-                                    <option>All Cities</option>
-                                    <option>Pending</option>
-                                    <option>Processing</option>
-                                    <option>Published</option>
                                   </select>
                                 </div>
                               </div>
@@ -164,6 +139,12 @@
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Parlour</label>
                                 <input type="number" name="parlour" required class="form-control" placeholder="How many parlours">
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                              <div class="mb30">
+                                <label class="heading-color ff-heading fw600 mb10">Kitchen</label>
+                                <input type="number" required name="kitchen" class="form-control" placeholder="How many Kitchens">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4">
@@ -187,30 +168,13 @@
                             <div class="col-sm-12 ps-4 mb10">
                               <h4 class="title fz17 mb10">Features & Amenities</h4>
                                 <div class="checkbox-style1 row mb30 gy-2">
-                                  <label class="custom_checkbox col-sm-6 col-xl-4">prepaid Meter
-                                    <input type="checkbox" name="amenities" value="prepaid">
-                                    <span class="checkmark"></span>
-                                  </label>
-                                  <label class="custom_checkbox col-sm-6 col-xl-4">Running water
-                                    <input type="checkbox" name="amenities" value="borehole">
-                                    <span class="checkmark"></span>
-                                  </label>
-                                  <label class="custom_checkbox col-sm-6 col-xl-4">Parking space
-                                    <input type="checkbox" name="amenities" value="parking space">
-                                    <span class="checkmark"></span>
-                                  </label>
-                                  <label class="custom_checkbox col-sm-6 col-xl-4">Well
-                                    <input type="checkbox" name="amenities" value="well" >
-                                    <span class="checkmark"></span>
-                                  </label>
-                                  <label class="custom_checkbox col-sm-6 col-xl-4">P.O.P
-                                    <input type="checkbox" name="amenities" value="pop">
-                                    <span class="checkmark"></span>
-                                  </label>
-                                  <label class="custom_checkbox col-sm-6 col-xl-4">Estate
-                                    <input type="checkbox" name="amenities" value="estate">
-                                    <span class="checkmark"></span>
-                                  </label>
+                                  <% amenities.forEach(amen=>{  %>
+                                    <label class="custom_checkbox col-sm-6 col-xl-4">
+                                      <%= amen.name %>
+                                      <input type="checkbox" name="amenities" value="<%= amen.value %>">
+                                      <span class="checkmark"></span>
+                                    </label>
+                                  <%})%>
                                 </div>
                               </div>
                                 <div class="col-sm-12">
@@ -236,24 +200,20 @@
                         <h4 class="title fz17 ">Only visible to agents</h4>
                         <p class="mb30">Make sure information is correct.</p>
 
+
+                        <input type="hidden" name="division" value="<%= JSON.stringify(division) %>">
+
+
                         <div class="form-style1" >
                           <form delete-b4-submit class="row" id="locationForm">
-                          
                             <div class="col-sm-6 ">
                               <div class="mb20">
                                 <label class="heading-color ff-heading fw600 mb10">Local Gov</label>
                                 <div class="location-area">
-                                  <select class="selectpicker" name="localgov" required>
+                                  <select class="selectpicker" name="localgovs" required>
                                     <!-- get this from the db -->
                                     <option value="">Select</option>
-                                    <option>France</option>
-                                    <option>Kewait</option>
-                                    <option>Qatar</option>
-                                    <option>Netherland</option>
-                                    <option>Germany</option>
-                                    <option>Turkey</option>
-                                    <option>UK</option>
-                                    <option>USA</option>
+                                   
                                   </select>
                                 </div>
                               </div>
@@ -263,14 +223,7 @@
                                 <label class="heading-color ff-heading fw600 mb10">Area</label>
                                 <div class="location-area">
                                   <select class="selectpicker" name="area" required >
-                                    <option value=""> Select</option>
-                                    <option>Los Angeles</option>
-                                    <option>Manhattan</option>
-                                    <option>New Jersey</option>
-                                    <option>New York</option>
-                                    <option>San Diego</option>
-                                    <option>San Francisco</option>
-                                    <option>Texas</option>
+                                  
                                   </select>
                                 </div>
                               </div>
@@ -409,7 +362,6 @@
   <%- include("./partials/script.ejs") -%>
   <!-- script end : -->
   <script>
-    //  document.querySelector("input[type='file']").setCustomValidity("aan image is needed");
     contactcount = 1;
     // setup by Bootstrap to allow manual controls of tabs with js
     const triggerTabList = document.querySelectorAll('.nav-link')
@@ -444,6 +396,26 @@
     // form validarion and page movement;
     const pagebuttons = document.querySelectorAll("a[pagebutton]")
     pagebuttons.forEach(button=> button.addEventListener("click", handlesubmittion))
+</script>
+
+<script>
+  // local government and area select option changes
+
+    const division = JSON.parse(document.querySelector("input[name='division']").value)
+      let html = ""  
+      division.forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
+      document.querySelector("select[name='localgovs']").innerHTML += html
+      $(".selectpicker").selectpicker("refresh")
+      
+      
+      function switchAreas(e){
+          const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
+          let html = "<option value=''> Nothing selected </option>" 
+          chosen.group.forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
+          document.querySelector("select[name='area']").innerHTML = html
+          $(".selectpicker").selectpicker("refresh")
+      }
+      document.querySelector("select[name='localgovs']").addEventListener("change", switchAreas)
 </script>
 
 </body>

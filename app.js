@@ -12,7 +12,6 @@ const dashRouter = require("./Routes/dashboardget.js")
 const dashPost = require("./Routes/dashboardpost.js")
 const passportConfig = require("./modules/authentication")
 const {ACCS} = require("./modules/db");
-const md5 = require("md5");
 
 
 // Express setups and middle wares
@@ -29,6 +28,7 @@ app.use("/x-x", express.static("public"))
 app.use("/", frontRouter)
 app.use("/dashboard", dashRouter)
 app.use("/dashboard", dashPost)
+app.use("/uploads",express.static("uploads"))
 
 app.use(function(err,req,res,next){
     if(err.showflash){
@@ -36,8 +36,8 @@ app.use(function(err,req,res,next){
         return res.redirect(err.r)
     }
     // do something with all uncaught error after here
-    
     console.log("error called ", err)
+    return res.send(err.message)
 })
 
 

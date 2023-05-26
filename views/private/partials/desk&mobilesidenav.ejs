@@ -7,6 +7,9 @@
         </div>
         <p class="fz15 fw400 ff-heading mt30">MANAGE LISTINGS</p>
         <div class="sidebar_list_item ">
+          <a href="/dashboard/newlocation" class="items-center <%= activeurl.startsWith('/newlocation') ? '-is-active' : '' %>"><i class="flaticon-new-tab mr15"></i>Add New Location</a>
+        </div>
+        <div class="sidebar_list_item ">
           <a href="/dashboard/newproperty" class="items-center <%= activeurl.startsWith('/newproperty') ? '-is-active' : '' %>"><i class="flaticon-new-tab mr15"></i>Add New Property</a>
         </div>
         <div class="sidebar_list_item ">
@@ -35,6 +38,7 @@
         <li class="<%= activeurl == '/dashboard' ? 'active' : '' %>"><a href="/dashboard"><i class="flaticon-discovery mr10"></i>Dashboard</a></li>
         <li class="<%= activeurl == '/' ? '-is-active' : '' %>"><a href="page-dashboard-message.html"><i class="flaticon-chat-1 mr10"></i>Message</a></li>
         <li><p class="fz15 fw400 ff-heading mt30 pl30">MANAGE LISTINGS</p></li>
+        <li class="<%= activeurl == '/newproperty' ? 'active' : '' %>"><a href="/dashboard/newlocation"><i class="flaticon-new-tab mr10"></i>Add New Property</a></li>
         <li class="<%= activeurl == '/newproperty' ? 'active' : '' %>"><a href="/dashboard/newproperty"><i class="flaticon-new-tab mr10"></i>Add New Property</a></li>
         <li class="<%= activeurl == '/myprops' ? 'active' : '' %>"><a href="/dashboard/myprops"><i class="flaticon-home mr10"></i>My Properties</a></li>
         <li><a href="/dashboard/myfavs"><i class="flaticon-review mr10"></i>my Favorites</a></li>
