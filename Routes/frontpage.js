@@ -1,7 +1,17 @@
 const express = require("express")
-const { APARTMENTS } = require("../modules/db")
+const { APARTMENTS, SITE } = require("../modules/db")
 const router = express.Router()
 
+
+router.use(async function(req,res,next){
+    try{
+        res.locals.site = await SITE.findOne({}).lean()
+    }catch(e){
+        console.log(e)
+        return res.send("Internal Server Error! please report if error persist")
+    }
+    next() 
+})
 
 
 router.get("/", function(req,res){
@@ -16,13 +26,13 @@ router.get("/details/:id", async function(req,res, next){
     try{
         // remember to strip of admin info before sending
         const props = await APARTMENTS.findOne({_id : req.params.id})
-        if(!props) return res.send("<h3> Sorry, This page does not exist </h3>")
+        if(!props) return res.render("404.ejs")
         res.locals.property  = props;
         return res.render("details")
     }catch(e){
         console.log(e, e.message)
         // find the url he is coming from and revert back to it. whether it was from post or get
-        return res.render("404.ejs")
+        return res.send("Internal Server Error! please report if error persist")
     }
 })
 

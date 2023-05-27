@@ -15,7 +15,7 @@ router.use(async function(req,res,next){
         }
         if(req.url.startsWith("/newproperty") || req.url.startsWith("/newlocation") ){
             res.locals.amenities = amenities
-            res.locals.division = await SITE.findOne({}, "division").lean().then(d=> d.division.filter(d=> !d.hide))
+            res.locals.division = res.locals.site.divisionfilter(d=> !d.hide)
         }
         next()
 

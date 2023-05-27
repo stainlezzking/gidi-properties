@@ -18,7 +18,7 @@ Router.post("/newproperty",  upload.array('images', 12), function(req,res, next)
     req.body.whois.forEach((whois,i)=>{
         if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
     })
-    req.body.carousel = req.files.map(i=> i.path)
+    req.body.carousel = req.files.map(i=> "/uploads/"+i. filename)
    APARTMENTS.create({...req.body, contacts, postedBy : req.user ? req.user._id : "646c906e2f6b0b27830ae223" })
    .then(d=> res.redirect("/details/"+ d.id ))
     .catch(e=>   next({m : e.message, r : "/dashboard/newproperty", showflash: true}))

@@ -51,13 +51,11 @@ const apartment = mongoose.Schema({
     admin : {type : Boolean, default : false},
     // fetch postedBy in details page as ref
     postedby : mongoose.Schema.Types.ObjectId,
-    
     history : apartmenthistory,
     // admin process
     editied : {type : Boolean, default : true},
     privatenote : String,
-
-})
+}, {timestamps : true})
 
 const privateprops = mongoose.Schema({
     // enum : [duplex, bungalow]
@@ -65,6 +63,7 @@ const privateprops = mongoose.Schema({
 })
 const siteinfo = mongoose.Schema({
     division : [{localgov : String, hide : Boolean, group : [String]}],
+    contacts : [{name : String, number : Number}]
 },{timestamps : true})
 
 const activities = mongoose.Schema({
