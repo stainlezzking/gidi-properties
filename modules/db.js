@@ -53,7 +53,7 @@ const apartment = mongoose.Schema({
     postedby : mongoose.Schema.Types.ObjectId,
     history : apartmenthistory,
     // admin process
-    editied : {type : Boolean, default : true},
+    edited : {type : Boolean, default : true},
     privatenote : String,
 }, {timestamps : true})
 

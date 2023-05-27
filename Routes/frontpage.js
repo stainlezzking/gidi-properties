@@ -5,8 +5,8 @@ const router = express.Router()
 
 router.use(async function(req,res,next){
     try{
-        res.locals.site = await SITE.findOne({}).lean()
-        const user = await ACCS.findOne({})
+        res.locals.site = await SITE.findOne().lean()
+        const user = await ACCS.findOne({email : "bishy@flyhigh.com"}).lean()
         req.login(user, function(e){
             if(e) console.log(e)
             res.locals.user = req.user
@@ -17,7 +17,6 @@ router.use(async function(req,res,next){
     }
     next() 
 })
-
 
 router.get("/", function(req,res){
     res.render("index")
@@ -32,7 +31,6 @@ router.get("/details/:id", async function(req,res, next){
         // remember to strip of admin info before sending
         const props = await APARTMENTS.findOne({_id : req.params.id}).populate("postedBy")
         if(!props) return res.render("404.ejs")
-        console.log(props)
         res.locals.property  = props;
         return res.render("details")
     }catch(e){

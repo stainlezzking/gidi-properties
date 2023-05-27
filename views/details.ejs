@@ -80,7 +80,7 @@
         <div class="row wow fadeInUp" data-wow-delay="100ms">
           <div class="col-lg-8">
             <div class="single-property-content mb30-md">
-              <h2 class="sp-lg-title text-capitalize"><%= `${property.rooms} Flat ${property.proptype}` %></h2>
+              <h2 class="sp-lg-title text-capitalize"><%= `${property.type == 'Apartments' ? property.rooms + " Bedroom Apartment" : property.proptype} ` %></h2>
               <div class="pd-meta mb15 d-md-flex align-items-center">
                 <p class="text fz15 mb-0 pr10 bdrrn-sm"> <%= property.area + ", " + property.localgovs %></p>
               </div>
@@ -89,7 +89,7 @@
                 <% if(user && user.agent){%>
                   <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i> <%= property.updateAt %> </a>
                 <%}%>
-                <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-user pe-2text-capitalize"></i> <%= property.postedBy.name %> </a>
+                  <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="<%= user.admin ? '/dashboard/profile/'+property.postedBy.id : '#'%> "><i class="far fa-user pe-2text-capitalize"></i> <%= property.postedBy.name %> </a>
               </div>
             </div>
           </div>
@@ -103,6 +103,27 @@
                   <a class="icon" href="#"><span class="flaticon-printer"></span></a> -->
                 </div>
                 <h3 class="price mb-0">$<%= property.cost.toLocaleString() %></h3>
+                <p class="text space fz15"> 
+                  <% if(user.agent){%>
+                    <% if(property.edited){%>
+                      <span class="pending-style style1">Processing</span>
+                      <%}else{%>
+                        <span class="pending-style style2 text"> Approved</span>
+                      <%}%>
+                  <%}%>
+                </p>
+                <% if(user.admin){%>
+                  <div class="d-flex justify-content-end mt10">
+                    <form class="text space fz15 <%= property.edited ? 'mr10' : '' %>" method="POST" action="/admin/delete/prop/<%= property._id %>">
+                      <button class="ud-btn btn-thm" value="<%= property._id %>" type="submit">Delete</i></button>
+                    </form>
+                    <% if(property.edited){ %>
+                      <form class="text space fz15" method="POST" action="/admin/approve/prop/<%= property._id %>">
+                        <button class="ud-btn btn-fb" value="<%= property._id %>" type="submit">Approve</i></button>
+                      </form>
+                    <%}%>
+                  </div>
+                    <%}%>
               </div>
             </div>
           </div>
@@ -225,7 +246,7 @@
                 </div>
               </div>
             <%}%>   
-            
+
             <%}%>
 
 

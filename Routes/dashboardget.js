@@ -12,11 +12,15 @@ router.use(async function(req,res,next){
         if(req.url == "/"){
             res.locals.count =  await APARTMENTS.find().count()
             res.locals.accounts =  await ACCS.find().count()
-            res.locals.lands =  await ACCS.find().count()
         }
         if(req.url.startsWith("/newproperty") || req.url.startsWith("/newlocation") ){
             res.locals.amenities = amenities
-            res.locals.division = res.locals.site.divisionfilter(d=> !d.hide)
+            res.locals.division = res.locals.site.division.filter(d=> !d.hide)
+        }
+        if(req.url.startsWith("/profile") && req.url.length < 20){
+            // <20 so it doesnt clash with when admin checks on other users
+            res.locals.user = req.user
+            res.locals.ownprops = await APARTMENTS.find({postedBy : req.user._id}).lean()
         }
         next()
 
@@ -39,6 +43,20 @@ router.get("/newlocation", function(req,res){
 
 router.get("/profile", function(req,res){
     res.render("private/profile")
+})
+router.get("/profile/:id", async function(req,res){
+    if(!req.user.admin) return res.redirect("/dashboard/profile")
+    try{
+        const user = await ACCS.findById(req.params.id)
+        if(!user) return res.render("404.ejs")
+        user.adminaccess = true
+        res.locals.user = user
+        res.locals.ownprops = await APARTMENTS.find({postedBy : user._id}).lean()
+       return  res.render("private/profile")
+    }catch(e){
+        console.log(e)
+       return res.send("Internal Error! please report if this error persist ")
+    }
 })
 
 router.get("/myprops", function(req,res){

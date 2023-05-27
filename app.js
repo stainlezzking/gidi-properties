@@ -10,6 +10,7 @@ const flash = require("express-flash");
 const frontRouter = require("./Routes/frontpage")
 const dashRouter = require("./Routes/dashboardget.js")
 const dashPost = require("./Routes/dashboardpost.js")
+const adminPost = require("./Routes/adminpostrequests")
 const passportConfig = require("./modules/authentication")
 const {ACCS} = require("./modules/db");
 
@@ -29,6 +30,9 @@ app.use("/", frontRouter)
 app.use("/dashboard", dashRouter)
 app.use("/dashboard", dashPost)
 app.use("/uploads",express.static("uploads"))
+app.use("/admin", adminPost)
+
+app.get("/rr", (req,res)=> res.send("seen..."))
 
 app.use(function(err,req,res,next){
     if(err.showflash){
