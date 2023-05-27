@@ -36,7 +36,7 @@
             <div class="col-lg-12">
               <div class="dashboard_title_area">
                 <h2>Good day, </h2>
-                <p class="text"><%= user.admin ? 'You\'re an admin! all powers belong to you' : "Welcome " + user.name %></p>
+                <p class="text"><%= user.admin ? 'You\'re an admin! all powers belong to you' : "Welcome " + user.name.split(" ")[0] %></p>
               </div>
             </div>
           </div>

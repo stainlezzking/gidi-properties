@@ -1,11 +1,16 @@
 const express = require("express")
-const { APARTMENTS, SITE } = require("../modules/db")
+const { APARTMENTS, SITE, ACCS } = require("../modules/db")
 const router = express.Router()
 
 
 router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne({}).lean()
+        const user = await ACCS.findOne({})
+        req.login(user, function(e){
+            if(e) console.log(e)
+            res.locals.user = req.user
+        })
     }catch(e){
         console.log(e)
         return res.send("Internal Server Error! please report if error persist")
@@ -25,8 +30,9 @@ router.get("/listing", function(req,res){
 router.get("/details/:id", async function(req,res, next){
     try{
         // remember to strip of admin info before sending
-        const props = await APARTMENTS.findOne({_id : req.params.id})
+        const props = await APARTMENTS.findOne({_id : req.params.id}).populate("postedBy")
         if(!props) return res.render("404.ejs")
+        console.log(props)
         res.locals.property  = props;
         return res.render("details")
     }catch(e){

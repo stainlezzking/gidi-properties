@@ -86,8 +86,10 @@
               </div>
               <div class="property-meta d-flex align-items-center">
                 <a class="ff-heading text-thm fz15 bdrr1 pr10 bdrrn-sm" href="#"><i class="fas fa-circle fz10 pe-2"></i>For rent</a>
-                <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i> <%= property.updateAt %> </a>
-                <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-user pe-2text-capitalize"></i> <%= property.postedby ? property.postedBy.name : "" %> </a>
+                <% if(user && user.agent){%>
+                  <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i> <%= property.updateAt %> </a>
+                <%}%>
+                <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-user pe-2text-capitalize"></i> <%= property.postedBy.name %> </a>
               </div>
             </div>
           </div>
@@ -190,6 +192,8 @@
               </div>
             </div>
             
+            <% if(user &&  user.agent){%>
+            
               <div class="ps-widget mb30 overflow-hidden position-relative">
                 <h4 class="title fz17 mb30 mt30">Address</h4>
                 <div class="row">
@@ -221,6 +225,9 @@
                 </div>
               </div>
             <%}%>   
+            
+            <%}%>
+
 
             <div class="ps-widget mb30 overflow-hidden position-relative">
               <h4 class="title fz17 mb30">What's Nearby?</h4>
