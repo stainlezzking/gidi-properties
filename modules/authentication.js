@@ -18,8 +18,7 @@ module.exports = passportAuth = function(app, session, passport, localStrategy, 
 
     passport.use("account",new localStrategy({usernameField: "email"},
         (user,password,done)=>{
-            console.log(user,password, md5(password))
-            ACCS.findOne({email: user.toLowerCase()})
+            ACCS.findOne({email: user.toLowerCase(), disabled : false})
             .then(function(data){
                 if(!data) return done(null, false, {message : "wrong username or password"})
                 if(data){

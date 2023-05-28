@@ -45,7 +45,7 @@ router.get("/profile", function(req,res){
     res.render("private/profile")
 })
 router.get("/profile/:id", async function(req,res){
-    if(!req.user.admin) return res.redirect("/dashboard/profile")
+    if(!req.user.admin || req.user._id == req.params.id) return res.redirect("/dashboard/profile")
     try{
         const user = await ACCS.findById(req.params.id)
         if(!user) return res.render("404.ejs")
