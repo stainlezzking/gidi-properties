@@ -41,18 +41,19 @@
           <div class="row align-items-center pb40">
             <div class="col-xxl-3">
               <div class="dashboard_title_area">
-                <h2>My Listings</h2>
+                <h2>Manage Listings</h2>
                 <p class="text">We are glad to see you again!</p>
               </div>
             </div>
             <div class="col-xxl-9">
               <div class="dashboard_search_meta d-md-flex align-items-center justify-content-xxl-end">
-                <div class="page_control_shorting bdr1 bdrs12 py-2 ps-3 pe-2 mx-1 mx-xxl-3 bgc-white mb15-sm maxw140">
+                <div class="page_control_shorting bdr1 bdrs12 py-2 ps-3 pe-2 mx-1 mx-xxl-3 bgc-white mb15-sm ">
                   <div class="pcs_dropdown d-flex align-items-center"><span class="title-color">Sort by:</span>
-                    <select class="selectpicker show-tick">
-                      <option>New</option>
-                      <option value="ended">Approved</option>
-                      <option value="running">Processing</option>
+                    <select id="sort_" class="selectpicker show-tick">
+                      <option value="">Select</option>
+                      <option value="approved">Approved</option>
+                      <option value="processing">Processing</option>
+                      <option value="disabled">Disabled</option>
                     </select>
                   </div>
                 </div>
@@ -78,7 +79,7 @@
                     </thead>
                     <tbody class="t-body">
                         <% ownprops.forEach(props=>{%>
-                          <tr>
+                          <tr class="listings" status="<%= props.disabled ? 'disabled' : props.edited ? 'processing' : 'approved' %>">
                             <th scope="row">
                             <div class="listing-style1 dashboard-style d-xxl-flex align-items-center mb-0">
                               <div class="list-thumb">
@@ -161,6 +162,16 @@
   <!-- script  -->
   <%- include("./partials/script.ejs") -%>
   <!-- script end : -->
-
+  <script>
+    const Listings = Array.from(document.querySelectorAll(".listings"))
+   document.getElementById("sort_").addEventListener("change", sortList)
+   function sortList(e){
+     Listings.forEach(list=>{
+       if(!e.target.value) return list.classList.remove("d-none")
+       list.classList.remove("d-none")
+       if(list.getAttribute("status") !== e.target.value) return list.classList.add("d-none")
+     })
+   }
+  </script>
 
 </html>

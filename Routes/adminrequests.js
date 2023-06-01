@@ -5,6 +5,7 @@ const {APARTMENTS, SITE, ACCS} = require("../modules/db")
 
 Router.use( async function(req,res,next){
     if(!req.user.admin) return res.redirect("/dashboard/profile")
+    res.locals.user = req.user
     if(req.url.toLowerCase().startsWith("/managelisting")){
         res.locals.ownprops = await APARTMENTS.find().limit(20).lean()
     }

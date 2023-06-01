@@ -4,14 +4,6 @@ const upload = require("../modules/fileupload")
 const {APARTMENTS, SITE} = require("../modules/db")
 
 
-
-
-const dAdmin = function(req,res,next){
-    // shoulf be added to all user update route
-    delete req.body.admin;
-    next()
-}
-
 Router.post("/newproperty",  upload.array('images', 12), function(req,res, next){
    const contacts = [];
    const {name,reach} = req.body

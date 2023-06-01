@@ -8,6 +8,7 @@ router.use(async function(req,res,next){
     res.locals.activeurl = req.url;
     try{
         if(!req.isAuthenticated()) return res.redirect("/")
+        res.locals.user = req.user
         if(req.user.disabled) return res.send("Your account has been disabled, contact admin for more info")
         if(req.url == "/"){
             res.locals.count =  await APARTMENTS.find().count()

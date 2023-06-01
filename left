@@ -1,5 +1,10 @@
 
 
+-- ManageListing
+    Filter Listings
+
+-- Edit Listing
+
 - Add new property
     switch between property types shows different inputs
     like switch to selfcon should auto set 
