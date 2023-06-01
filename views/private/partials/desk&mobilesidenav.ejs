@@ -13,11 +13,13 @@
           <a href="/dashboard/newproperty" class="items-center <%= activeurl.startsWith('/newproperty') ? '-is-active' : '' %>"><i class="flaticon-new-tab mr15"></i>Add New Property</a>
         </div>
         <div class="sidebar_list_item ">
-          <a href="/dashboard/myprops" class="items-center <%= activeurl == '/myprops' ? '-is-active' : '' %>"><i class="flaticon-home mr15"></i>My Properties</a>
+          <a href="/dashboard/myprops" class="items-center <%= activeurl == '/myprops' ? '-is-active' : '' %>"><i class="flaticon-home mr15"></i>My Listings</a>
         </div>
-        <div class="sidebar_list_item ">
-          <a class="items-center" href="/admin/pendingListing"><i class="flaticon-like mr10"></i>Listing Pending</a>
-        </div>
+        <% if(user.admin || user.adminaccess){%>
+          <div class="sidebar_list_item ">
+            <a  class="items-center <%= activeurl.toLowerCase() == '/managelisting' ? '-is-active' : '' %>" href="/admin/managelisting"><i class="flaticon-like mr10"></i> Manage Listing</a>
+          </div>
+        <%}%>
         <p class="fz15 fw400 ff-heading mt30">MANAGE ACCOUNT</p>
         <div class="sidebar_list_item">
           <a href="/admin/manageaccounts" class="items-center <%= activeurl == '/manageaccounts' ? '-is-active' : '' %>"><i class="flaticon-protection mr15"></i> Manage Accounts </a>

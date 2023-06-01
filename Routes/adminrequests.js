@@ -3,8 +3,11 @@ const Router = express.Router()
 const upload = require("../modules/fileupload")
 const {APARTMENTS, SITE, ACCS} = require("../modules/db")
 
-Router.use(function(req,res,next){
+Router.use( async function(req,res,next){
     if(!req.user.admin) return res.redirect("/dashboard/profile")
+    if(req.url.toLowerCase().startsWith("/managelisting")){
+        res.locals.ownprops = await APARTMENTS.find().limit(20).lean()
+    }
     next()
 })
 

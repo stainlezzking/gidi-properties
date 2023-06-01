@@ -13,7 +13,7 @@
 <%- include("../partials/headLinks.ejs") -%>
 
 
-<title>My properties</title>
+<title>Manage All Listing</title>
 
 </head>
 <body>
@@ -41,7 +41,7 @@
           <div class="row align-items-center pb40">
             <div class="col-xxl-3">
               <div class="dashboard_title_area">
-                <h2>My Properties</h2>
+                <h2>My Listings</h2>
                 <p class="text">We are glad to see you again!</p>
               </div>
             </div>
@@ -60,6 +60,8 @@
               </div>
             </div>
           </div>
+        
+        <% console.log(ownprops) %> 
           <% if(ownprops && ownprops.length){%>
           <div class="row">
             <div class="col-xl-12">
@@ -72,7 +74,7 @@
                         <th scope="col">Date Published</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
-                      </tr>
+                      </tr> 
                     </thead>
                     <tbody class="t-body">
                         <% ownprops.forEach(props=>{%>
@@ -83,15 +85,13 @@
                                 <img class="w-100" src="<%= props.carousel[0] %>" alt="">
                               </div>
                               <div class="list-content py-0 p-0 mt-2 mt-xxl-0 ps-xxl-4">
-                                <div class="h6 list-title"><a href="/details/<%= props._id %>">
-                                  <% console.log(props.proptype) %>
-                                   <%= props.proptype == 'Apartment' ? (props.rooms + " Bedroom Apartment") : props.proptype %> </a></div>
+                                <div class="h6 list-title"><a href="/details/<%= props._id %>"> <%= `${props.proptype == 'Apartment' ? props.rooms + " Bedroom Apartment" : props.proptype} ` %> </a></div>
                                 <p class="list-text mb-0"> <%= props.area + ", " + props.localgovs %> </p>
-                                <div class="list-price"><a href="#"> &#x20A6;<%= props.cost.toLocaleString() %>/<span>yr</span></a></div>
+                                <div class="list-price"><a href="#">&#x20A6;<%= props.cost.toLocaleString() %>/<span>yr</span></a></div>
                               </div>
                             </div>
                           </th>
-                          <td class="vam"><%= props.createdAt.toString() %></td>
+                          <td class="vam"><%= props.createdAt %></td>
                           <td class="vam">
                             <% if(props.edited){%>
                               <span class="pending-style style1">Processing</span>
@@ -102,7 +102,6 @@
                               <td class="vam">
                                 <div class="d-flex">
                                   <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                                  <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
                                 </div>
                               </td>
                             </tr>
@@ -134,7 +133,7 @@
             </div>
           </div>
           <%}else{%>
-            <h2 class="text-center"> No Properties Posted</h2>
+            <h2 class="text-center"> No Properties Atall</h2>
           <%}%>
         </div>
         <footer class="dashboard_footer pt30 pb10">

@@ -9,16 +9,15 @@ router.use(async function(req,res,next){
     try{
         if(!req.isAuthenticated()) return res.redirect("/")
         if(req.user.disabled) return res.send("Your account has been disabled, contact admin for more info")
-        res.locals.user = req.user
         if(req.url == "/"){
             res.locals.count =  await APARTMENTS.find().count()
             res.locals.accounts =  await ACCS.find().count()
         }
-        if(req.url.startsWith("/newproperty") || req.url.startsWith("/newlocation") ){
+        if(req.url.toLowerCase().startsWith("/newproperty") || req.url.startsWith("/newlocation") ){
             res.locals.amenities = amenities
             res.locals.division = res.locals.site.division.filter(d=> !d.hide)
         }
-        if(req.url.startsWith("/myprops") || (req.url.startsWith("/profile") && req.url.length < 20) ){
+        if(req.url.toLowerCase().startsWith("/myprops") || (req.url.startsWith("/profile") && req.url.length < 20) ){
             res.locals.ownprops = await APARTMENTS.find({postedBy : req.user._id}).lean()
         }
         next()
@@ -46,7 +45,9 @@ router.get("/newproperty", function(req,res){
 router.get("/newlocation", function(req,res){
     res.render("private/newlocation")
 })
-
+router.get("/edit/:id", function(req,res){
+    res.render("private/editpage")
+})
 router.get("/profile", function(req,res){
     res.render("private/profile")
 })
