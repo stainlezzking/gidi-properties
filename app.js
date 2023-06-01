@@ -10,7 +10,7 @@ const flash = require("express-flash");
 const frontRouter = require("./Routes/frontpage")
 const dashRouter = require("./Routes/dashboardget.js")
 const dashPost = require("./Routes/dashboardpost.js")
-const adminPost = require("./Routes/adminpostrequests")
+const adminPost = require("./Routes/adminrequests")
 const passportConfig = require("./modules/authentication")
 const {ACCS} = require("./modules/db");
 
@@ -43,8 +43,15 @@ app.use(function(err,req,res,next){
     console.log("error called ", err)
     return res.send(err.message)
 })
-
-
+app.get("/logout", (req, res)=>{
+    req.logOut(async function(e) {
+        if(e) return res.send("An error occured Loggin you out")
+        res.redirect("/lising")
+    })
+})
+app.use(function(req,res,next){
+    res.render("404")
+})
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, function(){

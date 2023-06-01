@@ -78,7 +78,7 @@
                       <div class="list-price">$<%= props.cost.toLocaleString() %> / <span>yr</span></div>
                     </div>
                     <div class="list-content">
-                      <h6 class="list-title"><a href="/details/<%= props._id %>"><%= `${props.type == 'Apartments' ? props.rooms + " Bedroom Apartment" : props.proptype} ` %></a></h6>
+                      <h6 class="list-title"><a href="/details/<%= props._id %>"></a></h6>
                       <p class="list-text"><%= props.area + ", " + props.localgovs %></p>
                       <div class="list-meta d-flex align-items-center">
                         <a href="#"><span class="flaticon-bed"></span><%- props.rooms %> bed</a>

@@ -9,6 +9,7 @@ router.use(async function(req,res,next){
     try{
         if(!req.isAuthenticated()) return res.redirect("/")
         if(req.user.disabled) return res.send("Your account has been disabled, contact admin for more info")
+        res.locals.user = req.user
         if(req.url == "/"){
             res.locals.count =  await APARTMENTS.find().count()
             res.locals.accounts =  await ACCS.find().count()
@@ -17,9 +18,7 @@ router.use(async function(req,res,next){
             res.locals.amenities = amenities
             res.locals.division = res.locals.site.division.filter(d=> !d.hide)
         }
-        if(req.url.startsWith("/profile") && req.url.length < 20){
-            // <20 so it doesnt clash with when admin checks on other users
-            res.locals.user = req.user
+        if(req.url.startsWith("/myprops") || (req.url.startsWith("/profile") && req.url.length < 20) ){
             res.locals.ownprops = await APARTMENTS.find({postedBy : req.user._id}).lean()
         }
         next()
@@ -30,11 +29,18 @@ router.use(async function(req,res,next){
     }
 })
 
+
+/*
+ WHY does newproprty and newLocation
+  not have user passed into he ejs
+*/
+
 router.get("/", function(req,res){
     res.render("private/dashboard.ejs")
 })
 
 router.get("/newproperty", function(req,res){
+    console.log(req.user)
     res.render("private/newproperty")
 })
 router.get("/newlocation", function(req,res){
@@ -52,23 +58,16 @@ router.get("/profile/:id", async function(req,res){
         user.adminaccess = true
         res.locals.user = user
         res.locals.ownprops = await APARTMENTS.find({postedBy : user._id}).lean()
-       return  res.render("private/profile")
+        return  res.render("private/profile")
     }catch(e){
         console.log(e)
-       return res.send("Internal Error! please report if this error persist ")
+        return res.send("Internal Error! please report if this error persist ")
     }
 })
 
 router.get("/myprops", function(req,res){
+    console.log(req.user)
     res.render("private/myproperties")
-})
-
-router.get("/manageaccounts", function(req,res){
-    res.render("private/manageaccounts")
-})
-
-router.get("/userListing", function(req,res){
-    res.render("private/userListings")
 })
 
 

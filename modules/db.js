@@ -20,7 +20,7 @@ const accounts = mongoose.Schema({
     agent : {type : Boolean, default : true},
     admin : {type : Boolean, default : false},
     disabled : {type : Boolean, default : false}
-})
+}, {timestamps : true})
 
 const apartmentobject = {
     rooms : Number,

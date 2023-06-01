@@ -8,6 +8,24 @@ Router.use(function(req,res,next){
     next()
 })
 
+Router.get("/pendingListing", function(req,res){
+    
+})
+/* Later hide this route from 
+agents dash
+*/
+
+Router.get("/manageaccounts", async function(req,res){
+    res.locals.activeurl = req.url;
+    res.locals.accounts = await ACCS.find({}, "-password")
+    res.render("private/manageaccounts")
+})
+
+Router.get("/managelisting", function(req,res){
+    res.locals.activeurl = req.url;
+    res.render("private/managelisting")
+})
+
 Router.post("/delete/prop/:id", async function(req,res, next){
     try{
        await APARTMENTS.deleteOne({_id : req.params.id})

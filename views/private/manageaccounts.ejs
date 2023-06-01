@@ -39,6 +39,22 @@
                 <p class="text">Manage accounts </p>
               </div>
             </div>
+            <div class="col-xxl-9">
+              <div class="dashboard_search_meta d-md-flex align-items-center justify-content-xxl-end">
+                <div class="page_control_shorting bdr1 bdrs12 py-2 ps-3 pe-2 mx-1 mx-xxl-3 bgc-white mb15-sm ">
+                  <div class="pcs_dropdown d-flex align-items-center"><span class="title-color pe-1">Sort Accounts:</span>
+                    <select id="sort_" class="selectpicker show-tick">
+                      <option value="">All</option>
+                      <option value="type.admin">Admins</option>
+                      <option value="type.agent">Agents</option>
+                      <option value="status.active">Active Agents</option>
+                      <option value="status.disabled">Disabled</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="count"></div>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-xl-12">
@@ -49,112 +65,29 @@
                       <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">View</th>
                       </tr>
                     </thead>
                     <tbody class="t-body">
-                      <tr>
-                        <th scope="row">Equestrian Family Home</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Luxury villa in Rego Park</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="active" scope="row">Villa on Hollywood Boulevard</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Triple Story House for Rent</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Northwest Office Space</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">House on the beverly hills</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Luxury villa called Elvado</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">House on the Northridge</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Equestrian Family Home</th>
-                        <td>December 31, 2022</td>
-                        <td>
-                          <div class="d-flex">
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                            <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
-                          </div>
-                        </td>
-                      </tr>
+                      <% accounts.forEach(acc=>{%>
+                        <tr class="accs" sort_type="<%= acc.admin ? 'admin' : 'agent' %>" sort_status="<%= acc.admin ? '' : acc.disabled ? 'disabled' : 'active' %>">
+                          <th scope="row"> 
+                            <h6><%= acc.name %></h6>
+                            <p class="text"><%= acc.admin ? "(Admin)" : "" %></p>
+                          </th>
+                          <td> <%= acc.email %> </td>
+                          <td>
+                            <div class="d-flex">
+                              <a href="/dashboard/profile/<%= acc._id %>" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="fullscreen"><span class="flaticon-fullscreen-1"></span></a>
+                              <!-- <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a> -->
+                              <!-- <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a> -->
+                            </div>
+                          </td>
+                        </tr>
+                      <%})%>
                     </tbody>
                   </table>
-                  <div class="mbp_pagination text-center mt30">
+                  <!-- <div class="mbp_pagination text-center mt30">
                     <ul class="page_navigation">
                       <li class="page-item">
                         <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>
@@ -173,7 +106,7 @@
                       </li>
                     </ul>
                     <p class="mt10 pagination_page_count text-center">1 – 20 of 300+ property available</p>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -203,6 +136,20 @@
  <!-- script  -->
  <%- include("./partials/script.ejs") -%>
  <!-- script end : -->
+ <script>
+   const allAccs = Array.from(document.querySelectorAll(".accs"))
+   document.getElementById("count").innerHTML = allAccs.length + " Accounts"
+  document.getElementById("sort_").addEventListener("change", sortAccs)
+  function sortAccs(e){
+    console.log("changed", allAccs)
+    allAccs.forEach(acc=>{
+      if(!e.target.value) return acc.classList.remove("d-none")
+      acc.classList.remove("d-none")
+      if(acc.getAttribute("sort_"+e.target.value.split(".")[0]) !== e.target.value.split(".")[1]) return acc.classList.add("d-none")
+    })
+    document.getElementById("count").innerHTML = allAccs.filter(a=> !a.classList.value.includes("d-none")).length + " Accounts"
+  }
+ </script>
 </body>
 
 </html>
