@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="advanced search, agency, agent, classified, directory, house, listing, property, real estate, real estate agency, real estate agent, realestate, realtor, rental">
+<meta name="description" content="Homez - Real Estate HTML Template">
+<meta name="CreativeLayers" content="ATFN">
+<title>Add Property</title>
+  
+<%- include("../partials/headLinks.ejs") -%>
+
+<style>
+  /* disable controls from nav */
+  nav.position-relative:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    left: 0;
+    /* background: green; */
+    display: block;
+}
+
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="preloader"></div>
+  
+ <!-- header ## -->
+ <%- include("./partials/header.ejs") -%>
+ <!-- ### header end : -->
+
+  <div class="dashboard_content_wrapper">
+    <div class="dashboard dashboard_wrapper pr30 pr0-md">
+      <!-- desktop side nav -->
+      <%- include("./partials/desk&mobilesidenav.ejs", {desktopdisplay : true}) -%>
+      <!-- desktop side nav:end -->
+
+      <div class="dashboard__main pl0-md">
+        <div class="dashboard__content property-page bgc-f7 position-relative">
+        <% if(messages.error) {%>
+          <div class="message-alart-style1">
+            <div class="alert alart_style_one alert-dismissible fade show mb20" role="alert">Input Error: <%= messages.error %>
+              <i class="far fa-xmark btn-close" data-bs-dismiss="alert" aria-label="Close"></i>
+            </div>
+          </div>
+        <%}%>
+
+          <div class="row pb40 d-block d-lg-none">
+            <div class="col-lg-12">
+             <!-- mobile side nav -->
+              <%- include("./partials/desk&mobilesidenav.ejs", {desktopdisplay : false}) -%>
+              <!-- mobile side nav:end -->
+            </div>
+          </div>
+          <div class="row align-items-center pb40">
+            <div class="col-lg-12">
+              <div class="dashboard_title_area">
+                <h2>Edit Property</h2>
+                <p class="text">You are about to make changes to property <%= prop._id %></p>
+              </div>
+            </div>
+          </div>
+          <form class="row"  method="POST" enctype="multipart/form-data">
+            <div class="col-xl-12">
+              <div class="ps-widget bgc-white bdrs12 default-box-shadow2 pt30 mb30 overflow-hidden position-relative">
+                <div class="navtab-style1">
+                  <nav class="position-relative">
+                    <div class="nav nav-tabs" id="nav-tab2" role="tablist">
+                      <button class="nav-link active fw600" id="nav-item2-tab" data-bs-toggle="tab" data-bs-target="#nav-item1" type="button" role="tab" aria-controls="nav-item1" aria-selected="false">1. Media</button>
+                      <button class="nav-link  fw600 ms-3" id="nav-item1-tab" data-bs-toggle="tab" data-bs-target="#nav-item2" type="button" role="tab" aria-controls="nav-item2" aria-selected="true">2. Details</button>
+                      <button class="nav-link fw600" id="nav-item3-tab" data-bs-toggle="tab" data-bs-target="#nav-item3" type="button" role="tab" aria-controls="nav-item3" aria-selected="false">3. private</button>
+                    </div>
+                  </nav>
+                  <!-- chrome for some reason removes the first embeded form element withing a parent form: so good luck with this succers -->
+                  <form ></form>
+
+                  <div class="tab-content" id="nav-tabContent" >
+                    <div class="tab-pane fade  show active" id="nav-item1" role="tabpanel" aria-labelledby="nav-item2-tab">                      
+                      <div class="ps-widget bgc-white bdrs12 p30 overflow-hidden position-relative">
+                        <form delete-b4-submit class="form-style1"  id="galleryForm" >
+                          <div class="row">
+                            <h4 class="title fz17 mb30">Upload photos</h4>
+                            <div class="col-12 col-lg-9">
+                              <h4 class="title fz17 mb30">All Previous Images</h4>
+                              <div class="mb10">
+                                <% prop.carousel.forEach((c,i)=>{%>
+                                  <label style="cursor: pointer;" for="flexRadioDefault<%=i%>" class="alert alert-secondary d-block alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert">
+                                    <img src="<%= c.url %>" height="100px" width="auto" alt="" srcset="">
+                                    <div class="form-check d-inline-block" >
+                                      <input value="<%= c.url %>" name="carousel" class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault<%=i%>" checked>
+                                    </div>
+                                  </label>
+                                  <%})%>
+                                </div>
+                              </div>
+                              <div class="col-sm-12">
+                                <% if(prop.carousel.length < 8){%>
+                                  <h4 class="title fz17 mt20">Add New Images <span class="text small">(optional)</span></h4>
+                                <div class="mb20">
+                                  <input type="file" name="images" multiple accept="image/*">
+                                </div>
+                                <%}%>
+                              <div class="mb20">
+                                <label class="heading-color ff-heading fw600 mb10">Embed Video</label>
+                                <input type="text" class="form-control" xvalue="<%= prop.youtube %>" value="<%= prop.youtube %>" xname="youtube" placeholder="https://www.youtube.com/embed/xxxxxxx">
+                              </div>
+                          </div>
+                          </div>
+                        </form>
+                        <div class="col-md-12">
+                          <div class="d-sm-flex justify-content-center">
+                            <a class="ud-btn btn-dark" href="#" form-target="#galleryForm" pagebutton="nav-item2">Edit <i class="fal fa-arrow-right-long"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    
+                    <div class="tab-pane fade " id="nav-item2" role="tabpanel" aria-labelledby="nav-item1-tab">
+                      <div class="ps-widget bgc-white bdrs12 p30 overflow-hidden position-relative">
+                        <h4 class="title fz17 mb30">Property Details</h4>
+                        <div class="form-style1" >
+                          <form delete-b4-submit id="detailsForm">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="mb20">
+                                <label class="heading-color ff-heading fw600 mb10">Property type</label>
+                                <div class="location-area">
+                                  <select class="selectpicker" xvalue="<%= prop.proptype %>" required xname="proptype">
+                                    <option value=""> Select..</option>
+                                    <% propsSelection.forEach(ps=>{%>
+                                      <%if(ps == prop.proptype){%>
+                                        <option selected> <%= ps %></option>
+                                        <%}else{%>
+                                          <option> <%= ps %></option>
+                                        <%}%>
+                                   <%} )%>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                              <div class="mb30">
+                                <label class="heading-color ff-heading fw600 mb10">Price in $</label>
+                                <input xvalue="<%= prop.cost %>" type="number" xname="cost" value="<%= prop.cost %>" required class="form-control" placeholder="Amount">
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                              <div class="mb30">
+                                <label class="heading-color ff-heading fw600 mb10">Parlour</label>
+                                <input xvalue="<%= prop.parlour %>" type="number" xname="parlour" value="<%= prop.parlour %>" required class="form-control" placeholder="How many parlours">
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                              <div class="mb30">
+                                <label class="heading-color ff-heading fw600 mb10">Kitchen</label>
+                                <input type="number" xvalue="<%= prop.kitchen %>" required xname="kitchen" value="<%= prop.kitchen %>" class="form-control" placeholder="How many Kitchens">
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                              <div class="mb30">
+                                <label class="heading-color ff-heading fw600 mb10">Rooms</label>
+                                <input type="number" xvalue="<%= prop.rooms %>" xname="rooms" value="<%= prop.rooms %>" required class="form-control" placeholder="How many rooms">
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                              <div class="mb30">
+                                <label class="heading-color ff-heading fw600 mb10">Bathrooms</label>
+                                <input type="number" xvalue="<%= prop.bathrooms %>" required xname="bathrooms" value="<%= prop.bathrooms %>" class="form-control" placeholder="How many Bathrooms">
+                              </div>
+                            </div>
+                            <div class="col-sm-6 col-xl-4">
+                              <div class="mb30">
+                                <label class="heading-color ff-heading fw600 mb10">Toilets</label>
+                                <input type="number" xvalue="<%= prop.toilets %>" required xname="toilets" value="<%= prop.toilets %>" class="form-control" placeholder="How many toilets">
+                              </div>
+                            </div>
+                            <div class="col-sm-12 ps-4 mb10">
+                              <h4 class="title fz17 mb10">Features & Amenities</h4>
+                                <div class="checkbox-style1 row mb30 gy-2">
+                                  <% amenities.forEach(amen=>{  %>
+                                    <label class="custom_checkbox col-sm-6 col-xl-4">
+                                      <%= amen.name %>
+                                      <% if(prop.amenities.includes(amen.value)){%>
+                                        <input type="checkbox" checked xn="amenities" value="<%= amen.value %>">
+                                        <span class="checkmark"></span>
+                                        <%}else{%>
+                                        <input type="checkbox" xn="amenities" value="<%= amen.value %>">
+                                        <span class="checkmark"></span>
+                                      <%}%>
+                                    </label>
+                                  <%})%>
+                                </div>
+                              </div>
+                              <div class="col-sm-12">
+                                <div class="mb20">
+                                  <label class="heading-color ff-heading fw600 mb10">Description</label>
+                                  <textarea cols="30" xvalue="<%= prop.description %>" xname="description" rows="5" placeholder="Leave note for users, about the place"><%= prop.description %></textarea>
+                                </div>
+                              </div>
+                          </div>
+                          </form>
+
+                          <div class="col-md-12">
+                            <div class="d-sm-flex justify-content-between">
+                              <a class="ud-btn btn-white" pagebutton="nav-item1" href="#">Prev Step<i class="fal fa-arrow-right-long"></i></a>
+                              <a class="ud-btn btn-dark" pagebutton="nav-item3" form-target="#detailsForm" pagebutton="nav-item3" href="#">Next Step<i class="fal fa-arrow-right-long"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-item3" role="tabpanel" aria-labelledby="nav-item3-tab">
+                      <div class="ps-widget bgc-white bdrs12 p30 overflow-hidden position-relative">
+                        <h4 class="title fz17 ">Only visible to agents</h4>
+                        <p class="mb30">Make sure information is correct.</p>
+
+
+                        <input type="hidden" value="<%= JSON.stringify(division) %>">
+
+
+                        <div class="form-style1" >
+                          <form delete-b4-submit class="row" id="locationForm">
+                            <div class="col-sm-6 ">
+                              <div class="mb20">
+                                <label class="heading-color ff-heading fw600 mb10">Local Gov</label>
+                                <div class="location-area">
+                                  <select id="LGID" class="selectpicker" xvalue="<%= prop.localgovs %>"  xname="localgovs" required>
+                                    <!-- get this from the db -->
+                                    <option value="">Select</option>
+                                   
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-6 ">
+                              <div class="mb20">
+                                <label class="heading-color ff-heading fw600 mb10">Area</label>
+                                <div class="location-area">
+                                  <select class="selectpicker" xvalue="<%= prop.area %>" xname="area" required >
+                                  
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="mb20">
+                                <label class="heading-color ff-heading fw600 mb10">Address</label>
+                                <textarea cols="30" required xvalue="<%= prop.address %>" xname="address" rows="5" placeholder="detailed direction from the area "><%= prop.address %></textarea>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="mb20">
+                                <label class="heading-color ff-heading fw600 ">CONTACT</label>
+                                <div class="row mt10" >
+                                  <label class="heading-color ff-heading fw600 mb10 col-sm-12">No 1. (Optional)</label>
+                                  <hr>
+                                  <div class="col-sm-6 col-xl-4">
+                                    <div class="mb20">
+                                      <label class="heading-color ff-heading  mb10">Position</label>
+                                      <div class="location-area">
+                                        <select class="selectpicker" name="whois"  >
+                                          <option value=""> Select</option>
+                                          <% contactsSelect .forEach(ct=>{%>
+                                            <option> <%= ct %></option>
+                                          <%})%>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-6 col-xl-4">
+                                    <label class="heading-color ff-heading  mb10">name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="name">
+                                  </div>
+                                  <div class="col-sm-12 col-xl-4">
+                                    <label class="heading-color ff-heading  mb10">Contact detail</label>
+                                    <input type="text" name="reach" class="form-control" placeholder="number">
+                                  </div>
+                                </div>
+                                <div class="row mt10" >
+                                  <label class="heading-color ff-heading fw600 mb10 col-sm-12">No 2. (Optional)</label>
+                                  <hr>
+                                  <div class="col-sm-6 col-xl-4">
+                                    <div class="mb20">
+                                      <label class="heading-color ff-heading  mb10">Position</label>
+                                      <div class="location-area">
+                                        <select class="selectpicker" name="whois"  >
+                                          <option value=""> Select</option>
+                                          <% contactsSelect .forEach(ct=>{%>
+                                            <option> <%= ct %></option>
+                                          <%})%>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-6 col-xl-4">
+                                    <label class="heading-color ff-heading  mb10">name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="name">
+                                  </div>
+                                  <div class="col-sm-12 col-xl-4">
+                                    <label class="heading-color ff-heading  mb10">Contact detail</label>
+                                    <input type="text" name="reach" class="form-control" placeholder="number">
+                                  </div>
+                                </div>
+                              </div>
+                            </div> 
+                            <div class="col-sm-12">
+                              <div class="mb20">
+                                <label class="heading-color ff-heading fw600 mb10">Leave Note for admins (Optional)</label>
+                                <textarea cols="30" xvalue="<%= prop.privatenote %>" xname="privatenote"  rows="5" placeholder="detailed direction from the area "><%= prop.privatenote %></textarea>
+                              </div>
+                            </div>
+                          </form>
+                          <div class="col-md-12 mt30">
+                            <div class="d-sm-flex justify-content-between">
+                              <a class="ud-btn btn-white" pagebutton="nav-item2" href="#">Prev Step<i class="fal fa-arrow-right-long"></i></a>
+                              <button class="ud-btn btn-thm"  type="submit">Submit Property<i class="fal fa-arrow-right-long"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <footer class="dashboard_footer pt30 pb10">
+          <div class="container">
+            <div class="row items-center justify-content-center justify-content-md-between">
+              <div class="col-auto">
+                <div class="copyright-widget">
+                  <p class="text">© Homez - All rights reserved</p>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="footer_bottom_right_widgets text-center text-lg-end">
+                  <p><a href="#">Privacy</a>  ·  <a href="#">Terms</a>  ·  <a href="#">Sitemap</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <a class="scrollToHome" href="#"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<!-- script  -->
+  <%- include("./partials/script.ejs") -%>
+  <!-- script end : -->
+  <script>
+    // Give amenities name prop if a change occurs
+    const amenitiesName =  function(e){
+      console.log("called eventlistener")
+      document.querySelectorAll("input[xn='amenities']").forEach(el=>{
+        el.setAttribute("name", "amenities")
+        el.removeEventListener("change", amenitiesName)
+      })}
+    document.querySelectorAll("input[xn='amenities']").forEach(i=> i.addEventListener('change', amenitiesName))
+    contactcount = 1;
+    // setup by Bootstrap to allow manual controls of tabs with js
+    const triggerTabList = document.querySelectorAll('.nav-link')
+      triggerTabList.forEach(triggerEl => {
+        const tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', event => {
+          event.preventDefault()
+          tabTrigger.show()
+        })
+      })
+    const bsTab = new bootstrap.Tab("#nav-tab2")
+    const goto = function(e){
+      console.log("goto called")
+      const bt = document.querySelector(`#nav-tab2 button[data-bs-target='#${e}']`)
+      bootstrap.Tab.getInstance(bt).show()
+    }
+    const handlesubmittion = function(btn){
+      if(!btn.target.getAttribute("form-target")) return goto(btn.target.getAttribute("pagebutton"));
+      if(document.querySelector(btn.target.getAttribute("form-target")).reportValidity()) return goto(btn.target.getAttribute("pagebutton"));
+    }
+    document.forms[0].addEventListener("submit", function(e){
+      const forms = document.forms
+      if(!forms[1].checkValidity() || !forms[2].checkValidity() || !forms[3].reportValidity()){
+        e.preventDefault()
+        // show error pop up 
+      }
+      // make xname ~ name values if xname !== name
+      // the parent form doesnt contain the child form values
+      let xvs = Array.from(document.querySelectorAll("[xvalue]"))
+      const changedEls = xvs.filter(El=> El.getAttribute("xvalue") !== El.value)
+      changedEls.forEach(el => el.setAttribute("name", el.getAttribute("xname")))
+      const nodes = document.querySelectorAll("form[delete-b4-submit]");
+      nodes.forEach(node=> node.replaceWith(...node.childNodes))
+
+    })
+    // form validarion and page movement;
+    const pagebuttons = document.querySelectorAll("a[pagebutton]")
+    pagebuttons.forEach(button=> button.addEventListener("click", handlesubmittion))
+</script>
+
+<script>
+  // local government and area select option changes
+
+  const division = JSON.parse(document.querySelector("input[type='hidden']").value)
+      let html = ""  
+      division.forEach(d=>{
+        if(d.localgov == '<%= prop.localgovs %>'){
+          html += `<option value='${d.localgov}'selected> ${d.localgov} </option>`
+        }else{
+          html += `<option value='${d.localgov}'> ${d.localgov} </option>`
+        }
+      })
+      document.querySelector("select[xname='localgovs']").innerHTML += html
+      $(".selectpicker").selectpicker("refresh")
+      
+      
+      function switchAreas(e, f){
+          const chosen = division.filter(divi=> f ? divi.localgov == e.value : divi.localgov == e.target.value  )[0]
+          let html = "<option value=''> Nothing selected </option>" 
+          chosen.group.forEach(g=>{
+            if(g== '<%= prop.area %>'){html+= `<option selected value='${g}'> ${g} </option>`}else{html+= `<option value='${g}'> ${g} </option>`}
+          })
+          document.querySelector("select[xname='area']").innerHTML = html
+          $(".selectpicker").selectpicker("refresh")
+      }
+      switchAreas(document.querySelector("#LGID option[selected]"), true)
+      document.querySelector("select[xname='localgovs']").addEventListener("change", switchAreas)
+</script>
+
+</body>
+
+</html>

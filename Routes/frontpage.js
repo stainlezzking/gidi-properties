@@ -7,15 +7,16 @@ router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
         const user = await ACCS.findOne({email : "bishy@flyhigh.com"}).lean()
-        req.login(user, function(e){
+       return req.login(user, function(e){
             if(e) console.log(e)
+            if(!user) return res.send("Account not found to be authenticated!")
             res.locals.user = req.user
+            next() 
         })
     }catch(e){
         console.log(e)
         return res.send("Internal Server Error! please report if error persist")
     }
-    next() 
 })
 
 router.get("/", function(req,res){
@@ -29,7 +30,7 @@ router.get("/listing", function(req,res){
 router.get("/details/:id", async function(req,res, next){
     try{
         // remember to strip of admin info before sending
-        const props = await APARTMENTS.findOne({_id : req.params.id}).populate("postedBy")
+        const props = await APARTMENTS.findOne({_id : req.params.id}).populate("postedBy", "name")
         if(!props) return res.render("404.ejs")
         res.locals.property  = props;
         return res.render("details")

@@ -1,8 +1,5 @@
 
 
--- ManageListing
-    Filter Listings
-
 -- Edit Listing
 
 - Add new property
@@ -15,3 +12,6 @@
 
 -- Security
     use a library or put a limit on the number of request to view address by agents: 
+
+// To add other types of listing - add a prefix to the ID like apt-[ID] to sepereate each
+// Add search to managelisting

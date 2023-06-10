@@ -31,7 +31,7 @@ const apartmentobject = {
     address : String,
     localgovs : String,
     area : String,
-    carousel : [String],
+    carousel : [{url : String, show : { default : true ,type :Boolean}}],
     frontImage : String,
     youtube : String,
     cost : Number,
@@ -41,7 +41,6 @@ const apartmentobject = {
     amenities : [String]
 }
 
-const apartmenthistory = mongoose.Schema(apartmentobject)
 
 // make a child schema for when it is edited 
 const apartment = mongoose.Schema({
@@ -51,9 +50,10 @@ const apartment = mongoose.Schema({
     admin : {type : Boolean, default : false},
     // fetch postedBy in details page as ref
     postedby : mongoose.Schema.Types.ObjectId,
-    history : apartmenthistory,
+    history : {...apartmentobject, confirmed : {type : Boolean, default : false}},
     // admin process
-    edited : {type : Boolean, default : true},
+    edited : {type : Boolean, default : false},
+    approved : {type : Boolean, default : false},
     privatenote : String,
 }, {timestamps : true})
 

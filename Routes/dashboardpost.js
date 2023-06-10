@@ -10,7 +10,7 @@ Router.post("/newproperty",  upload.array('images', 12), function(req,res, next)
     req.body.whois.forEach((whois,i)=>{
         if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
     })
-    req.body.carousel = req.files.map(i=> "/uploads/"+i. filename)
+    req.body.carousel = req.files.map(i=> {return{ url :"/uploads/"+i.filename, show : true}})
    APARTMENTS.create({...req.body, contacts, postedBy : req.user._id })
    .then(d=> res.redirect("/details/"+ d.id ))
     .catch(e=>   next({m : e.message, r : "/dashboard/newproperty", showflash: true}))
@@ -42,5 +42,40 @@ Router.post("/update/localgov",express.urlencoded({extended : false}), async fun
     }
 })
 
+Router.post("/edit/:id", upload.array('images', 8), async function(req,res,next){
+
+    // Edit should have a notification of its own... with the previous confirmed one still showing
+    // put back processing status in my props and details page
+    // add Edited status
+    // when confirmed, those props should be deleted from the history obj to prevent
+    // it from showing
+    // if carousel + new images > 8 show error
+    // what to do when files are invloved
+    // show confirm update button in home page
+    // all carousel exists on history so its just going to be an overhaul
+    try{
+        const aparte = await APARTMENTS.findById(req.params.id)
+        if(!aparte) return res.send("No propertie could be found with id : "+req.params.id)
+        if(aparte.postedBy !== req.user._id && !req.user.admin) return res.send("Not Authorized!")
+        // if new contacts are added to the update
+        if(req.body.whois[0] && req.body.whois[1]){
+            req.body.contacts = []
+            req.body.whois.forEach((whois,i)=>{
+                if(whois && req.body.name[i] && req.body.reach[i]) return req.body.contacts.push({whois, name : req.body.name[i], reach : req.body.reach[i]})
+            })
+            req.body.whois = undefined ; req.body.reach = undefined ; req.body.name = undefined ;
+        }
+        req.body.carousel = aparte.carousel.map(ca=>{
+            if(req.body.carousel.includes(ca.url)) return {url : ca.url, show : true}
+            return {url : ca.url, show : false}})
+        // upload image to server
+        if(req.files.length) req.body.carousel.push(...req.files.map(i=> {return {url : "/uploads/"+i.filename, show : true}}))
+        await APARTMENTS.updateOne({_id : req.params.id}, {edited : true,history : req.body})
+        return res.redirect("/details/"+req.params.id)
+
+}catch(e){
+    next(e)
+}
+})
 
 module.exports = Router

@@ -119,11 +119,9 @@
                                 <div class="location-area">
                                   <select class="selectpicker" required name="proptype">
                                     <option value=""> Select..</option>
-                                    <option>Self-contain</option>
-                                    <option>Apartment</option>
-                                    <option>Bungalow</option>
-                                    <option>Houses</option>
-                                    <option>Loft</option>
+                                    <% propsSelection.forEach(ps=>{%>
+                                      <option> <%= ps %></option>
+                                 <%} )%>
                                   </select>
                                 </div>
                               </div>
@@ -245,9 +243,9 @@
                                       <div class="location-area">
                                         <select class="selectpicker" name="whois" required >
                                           <option value=""> Select</option>
-                                          <option>Landlord</option>
-                                          <option>Care-taker</option>
-                                          <option>Tenant</option>
+                                          <% contactsSelect .forEach(ct=>{%>
+                                            <option> <%= ct %></option>
+                                          <%})%>
                                         </select>
                                       </div>
                                     </div>
@@ -270,9 +268,9 @@
                                       <div class="location-area">
                                         <select class="selectpicker" name="whois" >
                                           <option value=""> Select</option>
-                                          <option>Landlord</option>
-                                          <option>Care-taker</option>
-                                          <option>Tenant</option>
+                                          <% contactsSelect .forEach(ct=>{%>
+                                            <option> <%= ct %></option>
+                                          <%})%>
                                         </select>
                                       </div>
                                     </div>
@@ -295,9 +293,9 @@
                                       <div class="location-area">
                                         <select class="selectpicker" name="whois"  >
                                           <option value=""> Select</option>
-                                          <option>Landlord</option>
-                                          <option>Care-taker</option>
-                                          <option>Tenant</option>
+                                          <% contactsSelect .forEach(ct=>{%>
+                                            <option> <%= ct %></option>
+                                          <%})%>
                                         </select>
                                       </div>
                                     </div>

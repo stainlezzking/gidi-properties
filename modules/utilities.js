@@ -48,3 +48,7 @@ module.exports.amenities = [
         value : "estate"
     },
 ]
+
+module.exports.contactsSelect = ['Landlord', 'Care-taker', 'Tenant']
+
+module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Houses'] 

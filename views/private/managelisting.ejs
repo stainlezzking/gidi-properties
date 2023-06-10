@@ -62,7 +62,6 @@
             </div>
           </div>
         
-        <% console.log(ownprops) %> 
           <% if(ownprops && ownprops.length){%>
           <div class="row">
             <div class="col-xl-12">
@@ -79,11 +78,11 @@
                     </thead>
                     <tbody class="t-body">
                         <% ownprops.forEach(props=>{%>
-                          <tr class="listings" status="<%= props.disabled ? 'disabled' : props.edited ? 'processing' : 'approved' %>">
+                          <tr class="listings" status="<%= props.disabled ? 'disabled' : props.approved ? 'processing' : 'approved' %>">
                             <th scope="row">
                             <div class="listing-style1 dashboard-style d-xxl-flex align-items-center mb-0">
                               <div class="list-thumb">
-                                <img class="w-100" src="<%= props.carousel[0] %>" alt="">
+                                <img class="w-100" src="<%= props.carousel[0].url %>" alt="">
                               </div>
                               <div class="list-content py-0 p-0 mt-2 mt-xxl-0 ps-xxl-4">
                                 <div class="h6 list-title"><a href="/details/<%= props._id %>"> <%= `${props.proptype == 'Apartment' ? props.rooms + " Bedroom Apartment" : props.proptype} ` %> </a></div>
@@ -93,16 +92,19 @@
                             </div>
                           </th>
                           <td class="vam"><%= props.createdAt %></td>
-                          <td class="vam">
-                            <% if(props.edited){%>
-                              <span class="pending-style style1">Processing</span>
-                              <%}else{%>
-                                <span class="pending-style style2">Approved</span>
+                          <td class="vam text-center">
+                            <%if(props.approved){%>
+                              <span class="pending-style style2">Approved</span>
+                              <%}else{%> 
+                                <span class="pending-style style1">Processing</span>
                                 <%}%>
+                                <% if(props.edited){%>
+                                  <a href="/dashboard/edited/<%=props._id %>" style="text-decoration: underline;" class="text-primary d-block py-2"> edited</a>
+                                  <%}%>
                               </td>
                               <td class="vam">
                                 <div class="d-flex">
-                                  <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
+                                  <a href="/dashboard/edit/<%= props._id %>" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
                                 </div>
                               </td>
                             </tr>
