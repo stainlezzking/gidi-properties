@@ -4,6 +4,8 @@ const upload = require("../modules/fileupload")
 const {APARTMENTS, SITE, ACCS} = require("../modules/db")
 
 Router.use( async function(req,res,next){
+    res.locals.activeurl = req.url;
+
     if(!req.user.admin) return res.redirect("/dashboard/profile")
     res.locals.user = req.user
     if(req.url.toLowerCase().startsWith("/managelisting")){
@@ -12,21 +14,20 @@ Router.use( async function(req,res,next){
     next()
 })
 
-Router.get("/pendingListing", function(req,res){
-    
+Router.get("/editedlist",async function(req,res){
+    res.locals.ownprops = await APARTMENTS.find({edited : true})
+    res.render("private/editedList")
 })
 /* Later hide this route from 
 agents dash
 */
 
 Router.get("/manageaccounts", async function(req,res){
-    res.locals.activeurl = req.url;
     res.locals.accounts = await ACCS.find({}, "-password")
     res.render("private/manageaccounts")
 })
 
 Router.get("/managelisting", function(req,res){
-    res.locals.activeurl = req.url;
     res.render("private/managelisting")
 })
 
@@ -40,10 +41,43 @@ Router.post("/delete/prop/:id", async function(req,res, next){
     }
 })
 
+
+
 Router.post("/approve/prop/:id", async function(req,res, next){
     try{
-        await APARTMENTS.updateOne({_id : req.params.id}, {edited : false})
+        await APARTMENTS.updateOne({_id : req.params.id}, {approved : true})
         res.redirect("/details/"+req.params.id)
+    }catch(e){
+        console.log(e)
+        res.send("An error Occured trying to Approve property")
+    }
+})
+
+/*
+Approve edited posts -
+*/
+
+Router.get("/edited/:id", async function(req,res){
+    // fetch with {_id , edited : true}
+    // Link back to here from details page under approved button as an underlined edited blue text
+    try{
+        const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true}).populate("postedBy", "name")
+        if(!apt) return res.send("no Property found.. go back and refresh page.")
+        res.locals.prop = apt
+        res.render("private/edited")
+    }catch(e){
+          console.log(e)
+          return res.send("Internal Error! please report if this error persist ")
+      }
+  })
+
+
+/*
+approve Edit 
+*/
+Router.post("/approve/edit/:id", async function(req,res){
+    try{
+        await APARTMENTS.updateOne({_id : req.params.id}, {edited : false})
     }catch(e){
         console.log(e)
         res.send("An error Occured trying to Approve property")

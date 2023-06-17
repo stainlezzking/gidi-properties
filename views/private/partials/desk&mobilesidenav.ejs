@@ -19,6 +19,9 @@
           <div class="sidebar_list_item ">
             <a  class="items-center <%= activeurl.toLowerCase() == '/managelisting' ? '-is-active' : '' %>" href="/admin/managelisting"><i class="flaticon-like mr10"></i> Manage Listing</a>
           </div>
+          <div class="sidebar_list_item">
+            <a href="/admin/editedlist/" class="items-center <%= activeurl.includes('/editedlist') ? '-is-active' : '' %>"><i class="flaticon-protection mr15"></i> Edited Listing </a>
+          </div>
         <%}%>
         <p class="fz15 fw400 ff-heading mt30">MANAGE ACCOUNT</p>
         <div class="sidebar_list_item">

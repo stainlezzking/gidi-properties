@@ -64,7 +64,7 @@
           <div class="col-xl-12">
             <div class="ps-widget bgc-white bdrs12 default-box-shadow2 pt30 mb30 overflow-hidden position-relative">
               <div class="navtab-style1">
-                <nav class="position-relative">
+                <nav class="position-relative" >
                   <div class="nav nav-tabs" id="nav-tab2" role="tablist">
                     <button class="nav-link active fw600" id="nav-item2-tab" data-bs-toggle="tab" data-bs-target="#nav-item1" type="button" role="tab" aria-controls="nav-item1" aria-selected="false">1. Add new Area</button>
                     <button class="nav-link  fw600 ms-3" id="nav-item1-tab" data-bs-toggle="tab" data-bs-target="#nav-item2" type="button" role="tab" aria-controls="nav-item2" aria-selected="true">2. Select LG's</button>
@@ -86,6 +86,9 @@
                                     <div class="location-area">
                                       <select class="selectpicker" required name="localgovs">
                                         <option value="" > Select..</option>
+                                        <% division.filter(h=> !h.hide).forEach(d=>{%>
+                                          <option> <%= d.localgov %></option>
+                                     <%})%>
                                       </select>
                                     </div>
                                   </div>
@@ -172,10 +175,7 @@
   <!-- script end : -->
   <script>
       const division = JSON.parse(document.querySelector("input[name='division']").value)
-      let html = ""  
-      division.forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
-      document.querySelector("select[name='localgovs']").innerHTML += html
-      $(".selectpicker").selectpicker("refresh")
+
 
       function switchAreas(e){
           const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]

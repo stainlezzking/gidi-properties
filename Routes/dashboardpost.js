@@ -56,9 +56,9 @@ Router.post("/edit/:id", upload.array('images', 8), async function(req,res,next)
     try{
         const aparte = await APARTMENTS.findById(req.params.id)
         if(!aparte) return res.send("No propertie could be found with id : "+req.params.id)
-        if(aparte.postedBy !== req.user._id && !req.user.admin) return res.send("Not Authorized!")
+        if(JSON.stringify(aparte.postedBy) !== JSON.stringify(req.user._id) && !req.user.admin) return res.send("Not Authorized!")
         // if new contacts are added to the update
-        if(req.body.whois[0] && req.body.whois[1]){
+        if(req.body.whois[0] || req.body.whois[1]){
             req.body.contacts = []
             req.body.whois.forEach((whois,i)=>{
                 if(whois && req.body.name[i] && req.body.reach[i]) return req.body.contacts.push({whois, name : req.body.name[i], reach : req.body.reach[i]})
@@ -70,7 +70,7 @@ Router.post("/edit/:id", upload.array('images', 8), async function(req,res,next)
             return {url : ca.url, show : false}})
         // upload image to server
         if(req.files.length) req.body.carousel.push(...req.files.map(i=> {return {url : "/uploads/"+i.filename, show : true}}))
-        await APARTMENTS.updateOne({_id : req.params.id}, {edited : true,history : req.body})
+        await APARTMENTS.updateOne({_id : req.params.id}, {edited : true, history : req.body})
         return res.redirect("/details/"+req.params.id)
 
 }catch(e){

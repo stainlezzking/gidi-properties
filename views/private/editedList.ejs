@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +11,7 @@
 <%- include("../partials/headLinks.ejs") -%>
 
 
-<title>Manage All Listing</title>
+<title>All Edited Listings</title>
 
 </head>
 <body>
@@ -40,22 +39,12 @@
           <div class="row align-items-center pb40">
             <div class="col-xxl-3">
               <div class="dashboard_title_area">
-                <h2>Manage Listings</h2>
+                <h2>Approve Edited Listings</h2>
                 <p class="text">We are glad to see you again!</p>
               </div>
             </div>
             <div class="col-xxl-9">
               <div class="dashboard_search_meta d-md-flex align-items-center justify-content-xxl-end">
-                <div class="page_control_shorting bdr1 bdrs12 py-2 ps-3 pe-2 mx-1 mx-xxl-3 bgc-white mb15-sm ">
-                  <div class="pcs_dropdown d-flex align-items-center"><span class="title-color">Sort by:</span>
-                    <select id="sort_" class="selectpicker show-tick">
-                      <option value="">Select</option>
-                      <option value="approved">Approved</option>
-                      <option value="processing">Processing</option>
-                      <option value="disabled">Disabled</option>
-                    </select>
-                  </div>
-                </div>
                 <a href="/dashboard/newproperty" class="ud-btn btn-thm">Add New Property<i class="fal fa-arrow-right-long"></i></a>
               </div>
             </div>
@@ -92,14 +81,7 @@
                           </th>
                           <td class="vam"><%= props.createdAt %></td>
                           <td class="vam text-center">
-                            <%if(props.approved){%>
-                              <span class="pending-style style2">Approved</span>
-                              <%}else{%> 
-                                <span class="pending-style style1">Processing</span>
-                                <%}%>
-                                <% if(props.edited){%>
-                                  <a href="/admin/edited/<%=props._id %>" style="text-decoration: underline;" class="text-primary d-block py-2"> edited</a>
-                                  <%}%>
+                                <a href="/admin/edited/<%=props._id %>" style="text-decoration: underline;" class="text-primary d-block py-2"> View Edit</a>
                               </td>
                               <td class="vam">
                                 <div class="d-flex">
@@ -110,32 +92,12 @@
                           <%})%>
                         </tbody>
                       </table>
-                  <!-- <div class="mbp_pagination text-center mt30">
-                    <ul class="page_navigation">
-                      <li class="page-item">
-                        <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">4</a></li>
-                      <li class="page-item"><a class="page-link" href="#">5</a></li>
-                      <li class="page-item"><a class="page-link" href="#">...</a></li>
-                      <li class="page-item"><a class="page-link" href="#">20</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#"><span class="fas fa-angle-right"></span></a>
-                      </li>
-                    </ul>
-                    <p class="mt10 pagination_page_count text-center">1 – 20 of 300+ property available</p>
-                  </div> -->
                 </div>
               </div>
             </div>
           </div>
           <%}else{%>
-            <h2 class="text-center"> No Properties Atall</h2>
+            <h2 class="text-center"> No Edited Properties</h2>
           <%}%>
         </div>
         <footer class="dashboard_footer pt30 pb10">
@@ -163,16 +125,6 @@
   <!-- script  -->
   <%- include("./partials/script.ejs") -%>
   <!-- script end : -->
-  <script>
-    const Listings = Array.from(document.querySelectorAll(".listings"))
-   document.getElementById("sort_").addEventListener("change", sortList)
-   function sortList(e){
-     Listings.forEach(list=>{
-       if(!e.target.value) return list.classList.remove("d-none")
-       list.classList.remove("d-none")
-       if(list.getAttribute("status") !== e.target.value) return list.classList.add("d-none")
-     })
-   }
-  </script>
+
 
 </html>

@@ -6,7 +6,7 @@ const router = express.Router()
 router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
-        const user = await ACCS.findOne({email : "bishy@flyhigh.com"}).lean()
+        const user = await ACCS.findOne({email : "noni@gmail.com"}).lean()
        return req.login(user, function(e){
             if(e) console.log(e)
             if(!user) return res.send("Account not found to be authenticated!")

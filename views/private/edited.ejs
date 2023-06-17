@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="advanced search, agency, agent, classified, directory, house, listing, property, real estate, real estate agency, real estate agent, realestate, realtor, rental">
+<meta name="description" content="Homez - Real Estate HTML Template">
+<meta name="CreativeLayers" content="ATFN">
+<title>Approve Edit</title>
+  
+<%- include("../partials/headLinks.ejs") -%>
+
+<style>
+  /* disable controls from nav */
+  nav.position-relative:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    left: 0;
+    /* background: green; */
+    display: block;
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="preloader"></div>
+  
+ <!-- header ## -->
+ <%- include("./partials/header.ejs") -%>
+ <!-- ### header end : -->
+
+  <div class="dashboard_content_wrapper">
+    <div class="dashboard dashboard_wrapper pr30 pr0-md">
+      <!-- desktop side nav -->
+      <%- include("./partials/desk&mobilesidenav.ejs", {desktopdisplay : true}) -%>
+      <!-- desktop side nav:end -->
+
+      <div class="dashboard__main pl0-md">
+        <div class="dashboard__content property-page bgc-f7 position-relative">
+        <% if(messages.error) {%>
+          <div class="message-alart-style1">
+            <div class="alert alart_style_one alert-dismissible fade show mb20" role="alert">Input Error: <%= messages.error %>
+              <i class="far fa-xmark btn-close" data-bs-dismiss="alert" aria-label="Close"></i>
+            </div>
+          </div>
+        <%}%>
+
+          <div class="row pb40 d-block d-lg-none">
+            <div class="col-lg-12">
+             <!-- mobile side nav -->
+              <%- include("./partials/desk&mobilesidenav.ejs", {desktopdisplay : false}) -%>
+              <!-- mobile side nav:end -->
+            </div>
+          </div>
+          <div class="row align-items-center pb40">
+            <div class="col-lg-12">
+              <div class="dashboard_title_area">
+                <h2>Update property</h2>
+                <p class="text">this property was updated by <%= prop.postedBy.name.split(" ")[0] %> on <%= prop.updatedAt.toString().slice(0,10) %> </p>
+              </div>
+            </div>
+          </div>
+          <form class="row" action="/admin/approve/edit/<%= prop._id %>" method="POST"  enctype="multipart/form-data">
+            <div class="col-xl-12">
+              <div class="ps-widget bgc-white bdrs12 default-box-shadow2 pt30 mb30 overflow-hidden position-relative">
+               
+              </div>
+            </div>
+          </form>
+        </div>
+        <footer class="dashboard_footer pt30 pb10">
+          <div class="container">
+            <div class="row items-center justify-content-center justify-content-md-between">
+              <div class="col-auto">
+                <div class="copyright-widget">
+                  <p class="text">© Homez - All rights reserved</p>
+                </div>
+              </div>
+              <div class="col-auto">
+                <div class="footer_bottom_right_widgets text-center text-lg-end">
+                  <p><a href="#">Privacy</a>  ·  <a href="#">Terms</a>  ·  <a href="#">Sitemap</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <a class="scrollToHome" href="#"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<!-- script  -->
+  <%- include("./partials/script.ejs") -%>
+  <!-- script end : -->
+</body>
+
+</html>

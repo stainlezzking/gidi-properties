@@ -94,7 +94,7 @@
                                   <label style="cursor: pointer;" for="flexRadioDefault<%=i%>" class="alert alert-secondary d-block alert-dismissible fade show d-flex justify-content-between align-items-center" role="alert">
                                     <img src="<%= c.url %>" height="100px" width="auto" alt="" srcset="">
                                     <div class="form-check d-inline-block" >
-                                      <input value="<%= c.url %>" name="carousel" class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault<%=i%>" checked>
+                                      <input value="<%= c.url %>" name="carousel" class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault<%=i%>" <%= c.show ? "checked" : "" %> >
                                     </div>
                                   </label>
                                   <%})%>
@@ -116,7 +116,7 @@
                         </form>
                         <div class="col-md-12">
                           <div class="d-sm-flex justify-content-center">
-                            <a class="ud-btn btn-dark" href="#" form-target="#galleryForm" pagebutton="nav-item2">Edit <i class="fal fa-arrow-right-long"></i></a>
+                            <a class="ud-btn btn-dark" href="#" form-target="#galleryForm" pagebutton="nav-item2"> Next > <i class="fal fa-arrow-right-long"></i></a>
                           </div>
                         </div>
                       </div>

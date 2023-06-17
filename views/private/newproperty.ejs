@@ -208,7 +208,7 @@
                                 <label class="heading-color ff-heading fw600 mb10">Local Gov</label>
                                 <div class="location-area">
                                   <select class="selectpicker" name="localgovs" required>
-                                    <!-- get this from the db -->
+
                                     <option value="">Select</option>
                                    
                                   </select>
@@ -400,7 +400,7 @@
 
     const division = JSON.parse(document.querySelector("input[name='division']").value)
       let html = ""  
-      division.forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
+      division.filter(h=> !h.hide).forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
       document.querySelector("select[name='localgovs']").innerHTML += html
       $(".selectpicker").selectpicker("refresh")
       

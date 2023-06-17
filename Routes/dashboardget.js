@@ -66,21 +66,6 @@ router.get("/edit/:id", async function(req,res){
     }
 })
 
-router.get("/edited/:id", async function(req,res){
-  // fetch with {_id , edited : true}
-  // Link back to here from details page under approved button as an underlined edited blue text
-  try{
-      const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true})
-      if(!apt) return res.send("no Property found.. go back and refresh page.")
-      res.locals.prop = apt
-      res.render("edited")
-
-
-  }catch(e){
-        console.log(e)
-        return res.send("Internal Error! please report if this error persist ")
-    }
-})
 
 router.get("/profile", function(req,res){
     res.render("private/profile")

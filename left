@@ -13,5 +13,6 @@
 -- Security
     use a library or put a limit on the number of request to view address by agents: 
 
+// once listing edited - in re-edit, the unprocessed edited info should take precedence
 // To add other types of listing - add a prefix to the ID like apt-[ID] to sepereate each
 // Add search to managelisting

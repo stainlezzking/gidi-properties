@@ -80,7 +80,7 @@
         <div class="row wow fadeInUp" data-wow-delay="100ms">
           <div class="col-lg-8">
             <div class="single-property-content mb30-md">
-              <h2 class="sp-lg-title text-capitalize"><%= `${property.type == 'Apartments' ? property.rooms + " Bedroom Apartment" : property.proptype} ` %></h2>
+              <h2 class="sp-lg-title text-capitalize"><%= `${property.proptype == 'Apartments' ? property.rooms + " Bedroom Apartment" : property.proptype} ` %></h2>
               <div class="pd-meta mb15 d-md-flex align-items-center">
                 <p class="text fz15 mb-0 pr10 bdrrn-sm"> <%= property.area + ", " + property.localgovs %></p>
               </div>
@@ -106,9 +106,9 @@
                 <p class="text space fz15"> 
                   <% if(user.agent){%>
                     <% if(property.approved){%>
-                      <span class="pending-style style1">Processing</span>
+                      <span class="pending-style style2 text"> Approved</span>
                       <%}else{%>
-                        <span class="pending-style style2 text"> Approved</span>
+                        <span class="pending-style style1">Processing</span>
                       <%}%>
                   <%}%>
                 </p>

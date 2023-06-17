@@ -1,24 +1,25 @@
+const { SITE } = require("./db")
 
 // module.exports.localgovs = [
-//     {street : "Alimosho", hide : true, group : []},
-//     {street : "Ajeromi-ifelodun", hide : true, group : []},
-//     {street : "Mushin", hide : true, group : []},
-//     {street : "Oshodi-Isolo", hide : true, group : []},
-//     {street : "Ojo", hide : true, group : []},
-//     {street : "Ikorodu", hide : true, group : []},
-//     {street : "Surulere", hide : true, group : []},
-//     {street : "Agege", hide : true, group : []},
-//     {street : "Ifako-Ijaiye", hide : true, group : []},
-//    {street :  "Somolu", hide : true, group : []},
-//    {street :  "Amuwo-Odofin", hide : true, group : []},
-//    {street :  "Lagos Mainland", hide : true, group : []},
-//     {street : "Ikeja", hide : true, group : []},
-//     {street : "Eti-Osa", hide : true, group : []},
-//     {street : "Badagry", hide : true, group : []},
-//     {street : "Apapa", hide : true, group : []},
-//     {street : "Lagos Island", hide : true, group : []},
-//     {street : "Epe", hide : true, group : []},
-//     {street : "Ibeju-Lekki", hide : true, group : []}
+//     {localgov : "Alimosho", hide : true, group : []},
+//     {localgov : "Ajeromi-ifelodun", hide : true, group : []},
+//     {localgov : "Mushin", hide : true, group : []},
+//     {localgov : "Oshodi-Isolo", hide : true, group : []},
+//     {localgov : "Ojo", hide : true, group : []},
+//     {localgov : "Ikorodu", hide : true, group : []},
+//     {localgov : "Surulere", hide : true, group : []},
+//     {localgov : "Agege", hide : true, group : []},
+//     {localgov : "Ifako-Ijaiye", hide : true, group : []},
+//    {localgov :  "Somolu", hide : true, group : []},
+//    {localgov :  "Amuwo-Odofin", hide : true, group : []},
+//    {localgov :  "Lagos Mainland", hide : true, group : []},
+//     {localgov : "Ikeja", hide : true, group : []},
+//     {localgov : "Eti-Osa", hide : true, group : []},
+//     {localgov : "Badagry", hide : true, group : []},
+//     {localgov : "Apapa", hide : true, group : []},
+//     {localgov : "Lagos Island", hide : true, group : []},
+//     {localgov : "Epe", hide : true, group : []},
+//     {localgov : "Ibeju-Lekki", hide : true, group : []}
 // ]
 
 
