@@ -18,7 +18,7 @@ router.use(async function(req,res,next){
             res.locals.amenities = amenities
             res.locals.propsSelection = propsSelection
             res.locals.contactsSelect = contactsSelect
-            res.locals.division = res.locals.site.division.filter(d=> !d.hide)
+            res.locals.division = res.locals.site.division
         }
         if(req.url.toLowerCase().startsWith("/myprops") || (req.url.startsWith("/profile") && req.url.length < 20) ){
             res.locals.ownprops = await APARTMENTS.find({postedBy : req.user._id}).lean()
@@ -44,7 +44,7 @@ router.get("/", function(req,res){
 router.get("/newproperty", function(req,res){
     res.render("private/newproperty")
 })
-router.get("/newlocation", function(req,res){
+router.get("/newlocation", function(req,res){ 
     res.render("private/newlocation")
 })
 
@@ -54,12 +54,11 @@ if carousel images < 8 it wont let options to add new images
 */
 router.get("/edit/:id", async function(req,res){
     try{
-        console.log(req.user.email, req.user.admin)
         res.locals.propsSelection = propsSelection
-        res.locals.prop = await APARTMENTS.findById(req.params.id).populate("postedBy", "name")
-        if(req.user.admin || req.user._id == res.locals.prop.postedby) return res.render("private/editpage")
-        return res.redirect("back")
-        
+        res.locals.prop = await APARTMENTS.findById(req.params.id).populate("postedBy", "name").lean()
+        if(!req.user.admin &&  JSON.stringify(req.user._id) !== JSON.stringify(res.locals.prop.postedBy._id)) return res.redirect("back")
+        if(res.locals.prop.edited) res.locals.prop = {...res.locals.prop, ...res.locals.prop.history}
+        return res.render("private/editpage")
 
     }catch(e){
         console.log(e)
@@ -67,10 +66,20 @@ router.get("/edit/:id", async function(req,res){
     }
 })
 
-router.get("/edited/:id", function(req,res){
+router.get("/edited/:id", async function(req,res){
   // fetch with {_id , edited : true}
   // Link back to here from details page under approved button as an underlined edited blue text
-  
+  try{
+      const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true})
+      if(!apt) return res.send("no Property found.. go back and refresh page.")
+      res.locals.prop = apt
+      res.render("edited")
+
+
+  }catch(e){
+        console.log(e)
+        return res.send("Internal Error! please report if this error persist ")
+    }
 })
 
 router.get("/profile", function(req,res){
