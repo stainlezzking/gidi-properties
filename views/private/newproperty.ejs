@@ -198,7 +198,7 @@
                         <p class="mb30">Make sure information is correct.</p>
 
 
-                        <input type="hidden" name="division" value="<%= JSON.stringify(division) %>">
+                        <input type="hidden" namex="division" value="<%= JSON.stringify(division) %>">
 
 
                         <div class="form-style1" >
@@ -317,6 +317,17 @@
                                 <textarea cols="30" name="privatenote" rows="5" placeholder="detailed direction from the area "></textarea>
                               </div>
                             </div>
+                            <div class="col-sm-12">
+                              <div class="mb20">
+                                <label class="heading-color ff-heading mb10 d-block">Select the box below only if you provided all information about this property, including clear images. Do not select if otherwise and write a note about information left in the admin box directly above </label>
+                                  <div class="switch-style1 mb10">
+                                    <div class="form-check form-switch">
+                                      <label class="form-check-label" for="flexSwitchCheckDefault2">COMPLETE</label>
+                                      <input class="form-check-input" name="complete" style="cursor: pointer;" type="checkbox" id="flexSwitchCheckDefault2" >
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
                           </form>
                           <div class="col-md-12 mt30">
                             <div class="d-sm-flex justify-content-between">
@@ -381,10 +392,10 @@
     }
     document.forms[0].addEventListener("submit", function(e){
       const forms = document.forms
-      if(!forms[1].checkValidity() || !forms[2].checkValidity() || !forms[3].reportValidity()){
-        e.preventDefault()
-        // show error pop up 
-      }
+      // if(!forms[1].checkValidity() || !forms[2].checkValidity() || !forms[3].reportValidity()){
+      //   e.preventDefault()
+      //   // show error pop up 
+      // }
       // the parent form doesnt contain the child form values
       const nodes = document.querySelectorAll("form[delete-b4-submit]");
       nodes.forEach(node=> node.replaceWith(...node.childNodes))
@@ -398,7 +409,7 @@
 <script>
   // local government and area select option changes
 
-    const division = JSON.parse(document.querySelector("input[name='division']").value)
+    const division = JSON.parse(document.querySelector("input[namex='division']").value)
       let html = ""  
       division.filter(h=> !h.hide).forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
       document.querySelector("select[name='localgovs']").innerHTML += html

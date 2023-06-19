@@ -6,12 +6,12 @@ const {APARTMENTS, SITE} = require("../modules/db")
 
 Router.post("/newproperty",  upload.array('images', 12), function(req,res, next){
    const contacts = [];
-   const {name,reach} = req.body
+   const {name,reach, incomplete} = req.body
     req.body.whois.forEach((whois,i)=>{
         if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
     })
     req.body.carousel = req.files.map(i=> {return{ url :"/uploads/"+i.filename, show : true}})
-   APARTMENTS.create({...req.body, contacts, postedBy : req.user._id })
+   APARTMENTS.create({...req.body, complete : Boolean(req.body.complete), contacts, postedBy : req.user._id })
    .then(d=> res.redirect("/details/"+ d.id ))
     .catch(e=>   next({m : e.message, r : "/dashboard/newproperty", showflash: true}))
     // upload the image

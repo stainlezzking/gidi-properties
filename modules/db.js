@@ -38,7 +38,8 @@ const apartmentobject = {
     description : String,
     contacts : [{ name : String, reach : String, whois : String }],
     proptype : String, // add to all schemas
-    amenities : [String]
+    amenities : [String],
+    privatenote : String,
 }
 
 
@@ -53,7 +54,8 @@ const apartment = mongoose.Schema({
     // admin process
     edited : {type : Boolean, default : false},
     approved : {type : Boolean, default : false},
-    privatenote : String,
+    // complete means all information are provided clear and correct
+    complete : {type : Boolean, default : false}
 }, {timestamps : true})
 
 const privateprops = mongoose.Schema({
