@@ -18,12 +18,18 @@
                       <li><a href="/listing"> Lands </a></li>
                       <li><a href="/listing"> Shops</a></li>
                     </ul>
-                </li>
+                  </li>
+            
                 </ul>
               </div>
               <div class="col-auto">
                 <div class="d-flex align-items-center">
-                  <a class="login-info d-flex align-items-center" data-bs-toggle="modal" href="#exampleModalToggle" role="button"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a>
+                  <% console.log(typeof activeurl, typeof activeurl  == "undefined")%>
+                  <% if(!user){%>
+                    <a class="login-info d-flex align-items-center" data-bs-toggle="modal" href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a>
+                  <%}else if(typeof activeurl == "undefined" ){%>
+                      <a class="login-info d-flex align-items-center"  href="/dashboard" ><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block"> Dashboard</span></a>
+                  <%}%>
                   <a class="ud-btn btn-transparent add-property bdrs60 mx-2 mx-xl-4" href="page-dashboard-add-property.html">Add Property<i class="fal fa-arrow-right-long"></i></a>
                   <a class="sidemenu-btn filter-btn-right" href="#"><img src="/x-x/images/dark-nav-icon.svg" alt=""></a>
                 </div>

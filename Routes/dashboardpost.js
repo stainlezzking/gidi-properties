@@ -47,12 +47,8 @@ Router.post("/edit/:id", upload.array('images', 8), async function(req,res,next)
     // Edit should have a notification of its own... with the previous confirmed one still showing
     // put back processing status in my props and details page
     // add Edited status
-    // when confirmed, those props should be deleted from the history obj to prevent
-    // it from showing
+
     // if carousel + new images > 8 show error
-    // what to do when files are invloved
-    // show confirm update button in home page
-    // all carousel exists on history so its just going to be an overhaul
     try{
         const aparte = await APARTMENTS.findById(req.params.id)
         if(!aparte) return res.send("No propertie could be found with id : "+req.params.id)
@@ -70,7 +66,12 @@ Router.post("/edit/:id", upload.array('images', 8), async function(req,res,next)
             return {url : ca.url, show : false}})
         // upload image to server
         if(req.files.length) req.body.carousel.push(...req.files.map(i=> {return {url : "/uploads/"+i.filename, show : true}}))
-        await APARTMENTS.updateOne({_id : req.params.id}, {edited : true, history : req.body})
+        if(req.user.admin) {
+            await APARTMENTS.updateOne({_id : req.params.id}, {...req.body})
+        }else{
+            await APARTMENTS.updateOne({_id : req.params.id}, {edited : true, history : req.body})
+        }
+        
         return res.redirect("/details/"+req.params.id)
 
 }catch(e){

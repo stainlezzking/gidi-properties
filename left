@@ -1,6 +1,7 @@
 
 
 -- Edit Listing
+    edits made by admins shouldnt need confirmation
 
 - Add new property
     switch between property types shows different inputs

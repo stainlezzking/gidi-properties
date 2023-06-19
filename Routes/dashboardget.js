@@ -38,6 +38,7 @@ router.use(async function(req,res,next){
 */
 
 router.get("/", function(req,res){
+    console.log(res.locals.user)
     res.render("private/dashboard.ejs")
 })
 
@@ -45,6 +46,7 @@ router.get("/newproperty", function(req,res){
     res.render("private/newproperty")
 })
 router.get("/newlocation", function(req,res){ 
+    if(!req.user.admin) return res.redirect("back")
     res.render("private/newlocation")
 })
 

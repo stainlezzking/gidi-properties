@@ -58,10 +58,9 @@ Approve edited posts -
 */
 
 Router.get("/edited/:id", async function(req,res){
-    // fetch with {_id , edited : true}
     // Link back to here from details page under approved button as an underlined edited blue text
     try{
-        const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true}).populate("postedBy", "name")
+        const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true}).populate("postedBy", "name").lean()
         if(!apt) return res.send("no Property found.. go back and refresh page.")
         res.locals.prop = apt
         res.render("private/edited")
@@ -75,9 +74,15 @@ Router.get("/edited/:id", async function(req,res){
 /*
 approve Edit 
 */
-Router.post("/approve/edit/:id", async function(req,res){
+Router.post("/approve/edit/:id",express.urlencoded({extended : false}), async function(req,res){
+    const approvedUpdates = req.body
+    const obnArrys = ['contacts', 'amenities', 'carousel' ]
+    for(props in approvedUpdates){
+        if(obnArrys.includes(props))  approvedUpdates[props] = JSON.parse(approvedUpdates[props]);  
+    }
     try{
-        await APARTMENTS.updateOne({_id : req.params.id}, {edited : false})
+        await APARTMENTS.updateOne({_id : req.params.id}, {...approvedUpdates,edited : false, history : null})
+        res.redirect("/details/"+req.params.id)
     }catch(e){
         console.log(e)
         res.send("An error Occured trying to Approve property")

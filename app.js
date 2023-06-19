@@ -46,7 +46,7 @@ app.use(function(err,req,res,next){
 app.get("/logout", (req, res)=>{
     req.logOut(async function(e) {
         if(e) return res.send("An error occured Loggin you out")
-        res.redirect("/lising")
+        res.redirect("/listing")
     })
 })
 app.use(function(req,res,next){

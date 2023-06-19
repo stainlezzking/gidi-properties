@@ -24,6 +24,19 @@
     /* background: green; */
     display: block;
 }
+i{
+  cursor: pointer;
+}
+.selected{
+  background-color: #9bee9c !important;
+}
+i.fa-circle-xmark:hover {
+  color:#f59393;
+}
+i.fa-circle-check:hover {
+  color:#9bee9c;
+}
+
 </style>
 </head>
 <body>
@@ -64,11 +77,97 @@
                 <p class="text">this property was updated by <%= prop.postedBy.name.split(" ")[0] %> on <%= prop.updatedAt.toString().slice(0,10) %> </p>
               </div>
             </div>
+          <div id="liveAlertPlaceholder" class="mt-2"></div>
+
           </div>
-          <form class="row" action="/admin/approve/edit/<%= prop._id %>" method="POST"  enctype="multipart/form-data">
+          <form class="row" action="/admin/approve/edit/<%= prop._id %>" method="POST" >
             <div class="col-xl-12">
               <div class="ps-widget bgc-white bdrs12 default-box-shadow2 pt30 mb30 overflow-hidden position-relative">
-               
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Present</th>
+                      <th scope="col">Changes</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+              <% for(props in prop.history){%>
+                  <%if(props == 'carousel'){%>
+                    <tr class="eachrow" id="carousel">
+                      <td class="decline">
+                        <% prop.carousel.filter(i=>i.show).forEach(image=>{%>
+                          <img src="<%= image.url %>" width="100px" class="d-inline-block">
+                          <%})%>
+                          <input  type="hidden" xname="<%= props %>" value="<%=JSON.stringify(prop.carousel)%>">
+                      </td>
+                      <td class="accept">
+                        <% prop.history.carousel.filter(i=>i.show).forEach(image=>{%>
+                          <img src="<%= image.url %>" width="100px" class="d-inline-block">
+                          <%})%>
+                          <input  type="hidden" xname="<%= props %>" value="<%=JSON.stringify(prop.history.carousel)%>">
+                      </td>
+                      <td>
+                        <i class="fa-sharp fa-solid fa-lg fa-circle-check" target-parent="#carousel" target-choice="accept"></i>
+                        <i class="fa-sharp fa-solid fa-lg fa-circle-xmark" target-parent="#carousel" target-choice="decline"></i>
+                      </td>
+                    </tr>
+                  <%}%>
+                  <!-- updating contact just adds new contact the the array so no need to compare -->
+                    <%if(props == 'contacts'){%>
+                      <tr class="eachrow" id="contact">
+                        <td colspan="2" class="text-center accept">
+                          <p> Position -- Name -- Contact</p>
+                          <% prop.history.contacts.forEach(contact=>{%>
+                           <p><%= contact.whois + "--" + contact.name + "--" + contact.reach%></p> 
+                          <%})%>
+                          <input  type="hidden" xname="<%= props %>" value="<%=JSON.stringify(prop.history.contacts)%>">
+                        </td>
+                        <td>
+                          <i class="fa-sharp fa-solid fa-lg fa-circle-check" target-parent="#contact" target-choice="accept"></i>
+                        <i class="fa-sharp fa-solid fa-lg fa-circle-xmark" target-parent="#contact" target-choice="decline"></i>
+                        </td>
+                      </tr>
+                    <%}%>
+                      <%if(props == 'amenities'){%>
+                        <tr class="eachrow" id="amenities">
+                          <td  class="decline">
+                            <%= prop.amenities.join(",")%>
+                            <input  type="hidden" xname="<%= props %>" value="<%=JSON.stringify(prop.amenities)%>">
+                          </td>
+                          <td class="accept">
+                            <%= prop.history.amenities.join(",")%>
+                            <input  type="hidden" xname="<%= props %>" value="<%=JSON.stringify(prop.history.amenities)%>">
+                          </td>
+                          <td>
+                            <i class="fa-sharp fa-solid fa-lg fa-circle-check" target-parent="#amenities" target-choice="accept"></i>
+                            <i class="fa-sharp fa-solid fa-lg fa-circle-xmark" target-parent="#amenities" target-choice="decline"></i>
+                          </td>
+                        </tr>
+                      <%}%>
+                      <%if(typeof prop.history[props] == 'string' ||  typeof prop.history[props] == 'number' ){%>
+                        <tr class="eachrow" id="<%=props%>">
+                          <td class="decline">
+                            <%= prop[props] %>
+                            <input  type="hidden" xname="<%= props %>" value="<%=prop[props]%>">
+                          </td>
+                          <td class="accept">
+                            <%= prop.history[props]%>
+                            <input  type="hidden" xname="<%= props %>" value="<%=prop.history[props]%>">
+                          </td>
+                          <td>
+                            <i class="fa-sharp fa-solid fa-lg fa-circle-check" target-parent="#<%=props%>" target-choice="accept"></i>
+                            <i class="fa-sharp fa-solid fa-lg fa-circle-xmark" target-parent="#<%=props%>" target-choice="decline"></i>
+                          </td>
+                        </tr>
+                      <%}%>
+                <%}%>
+
+                  </tbody>
+                </table>
+                <div class="navpill-style1">
+                  <button class="nav-link fw500 dark-color mx-auto mb-2" id=" nav-pill-custom" > Submit</button>
+                </div>
               </div>
             </div>
           </form>
@@ -98,6 +197,51 @@
 <!-- script  -->
   <%- include("./partials/script.ejs") -%>
   <!-- script end : -->
+
+  <script>
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+    const appendAlert = (message, type) => {
+      const wrapper = document.createElement('div')
+      wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+      ].join('')
+
+      alertPlaceholder.append(wrapper)
+    }
+
+  </script>
+
+  <script>
+    const choices = ['accept', 'decline']
+    const makeselection = function(e){
+      const parent = document.querySelector(e.target.getAttribute("target-parent"))
+      // adding name attribute to selected
+      parent.querySelector(`td.${e.target.getAttribute("target-choice")} input`)?.setAttribute("name", parent.querySelector(`.${e.target.getAttribute("target-choice")} input`).getAttribute("xname"))
+      parent.querySelector(`td.${e.target.getAttribute("target-choice")}`)?.classList.add("selected")
+     // removing name attribute from unselected
+      parent.querySelector(`td.${choices.filter(ch=> ch !==  e.target.getAttribute("target-choice"))[0]} input`)?.removeAttribute("name")
+      parent.querySelector(`td.${choices.filter(ch=> ch !==  e.target.getAttribute("target-choice"))[0]}`)?.classList.remove("selected")
+      // paint the box of selected && paint the I-tag
+    }
+    const checkAllChoices = function(e){
+      const allrows = Array.from(document.getElementsByClassName("eachrow"))
+      let pass = true;
+      allrows.forEach(row=>{
+        const rowinputs = Array.from(row.querySelectorAll("input"))
+        if(rowinputs.length == 1) return;
+        pass = pass &&  rowinputs.map(i=> i.getAttributeNames().includes("name")).includes(true)
+      })
+     if(pass) return ;
+     e.preventDefault();
+     return appendAlert('Please make sure all changes are either approved or declined!', 'primary')
+    }
+    document.forms[0].addEventListener("submit", checkAllChoices)
+    const I = Array.from(document.getElementsByTagName("I"))
+    I.forEach(i=> i.addEventListener("click", makeselection ))
+  </script>
 </body>
 
 </html>

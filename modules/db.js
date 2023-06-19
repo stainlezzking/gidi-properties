@@ -37,7 +37,7 @@ const apartmentobject = {
     cost : Number,
     description : String,
     contacts : [{ name : String, reach : String, whois : String }],
-    proptype : {type : String, default : "apartment"}, // add to all schemas
+    proptype : String, // add to all schemas
     amenities : [String]
 }
 
@@ -47,7 +47,6 @@ const apartment = mongoose.Schema({
     // selfcon and rooms props
     ...apartmentobject,
     postedBy : {type : mongoose.Schema.Types.ObjectId, ref : "account"},
-    admin : {type : Boolean, default : false},
     // fetch postedBy in details page as ref
     postedby : mongoose.Schema.Types.ObjectId,
     history : {...apartmentobject, confirmed : {type : Boolean, default : false}},

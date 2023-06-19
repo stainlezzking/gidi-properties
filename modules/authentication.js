@@ -59,7 +59,7 @@ passport.authenticate("account", {
 
 app.post("/auth/register", express.urlencoded({ extended: false }), async function(req, res, next) {
 try{
-    const user = await ACCS.findOne({ _id : req.body.email.toLowerCase()});
+    const user = await ACCS.findOne({ email : req.body.email.toLowerCase()});
     if (user) return next({m : "This email has been used", r: "/auth/register", showflash : true})
     await ACCS.create({...req.body, email : req.body.email.toLowerCase(), password : md5(req.body.password)})
     return next()

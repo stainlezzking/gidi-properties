@@ -105,10 +105,10 @@
                 <h3 class="price mb-0">&#x20A6;<%= property.cost.toLocaleString() %></h3>
                 <p class="text space fz15"> 
                   <% if(user.agent){%>
-                    <% if(property.approved){%>
-                      <span class="pending-style style2 text"> Approved</span>
+                    <% if(!property.approved || property.edited){%>
+                      <span class="pending-style style1">Processing</span>
                       <%}else{%>
-                        <span class="pending-style style1">Processing</span>
+                        <span class="pending-style style2 text"> Approved</span>
                       <%}%>
                   <%}%>
                 </p>
@@ -117,7 +117,7 @@
                     <form class="text space fz15 <%= property.approved ? 'mr10' : '' %>" method="POST" action="/admin/delete/prop/<%= property._id %>">
                       <button class="ud-btn btn-thm" value="<%= property._id %>" type="submit">Delete</i></button>
                     </form>
-                    <% if(property.approved){ %>
+                    <% if(!property.approved){ %>
                       <form class="text space fz15" method="POST" action="/admin/approve/prop/<%= property._id %>">
                         <button class="ud-btn btn-fb" value="<%= property._id %>" type="submit">Approve</i></button>
                       </form>

@@ -1,6 +1,6 @@
 const { SITE } = require("./db")
 
-// module.exports.localgovs = [
+// localgovs = [
 //     {localgov : "Alimosho", hide : true, group : []},
 //     {localgov : "Ajeromi-ifelodun", hide : true, group : []},
 //     {localgov : "Mushin", hide : true, group : []},
