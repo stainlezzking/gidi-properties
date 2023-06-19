@@ -41,7 +41,7 @@
             <div class="col-xxl-3">
               <div class="dashboard_title_area">
                 <h2>Manage Listings</h2>
-                <p class="text">We are glad to see you again!</p>
+                <p class="text">Filter Listings by incomplete, Processing, Approved</p>
               </div>
             </div>
             <div class="col-xxl-9">
@@ -52,6 +52,7 @@
                       <option value="">Select</option>
                       <option value="approved">Approved</option>
                       <option value="processing">Processing</option>
+                      <option value="complete">Incomplete</option>
                       <option value="disabled">Disabled</option>
                     </select>
                   </div>
@@ -77,7 +78,7 @@
                     </thead>
                     <tbody class="t-body">
                         <% ownprops.forEach(props=>{%>
-                          <tr class="listings" status="<%= props.disabled ? 'disabled' : props.approved ? 'processing' : 'approved' %>">
+                          <tr class="listings" complete="<%= props.complete %>" status="<%= props.disabled ? 'disabled' : props.approved ?  'approved' : 'processing'%>">
                             <th scope="row">
                             <div class="listing-style1 dashboard-style d-xxl-flex align-items-center mb-0">
                               <div class="list-thumb">
@@ -90,13 +91,16 @@
                               </div>
                             </div>
                           </th>
-                          <td class="vam"><%= props.createdAt %></td>
+                          <td class="vam"><%= props.createdAt.toString().slice(0,15) %></td>
                           <td class="vam text-center">
                             <%if(props.approved){%>
                               <span class="pending-style style2">Approved</span>
                               <%}else{%> 
                                 <span class="pending-style style1">Processing</span>
                                 <%}%>
+                                <% if(!props.complete){%>
+                                  <p class="text-center text-black-50 small pt-1">Incomplete</p>
+                                  <%}%>
                                 <% if(props.edited){%>
                                   <a href="/admin/edited/<%=props._id %>" style="text-decoration: underline;" class="text-primary d-block py-2"> edited</a>
                                   <%}%>
@@ -110,26 +114,6 @@
                           <%})%>
                         </tbody>
                       </table>
-                  <!-- <div class="mbp_pagination text-center mt30">
-                    <ul class="page_navigation">
-                      <li class="page-item">
-                        <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">4</a></li>
-                      <li class="page-item"><a class="page-link" href="#">5</a></li>
-                      <li class="page-item"><a class="page-link" href="#">...</a></li>
-                      <li class="page-item"><a class="page-link" href="#">20</a></li>
-                      <li class="page-item">
-                        <a class="page-link" href="#"><span class="fas fa-angle-right"></span></a>
-                      </li>
-                    </ul>
-                    <p class="mt10 pagination_page_count text-center">1 – 20 of 300+ property available</p>
-                  </div> -->
                 </div>
               </div>
             </div>
@@ -170,7 +154,9 @@
      Listings.forEach(list=>{
        if(!e.target.value) return list.classList.remove("d-none")
        list.classList.remove("d-none")
-       if(list.getAttribute("status") !== e.target.value) return list.classList.add("d-none")
+       if(e.target.value == "complete" && list.getAttribute("complete") == 'true') return list.classList.add("d-none")
+       console.log(e.target.value,list.getAttribute("complete") == 'true', list.getAttribute("complete"))
+       if(e.target.value !== "complete" && list.getAttribute("status") !== e.target.value) return list.classList.add("d-none")
      })
    }
   </script>

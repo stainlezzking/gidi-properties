@@ -45,12 +45,11 @@
       <button onclick="myFunction()" class="dropbtn"><i class="fa fa-bars pr10"></i> Dashboard Navigation</button>
       <ul id="myDropdown" class="dropdown-content">
         <li class="<%= activeurl == '/dashboard' ? 'active' : '' %>"><a href="/dashboard"><i class="flaticon-discovery mr10"></i>Dashboard</a></li>
-        <li class="<%= activeurl == '/' ? '-is-active' : '' %>"><a href="page-dashboard-message.html"><i class="flaticon-chat-1 mr10"></i>Message</a></li>
         <li><p class="fz15 fw400 ff-heading mt30 pl30">MANAGE LISTINGS</p></li>
-        <li class="<%= activeurl == '/newproperty' ? 'active' : '' %>"><a href="/dashboard/newlocation"><i class="flaticon-new-tab mr10"></i>Add New Location</a></li>
+        <li class="<%= activeurl == '/newlocation' ? 'active' : '' %>"><a href="/dashboard/newlocation"><i class="flaticon-new-tab mr10"></i>Add New Location</a></li>
         <li class="<%= activeurl == '/newproperty' ? 'active' : '' %>"><a href="/dashboard/newproperty"><i class="flaticon-new-tab mr10"></i>Add New Property</a></li>
         <li class="<%= activeurl == '/myprops' ? 'active' : '' %>"><a href="/dashboard/myprops"><i class="flaticon-home mr10"></i>My Properties</a></li>
-        <li class="<%= activeurl == '/myprops' ? 'active' : '' %>"><a href="/admin/managelisting"><i class="flaticon-home mr10"></i>ManageListing</a></li>
+        <li class="<%= activeurl == '/managelisting' ? 'active' : '' %>"><a href="/admin/managelisting"><i class="flaticon-home mr10"></i>ManageListing</a></li>
         <li><p class="fz15 fw400 ff-heading mt30 pl30">MANAGE ACCOUNT</p></li>
         <% if(user.admin || user.adminaccess ){%>
           <li class="<%= activeurl == '/manageaccounts' ? 'active' : '' %>"><a href="/admin/manageaccounts"><i class="flaticon-protection mr10"></i>Manage Accounts</a></li>
