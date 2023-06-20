@@ -1,5 +1,6 @@
 const express = require("express")
 const { APARTMENTS, SITE, ACCS } = require("../modules/db")
+const { propsSelection, amenities } = require("../modules/utilities")
 const router = express.Router()
 
 
@@ -22,9 +23,18 @@ router.use(async function(req,res,next){
 router.get("/", function(req,res){
     res.render("index")
 })
-router.get("/listing", function(req,res){
-    // '/houses' , 'lands' , 'shops' , 
-    res.render("listing")
+
+router.get("/listings", async function(req,res){
+        res.locals.propSelection = propsSelection
+        res.locals.amenities = amenities
+        res.locals.division =  res.locals.site.division
+        // '/houses' , 'lands' , 'shops' , 
+        res.render("listing")
+})
+
+router.get("/listings/filter", function(req,res){
+    console.log(req.query)
+    res.send("connection")
 })
 
 router.get("/details/:id", async function(req,res, next){

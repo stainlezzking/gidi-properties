@@ -12,7 +12,7 @@
 
 <%- include("./partials/headLinks.ejs") -%>
 <!-- Title -->
-<title>Homez - Real Estate HTML Template</title>
+<title>REAL ESTATE LISTINGS</title>
 
 </head>
 <body>
@@ -21,7 +21,11 @@
   
 <!-- all header codes -->
   <%- include("./partials/headerNpreloader.ejs") -%>
-<!-- header ends here -->
+  <!-- header ends here -->
+  
+  <!-- Filter -->
+  <%- include("./partials/listingfilter.ejs") -%>
+<!-- ### -->
 
   <div class="body_content">
     <!-- Breadcumb Sections -->
@@ -38,6 +42,12 @@
               <a href="#" class="filter-btn-left mobile-filter-btn d-block d-lg-none"><span class="flaticon-settings"></span> Filter</a>
             </div>
           </div>
+          <form method="POST" action="/dashboard/search" class="ui-content mb10 col-lg-8">
+            <div class="form-style1">
+              <label class="form-label fw600 dark-color">Search</label>
+              <input type="text" name="id" class="form-control active" placeholder="Search by ID">
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -45,11 +55,12 @@
     <!-- Property All Lists -->
     <section class="pt0 pb90 bgc-f7">
       <div class="container">
+        
         <div class="row">
           <div class="col-xl-9 d-none d-lg-block">
             <div class="dropdown-lists">
               <ul class="p-0 text-center text-xl-start">
-                <li class="list-inline-item position-relative">
+                <!-- <li class="list-inline-item position-relative">
                   <button type="button" class="open-btn mb15 dropdown-toggle" data-bs-toggle="dropdown">For Sale <i class="fa fa-angle-down ms-2"></i></button>
                   <div class="dropdown-menu">
                     <div class="widget-wrapper bdrb1 pb25 mb0 pl20">
@@ -79,28 +90,14 @@
                   <div class="dropdown-menu">
                     <div class="widget-wrapper bdrb1 pb25 mb0 pl20">
                       <h6 class="list-title">Property Type</h6>
-                      <div class="checkbox-style1">
-                        <label class="custom_checkbox">Houses
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Apartments
-                          <input type="checkbox" checked="checked">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Office
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Villa
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Townhome
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
+                      <%propSelection.forEach(property=>{%>
+                        <div class="checkbox-style1">
+                          <label class="custom_checkbox"> <%= property %>
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                          </label>
+                          </div>
+                      <%})%>
                     </div>
                     <div class="text-end mt10 pr10">
                       <button type="button" class="done-btn ud-btn btn-thm dropdown-toggle">Done</button>
@@ -112,7 +109,7 @@
                   <div class="dropdown-menu dd3">
                     <div class="widget-wrapper bdrb1 pb25 mb0 pl20 pr20">
                       <h6 class="list-title">Price Range</h6>
-                      <!-- Range Slider Desktop Version -->
+                      // Range Slider Desktop Version 
                       <div class="range-slider-style1">
                         <div class="range-wrapper">
                           <div class="slider-range mt30 mb20"></div>
@@ -193,7 +190,7 @@
                       <button type="button" class="done-btn ud-btn btn-thm drop_btn4">Done</button>
                     </div>
                   </div>
-                </li>
+                </li> -->
                 <li class="list-inline-item">
                   <!-- Advance Features modal trigger -->
                   <button type="button" class="open-btn mb15" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="flaticon-settings me-2"></i> More Filter</button>
@@ -201,22 +198,9 @@
               </ul>
             </div>
           </div>
-          <div class="col-xl-3">
-            <div class="page_control_shorting mb30 d-flex align-items-center justify-content-center justify-content-xl-end">
-              <div class="pcs_dropdown pr10"><span>Sort by</span>
-                <select class="selectpicker show-tick">
-                  <option>Newest</option>
-                  <option>Best Seller</option>
-                  <option>Best Match</option>
-                  <option>Price Low</option>
-                  <option>Price High</option>
-                </select>
-              </div>
-              <a class="pl15 pr15 bdrl1 bdrr1 d-none d-md-block" href="#">Grid</a>
-              <a class="pl15 d-none d-md-block" href="#">List</a>
-            </div>
-          </div>
         </div>
+
+
         <div class="row">
           <div class="col-sm-6 col-lg-4">
             <div class="listing-style1">
@@ -454,6 +438,8 @@
             </div>
           </div>
         </div>
+
+        <!-- pagination -->
         <div class="row">
           <div class="mbp_pagination text-center">
             <ul class="page_navigation">
@@ -476,6 +462,7 @@
             <p class="mt10 pagination_page_count text-center">1 – 20 of 300+ property available</p>
           </div>
         </div>
+        <!-- ### -->
       </div>
     </section>
 
@@ -487,6 +474,26 @@
 </div>
 
 <%- include("./partials/scriptLinks.ejs") -%>
+
+<script>
+  // local government and area select option changes
+
+    const division = JSON.parse(document.querySelector("input[namex='division']").value)
+      let html = ""  
+      division.filter(h=> !h.hide).forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
+      document.querySelector("select[name='localgovs']").innerHTML += html
+      $(".selectpicker").selectpicker("refresh")
+      
+      
+      function switchAreas(e){
+          const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
+          let html = "<option value=''> Nothing selected </option>" 
+          chosen.group.forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
+          document.querySelector("select[name='area']").innerHTML = html
+          $(".selectpicker").selectpicker("refresh")
+      }
+      document.querySelector("select[name='localgovs']").addEventListener("change", switchAreas)
+</script>
 </body>
 
 </html>

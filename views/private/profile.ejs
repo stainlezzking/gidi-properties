@@ -50,7 +50,8 @@
                     <h4 class="mb20"> <%= user.name %></h4>
                     <p class="mb10 ff-heading">Email : <%= user.email %></p>
                     <p class="ff-heading"> Verified : <%= user.admin ? "Admin" : user.agent ? "Agent" : "User account" %></p>
-                    <p class="ff-heading"> Posts : <%= ownprops.length %></p>
+                    <p class="ff-heading"> Your Listings: <%= ownprops.length %></p>
+                    <p class="ff-heading"> Incomplete Listings: <%= ownprops.filter(p=> !p.complete).length %></p>
                   </div>
                   <% if(!user.admin && user.adminaccess){%>
                     <div class="col-sm-12 col-md-6">

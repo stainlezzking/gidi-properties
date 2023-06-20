@@ -86,10 +86,11 @@
               </div>
               <div class="property-meta d-flex align-items-center">
                 <a class="ff-heading text-thm fz15 bdrr1 pr10 bdrrn-sm" href="#"><i class="fas fa-circle fz10 pe-2"></i>For rent</a>
-                <% if(user && user.agent){%>
-                  <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i> <%= property.updateAt %> </a>
-                <%}%>
-                  <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="<%= user.admin ? '/dashboard/profile/'+property.postedBy.id : '#'%> "><i class="far fa-user pe-2text-capitalize"></i> <%= property.postedBy.name %> </a>
+                <% if(user && user.admin){%>
+                    <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i> <%= property.createdAt.toString().slice(4,10) %> </a>
+                    <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="<%= user.admin ? '/dashboard/profile/'+property.postedBy.id : '#'%> "><i class="far fa-user pe-2text-capitalize"></i> <%= property.postedBy.name %> </a>
+                  <%}%>
+                  <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"> <%= property._id %> </a>
               </div>
             </div>
           </div>
