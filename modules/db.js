@@ -82,10 +82,14 @@ const APARTMENTS = mongoose.model("apartments", apartment)
 const ACTIVE = mongoose.model("activities", activities)
 // const PRIVATEPROPERTY = mongoose.model("privateprop", privateprops)
 
-
-// apartment.create({
-//     rooms : 1, bathroom : 2, kitchen : 1
-// })
+// APARTMENTS.aggregate([
+//     {$sort: { createdAt : -1 } },
+//     {$setWindowFields: {output: {totalCount: {$count: {}}}}},
+//     {$skip: 1 },
+//     {$limit: 10 },
+//     {$project : } 
+// ])
 // .then(d=> console.log(d))
+// .catch(d=> console.log(d))
 
 module.exports = {ACCS, APARTMENTS, SITE, ACTIVE}

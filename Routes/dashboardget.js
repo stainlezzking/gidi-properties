@@ -38,7 +38,6 @@ router.use(async function(req,res,next){
 */
 
 router.get("/", function(req,res){
-    console.log(res.locals.user)
     res.render("private/dashboard.ejs")
 })
 

@@ -34,15 +34,15 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="breadcumb-style1">
-              <h2 class="title"> Home </h2>
-              <div class="breadcumb-list">
+              <h2 class="title"> Listings </h2>
+              <!-- <div class="breadcumb-list">
                 <a href="#">Home</a>
                 <a href="#">For Rent</a>
-              </div>
+              </div> -->
               <a href="#" class="filter-btn-left mobile-filter-btn d-block d-lg-none"><span class="flaticon-settings"></span> Filter</a>
             </div>
           </div>
-          <form method="POST" action="/dashboard/search" class="ui-content mb10 col-lg-8">
+          <form method="POST" action="/dashboard/search" class="ui-content mb10 col-md-8 col-lg-6 mt15">
             <div class="form-style1">
               <label class="form-label fw600 dark-color">Search</label>
               <input type="text" name="id" class="form-control active" placeholder="Search by ID">
@@ -202,7 +202,18 @@
 
 
         <div class="row">
-          <div class="col-sm-6 col-lg-4">
+          <% if(props && props.length){%>
+            <% props.forEach(listprop=>{ %>
+              <%- include("./partials/list.ejs", {listprop}) -%>
+              <%})%>
+          <%}else{%>
+            <div class="py-5 text-center">
+              <h2> No Properties Found </h2>
+            <a href="/listing" class="ud-btn btn-primary">Back to Listing<i class="fal fa-arrow-right-long"></i></a>
+            </div>
+          <%}%>
+          <!-- Manual Listing -->
+          <!-- <div class="col-sm-6 col-lg-4">
             <div class="listing-style1">
               <div class="list-thumb">
                 <img class="w-100" src="/x-x/images/listings/g3-1.jpg" alt="">
@@ -436,28 +447,43 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- pagination -->
         <div class="row">
           <div class="mbp_pagination text-center">
             <ul class="page_navigation">
-              <li class="page-item">
-                <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item"><a class="page-link" href="#">...</a></li>
-              <li class="page-item"><a class="page-link" href="#">20</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#"><span class="fas fa-angle-right"></span></a>
-              </li>
+              <!-- ADD ... if the list is too long -->
+              <% if(pagination.list.length){%>
+                <%if(pagination.currentIndex !== pagination.list[0]){%>
+                  <li class="page-item">
+                    <a class="page-link" href="/listings?page=<%= pagination.currentIndex - 1 %>"> <span class="fas fa-angle-left"></span></a>
+                  </li> 
+                  <%}%>
+                  <%pagination.list.forEach(number=>{%>
+                    <%if( number == pagination.currentIndex){%>
+                      <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#"> <%= number %> <span class="sr-only">(current)</span></a>
+                      </li>
+                      <%}else{%>
+                        <li class="page-item"><a class="page-link" href="/listings?page=<%= number%>"> <%= number %> </a></li>
+                        <%}%>
+
+                  <%})%>
+                  <%if(pagination.totalpages.length > (pagination.list[pagination.list.length - 1])){%>
+                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#"> </a></li> 
+                  <%}%>
+                  <%if(pagination.currentIndex !== pagination.list[pagination.list.length - 1]){%>
+                   <li class="page-item">
+                      <a class="page-link" href="/listings?page=<%= pagination.currentIndex + 1 %>"><span class="fas fa-angle-right"></span></a>
+                    </li> 
+                    <%}%>
+                <%}%>
+                 
+
+              
             </ul>
             <p class="mt10 pagination_page_count text-center">1 – 20 of 300+ property available</p>
           </div>

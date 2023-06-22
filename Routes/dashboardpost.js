@@ -28,7 +28,6 @@ Router.post("/newarea", express.urlencoded({extended : false}), function(req,res
 Router.post("/search",express.urlencoded({extended : false}), async function(req,res){
     try{
         var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$")
-        console.log(checkForHexRegExp.test(req.body.id))
         if(!checkForHexRegExp.test(req.body.id)) return res.render("404", {m : "no property exists with such ID - "+ req.body.id})
         const prop = await APARTMENTS.findById(req.body.id)
         if(!prop) return res.render("404", {m : "no property exists with ID of - "+ req.body.id})

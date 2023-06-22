@@ -19,12 +19,10 @@
                       <li><a href="/listing"> Shops</a></li>
                     </ul>
                   </li>
-            
                 </ul>
               </div>
               <div class="col-auto">
                 <div class="d-flex align-items-center">
-                  <% console.log(typeof activeurl, typeof activeurl  == "undefined")%>
                   <% if(!user){%>
                     <a class="login-info d-flex align-items-center" data-bs-toggle="modal" href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a>
                   <%}else if(typeof activeurl == "undefined" ){%>

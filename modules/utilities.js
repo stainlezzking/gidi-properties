@@ -1,4 +1,4 @@
-const { SITE } = require("./db")
+const { SITE, APARTMENTS } = require("./db")
 
 // localgovs = [
 //     {localgov : "Alimosho", hide : true, group : []},
@@ -50,6 +50,53 @@ module.exports.amenities = [
     },
 ]
 
+// Pagination function
+module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
+    try {
+      const pipeline = [
+      { $match: { } },
+      { $count: 'count' },
+    ];
+  
+    
+   
+    const [result] = await APARTMENTS.aggregate(pipeline);
+    const totalCount = result ? result.count : 0;
+
+    const paginatedData = await APARTMENTS.aggregate([
+      { $match: {  } },
+      { $sort: { createdAt: -1 } },
+      { $skip: (pageNumber - 1) * pageSize },
+      { $limit: pageSize },
+      {$project : {carousel : 1, _id : 1, proptype : 1, cost : 1, bathrooms : 1, rooms : 1, area : 1, label : 1, localgovs : 1}}
+    ]);
+    
+    return {
+      paginatedData,
+      pagin : {pageList : new Array(Math.ceil(totalCount/pageSize)), pageNumber, pageSize}
+    };
+
+    } catch (error) {
+      return next(error)
+    }
+  }
+
+  module.exports.showPaginatedList = function(currentIndex, totalpages){
+    console.log(totalpages, "--totalpages")
+    console.log(currentIndex, "--currentIndex")
+        let startpoint;
+        currentIndex > 5 ? startpoint = (currentIndex-5) : startpoint = currentIndex- (currentIndex-1)
+
+        let endpoint;
+        totalpages.length <= currentIndex+5 ? endpoint = totalpages.length : (currentIndex <= 5 && totalpages.length > currentIndex+5) ? endpoint = (startpoint + 9) : endpoint = currentIndex + 5;
+
+        let pagination = []
+        for(i = startpoint; i<= endpoint; i++){
+        pagination.push(i);
+        }
+        return {list : pagination, currentIndex, totalpages};
+}
+  
 module.exports.contactsSelect = ['Landlord', 'Care-taker', 'Tenant']
 
 module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Houses'] 
