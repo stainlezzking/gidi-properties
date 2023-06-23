@@ -82,8 +82,6 @@ module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
   }
 
   module.exports.showPaginatedList = function(currentIndex, totalpages){
-    console.log(totalpages, "--totalpages")
-    console.log(currentIndex, "--currentIndex")
         let startpoint;
         currentIndex > 5 ? startpoint = (currentIndex-5) : startpoint = currentIndex- (currentIndex-1)
 

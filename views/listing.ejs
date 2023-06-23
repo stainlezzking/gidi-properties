@@ -458,7 +458,7 @@
               <% if(pagination.list.length){%>
                 <%if(pagination.currentIndex !== pagination.list[0]){%>
                   <li class="page-item">
-                    <a class="page-link" href="/listings?page=<%= pagination.currentIndex - 1 %>"> <span class="fas fa-angle-left"></span></a>
+                    <a class="page-link" href="<%= url ? url + '&page='+ (Number(pagination.currentIndex) - 1 ): '/listings?page='+( pagination.currentIndex - 1)  %>"> <span class="fas fa-angle-left"></span></a>
                   </li> 
                   <%}%>
                   <%pagination.list.forEach(number=>{%>
@@ -467,25 +467,22 @@
                         <a class="page-link" href="#"> <%= number %> <span class="sr-only">(current)</span></a>
                       </li>
                       <%}else{%>
-                        <li class="page-item"><a class="page-link" href="/listings?page=<%= number%>"> <%= number %> </a></li>
+                        <li class="page-item"><a class="page-link" href="<%= url ? url + '&page='+ number: '/listings?page='+ number %>  "> <%= number %> </a></li>
                         <%}%>
 
                   <%})%>
                   <%if(pagination.totalpages.length > (pagination.list[pagination.list.length - 1])){%>
                     <li class="page-item"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#"> </a></li> 
+                    <li class="page-item"><a class="page-link" href="<%= url ? url + '&page='+ pagination.list[pagination.list.length -1] : '/listings?page='+ pagination.list[pagination.list.length -1] %> "> <%= pagination.list[pagination.list.length -1] %> </a></li> 
                   <%}%>
                   <%if(pagination.currentIndex !== pagination.list[pagination.list.length - 1]){%>
                    <li class="page-item">
-                      <a class="page-link" href="/listings?page=<%= pagination.currentIndex + 1 %>"><span class="fas fa-angle-right"></span></a>
+                      <a class="page-link" href="<%= url ? url + '&page='+(Number(pagination.currentIndex) + 1) : '/listings?page='+ (pagination.currentIndex + 1 ) %> "><span class="fas fa-angle-right"></span></a>
                     </li> 
                     <%}%>
                 <%}%>
-                 
-
-              
             </ul>
-            <p class="mt10 pagination_page_count text-center">1 – 20 of 300+ property available</p>
+            <!-- <p class="mt10 pagination_page_count text-center">1 – 20 of 300+ property available</p> -->
           </div>
         </div>
         <!-- ### -->

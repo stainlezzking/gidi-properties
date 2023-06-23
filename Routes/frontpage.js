@@ -3,7 +3,7 @@ const { APARTMENTS, SITE, ACCS } = require("../modules/db")
 const { propsSelection, amenities, getPaginatedData, showPaginatedList } = require("../modules/utilities")
 const router = express.Router()
 
-const pageSize = 4
+const pageSize = 5
 
 
 router.use(async function(req,res,next){
@@ -13,11 +13,11 @@ router.use(async function(req,res,next){
         if(req.url.startsWith('/listings')){
             // console.log(req.query.page)
             // limit n page n count n offset
+            res.locals.propSelection = propsSelection
+            res.locals.amenities = amenities
+            res.locals.division =  res.locals.site.division
+            typeof req.query.page == 'object' && req.query.page.length ? req.query.page = req.query.page[req.query.page.length - 1] : null ;
             req.query.page <= 0 || isNaN(req.query.page)  ? req.query.page = 1 : req.query.page = Number(req.query.page)  ;
-            const page = await getPaginatedData(req.query.page, pageSize, next)
-            res.locals.props = page.paginatedData;
-            res.locals.pagination = showPaginatedList(req.query.page,page.pagin.pageList)
-            console.log(res.locals.pagination)
         }
        return req.login(user, function(e){
             if(e) console.log(e)
@@ -35,29 +35,31 @@ router.get("/", function(req,res){
     res.render("index")
 })
 
-router.get("/listings", async function(req,res){
-    
-    
-    // APARTMENTS.find({ parlour : 1,$or : [
-    //     {rooms : 3 },
-    //     {rooms : 10}
-    // ] }, "cost rooms parlour")
-    // .then(d=> console.log(d))
-    // .catch(e=> console.log(e))
-        res.locals.propSelection = propsSelection
-        res.locals.amenities = amenities
-        res.locals.division =  res.locals.site.division
-        // '/houses' , 'lands' , 'shops' , 
-        res.render("listing")
+router.get("/listings", async function(req,res, next){
+    const page = await getPaginatedData(req.query.page, pageSize, next)
+    res.locals.props = page.paginatedData;
+    res.locals.pagination = showPaginatedList(req.query.page,page.pagin.pageList)
+    res.locals.url = null;
+    res.render("listing")
 })
 
-router.post("/listings/filter",express.urlencoded({extended : false}), function(req,res){
+router.get("/listings/filter", async function(req,res, next){
     try{
-        for (props in req.body){
-            if(!req.body[props] ) delete req.body[props]
+        for (props in req.query){
+            if(!req.query[props] ) delete req.query[props]
         }
-        console.log(req.body)
-        res.send("connection")
+        let mainQ = {}
+        req.query.amenities ? mainQ ={ ...mainQ, amenities :   {$in : req.query.amenities}} : null;
+        req.query.proptype ? mainQ =  {...mainQ, proptype : req.query.proptype} : null;
+        req.query.max ? mainQ = {...mainQ, cost : {$lte : req.query.max }} : null;
+        req.query.area ? mainQ = {...mainQ, area : req.query.area} : null ;
+        req.query.rooms ? mainQ = {...mainQ, rooms : { $gte : req.query.rooms}} : null ;
+        req.query.bathrooms ? mainQ = {...mainQ, bathrooms : {$gte : req.query.bathrooms}} : null ;
+        const totalCount = await APARTMENTS.find(mainQ).count()
+        res.locals.props = await APARTMENTS.find(mainQ).sort({createdAt : -1}).skip((req.query.page - 1) * pageSize).limit(pageSize)
+        res.locals.pagination = showPaginatedList(req.query.page,new Array(Math.ceil(totalCount/pageSize)))
+        res.locals.url = req.url
+        res.render("listing")
 
     }catch(e){
         console.log(e)
