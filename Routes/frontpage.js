@@ -1,6 +1,6 @@
 const express = require("express")
 const { APARTMENTS, SITE, ACCS } = require("../modules/db")
-const { propsSelection, amenities, getPaginatedData, showPaginatedList } = require("../modules/utilities")
+const { getPaginatedData, showPaginatedList} = require("../modules/utilities")
 const router = express.Router()
 
 const pageSize = 5
@@ -9,13 +9,9 @@ const pageSize = 5
 router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
-        const user = await ACCS.findOne({email : "azukachukwuebuka07@gmail.com"}).lean()
+        const user = await ACCS.findOne({email : "bishop@gmail.com"}).lean()
         if(req.url.startsWith('/listings')){
-            // console.log(req.query.page)
-            // limit n page n count n offset
-            res.locals.propSelection = propsSelection
-            res.locals.amenities = amenities
-            res.locals.division =  res.locals.site.division
+            res.locals.division =  res.locals.site.division  
             typeof req.query.page == 'object' && req.query.page.length ? req.query.page = req.query.page[req.query.page.length - 1] : null ;
             req.query.page <= 0 || isNaN(req.query.page)  ? req.query.page = 1 : req.query.page = Number(req.query.page)  ;
         }

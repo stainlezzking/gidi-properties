@@ -23,6 +23,7 @@ const accounts = mongoose.Schema({
 }, {timestamps : true})
 
 const apartmentobject = {
+    label : String,
     rooms : Number,
     bathrooms : Number,
     parlour : Number,

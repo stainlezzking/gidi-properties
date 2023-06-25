@@ -13,6 +13,8 @@ const dashPost = require("./Routes/dashboardpost.js")
 const adminPost = require("./Routes/adminrequests")
 const passportConfig = require("./modules/authentication")
 const {ACCS} = require("./modules/db");
+const { propsSelection, amenities,  listingTypes } = require("./modules/utilities")
+
 
 
 // Express setups and middle wares
@@ -25,12 +27,24 @@ passportConfig(app, session, passport, localStrategy, ACCS);
 
 app.set("view engine", "ejs")
 
+// ejs global variable declaration
+app.use(function(req,res,next){
+    res.locals.propSelection = propsSelection
+    res.locals.amenities = amenities
+    res.locals.user = req.user ? req.user : null;
+    res.locals.listingTypes =  listingTypes 
+    res.locals.activeurl =  null;
+    next()
+})
+
+
 app.use("/x-x", express.static("public"))
 app.use("/", frontRouter)
 app.use("/dashboard", dashRouter)
 app.use("/dashboard", dashPost)
 app.use("/uploads",express.static("uploads"))
 app.use("/admin", adminPost)
+
 
 app.get("/rr", (req,res)=> res.send("seen..."))
 
@@ -46,7 +60,7 @@ app.use(function(err,req,res,next){
 app.get("/logout", (req, res)=>{
     req.logOut(async function(e) {
         if(e) return res.send("An error occured Loggin you out")
-        res.redirect("/listing")
+        res.redirect("/listings")
     })
 })
 app.use(function(req,res,next){

@@ -64,7 +64,7 @@ module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
     const totalCount = result ? result.count : 0;
 
     const paginatedData = await APARTMENTS.aggregate([
-      { $match: {  } },
+      { $match: { complete : true, approved : true  } },
       { $sort: { createdAt: -1 } },
       { $skip: (pageNumber - 1) * pageSize },
       { $limit: pageSize },
@@ -97,4 +97,6 @@ module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
   
 module.exports.contactsSelect = ['Landlord', 'Care-taker', 'Tenant']
 
-module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Houses'] 
+module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Duplex'] 
+
+module.exports.listingTypes = [{label : "All listings", code : "listings"},{label : 'House', code : 'homes'}, {label : 'Lands', code : 'lands'}]
