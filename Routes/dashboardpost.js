@@ -11,9 +11,12 @@ Router.post("/newproperty",  upload.array('images', 12), function(req,res, next)
         if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
     })
     req.body.carousel = req.files.map(i=> {return{ url :"/uploads/"+i.filename, show : true}})
-   APARTMENTS.create({...req.body, complete : Boolean(req.body.complete), contacts, postedBy : req.user._id })
+   APARTMENTS.create({...req.body, complete : Boolean(req.body.complete), contacts, postedBy : req.user._id, approved : (Boolean(req.body.complete) && req.user.admin) })
    .then(d=> res.redirect("/details/"+ d.id ))
-    .catch(e=>   next({m : e.message, r : "/dashboard/newproperty", showflash: true}))
+    .catch(e=> {
+        console.log(e)
+        next({m : e.message, r : "/dashboard/newproperty", showflash: true})
+    })
     // upload the image
 })
 
