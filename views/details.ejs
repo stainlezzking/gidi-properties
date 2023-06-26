@@ -157,7 +157,7 @@
                     <span class="icon flaticon-event"></span>
                     <div class="ml15">
                       <h6 class="mb-0">Parlour</h6>
-                      <p class="text mb-0 fz15"><%= property.parlour || 0 %> </p>
+                      <p class="text mb-0 fz15"><%= property.parlour %> </p>
                     </div>
                   </div>
                 </div>
@@ -166,7 +166,7 @@
                     <span class="icon flaticon-garage"></span>
                     <div class="ml15">
                       <h6 class="mb-0">Kitchen</h6>
-                      <p class="text mb-0 fz15"><%= property.kitchen || 0 %></p>
+                      <p class="text mb-0 fz15"><%= property.kitchen  %></p>
                     </div>
                   </div>
                 </div>
@@ -215,13 +215,15 @@
             </div>
             
             <% if(user &&  user.agent){%>
-            
+              <h3 class="title mb30 mt30 text-uppercase">Information</h3>
+              
               <div class="ps-widget mb30 overflow-hidden position-relative">
+                <div class="d-flex">
+                  <p class="pe-2 fw-bold"> Name : </p>
+                  <p> <%= property.title %></p>
+                </div>
                 <h4 class="title fz17 mb30 mt30">Address</h4>
                 <div class="row">
-                  <div class="col-sm-7 mb30">
-                    <p class="text mb10"><%= property.address %></p>
-                  </div>
                   <div class="col-sm-6">
                     <div class="d-flex justify-content-between">
                       <div class="pd-list">
@@ -234,8 +236,34 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-sm-7 mb30">
+                    <div class="d-flex justify-content-between">
+                      <div class="pd-list"> Location</div>
+                      <p class="text mb10"><%= property.address %></p>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
+              <table class="table table-striped mt20 mb30">
+                <h3 class="title mb30 mt30 text-uppercase">Contacts</h3>
+                <thead>
+                  <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Contact</th>
+                  </tr>
+                </thead>
+                <tbody>
+              <% property.contacts.forEach(contact=>{%>
+                    <tr>
+                      <td> <%= contact.whois %></td>
+                      <td> <%= contact.name %></td>
+                      <td> <%= contact.reach %></td>
+                    </tr>
+                    <%})%>
+                  </tbody>
+                </table>
 
         <% if(property.youtube){%>
               <div class="ps-widget mb30 overflow-hidden position-relative">
@@ -264,6 +292,17 @@
             <div class="column">
              <div class="agen-personal-info position-relative bgc-white shadow default-box-shadow1 bdrs12 p30 mt30">
                 <div class="widget-wrapper mb-0">
+                  <h6 class="title fz17 mb30">How to mark a property you are interested in.</h6>
+                  <div class="mb20">
+                    <p class="text mb10" onclick="copyText()"><i class="fas fa-circle fz6 align-middle pe-2"></i>Copy the ID - <span class="idCopy"> <%=property._id %></span></p>
+                    <script>
+                      function copyText() {
+                        var text = document.getElementsByClassName("idCopy")[0].innerText;
+                        navigator.clipboard.writeText(text);
+                        alert("Copied")
+                      }
+                    </script>
+                  </div>
                   <h6 class="title fz17 mb30">Contact us for </h6>
                   <div class="mb20">
                     <p class="text mb10"><i class="fas fa-circle fz6 align-middle pe-2"></i>Booking of this property</p>
