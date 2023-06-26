@@ -41,6 +41,14 @@ Router.post("/delete/prop/:id", async function(req,res, next){
     }
 })
 
+Router.post("/newarea", express.urlencoded({extended : false}), function(req,res,next){
+    SITE.updateOne({'division.localgov' : req.body.localgovs}, {
+        $push : {"division.$.group": { distance : req.body.distance, junction : req.body.newarea}}
+    })
+    .then(e=> res.redirect("/dashboard/newlocation"))
+    .catch(e=> next({m : e.message, r : "/dashboard/newproperty", showflash: true}))
+})
+
 
 
 Router.post("/approve/prop/:id", async function(req,res, next){
@@ -52,24 +60,6 @@ Router.post("/approve/prop/:id", async function(req,res, next){
         res.send("An error Occured trying to Approve property")
     }
 })
-
-/*
-Approve edited posts -
-*/
-
-Router.get("/edited/:id", async function(req,res){
-    // Link back to here from details page under approved button as an underlined edited blue text
-    try{
-        const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true}).populate("postedBy", "name").lean()
-        if(!apt) return res.send("no Property found.. go back and refresh page.")
-        res.locals.prop = apt
-        res.render("private/edited")
-    }catch(e){
-          console.log(e)
-          return res.send("Internal Error! please report if this error persist ")
-      }
-  })
-
 
 /*
 approve Edit 

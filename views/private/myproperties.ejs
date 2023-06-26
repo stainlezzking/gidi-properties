@@ -47,12 +47,13 @@
             </div>
             <div class="col-xxl-9">
               <div class="dashboard_search_meta d-md-flex align-items-center justify-content-xxl-end">
-                <div class="page_control_shorting bdr1 bdrs12 py-2 ps-3 pe-2 mx-1 mx-xxl-3 bgc-white mb15-sm maxw140">
+                <div class="page_control_shorting bdr1 bdrs12 py-2 ps-3 pe-2 mx-1 mx-xxl-3 bgc-white mb15-sm ">
                   <div class="pcs_dropdown d-flex align-items-center"><span class="title-color">Sort by:</span>
-                    <select class="selectpicker show-tick">
-                      <option>New</option>
-                      <option value="ended">Approved</option>
-                      <option value="running">Processing</option>
+                    <select id="sort_" class="selectpicker show-tick">
+                      <option value="">Select</option>
+                      <option value="approved">Approved</option>
+                      <option value="processing">Processing</option>
+                      <option value="complete">Incomplete</option>
                     </select>
                   </div>
                 </div>
@@ -69,14 +70,14 @@
                     <thead class="t-head">
                       <tr>
                         <th scope="col">Listing title</th>
-                        <th scope="col">Date Published</th>
+                        <th scope="col">Last Updated</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Edit</th>
                       </tr>
                     </thead>
                     <tbody class="t-body">
                         <% ownprops.forEach(props=>{%>
-                          <tr>
+                          <tr class="listings" complete="<%= props.complete %>" status="<%= props.disabled ? 'disabled' : props.approved ?  'approved' : 'processing'%>">
                             <th scope="row">
                             <div class="listing-style1 dashboard-style d-xxl-flex align-items-center mb-0">
                               <div class="list-thumb">
@@ -90,18 +91,24 @@
                               </div>
                             </div>
                           </th>
-                          <td class="vam"><%= props.createdAt.toString().slice(0,15) %></td>
-                          <td class="vam">
+                          <td class="vam"><%= props.updatedAt.toString().slice(0,15) %></td>
+                          <td class="vam text-center">
                             <% if(props.approved){%>
                               <span class="pending-style style2">Approved</span>
                               <%}else{%>
                                 <span class="pending-style style1">Processing</span>
                                 <%}%>
+                                <% if(!props.complete){%>
+                                  <p class="text-center text-black-50 small pt-1">Incomplete</p>
+                                  <%}%>
+                                  <% if(props.edited){%>
+                                    <a href="/dashboard/edited/<%=props._id %>" style="text-decoration: underline;" class="text-primary d-block py-2"> edited</a>
+                                  <%}%>
                               </td>
                               <td class="vam">
                                 <div class="d-flex">
                                   <a href="/dashboard/edit/<%= props._id %>" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><span class="fas fa-pen fa"></span></a>
-                                  <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a>
+                                  <!-- <a href="#" class="icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><span class="flaticon-bin"></span></a> -->
                                 </div>
                               </td>
                             </tr>
@@ -136,23 +143,9 @@
             <h2 class="text-center"> You haven't posted any Property</h2>
           <%}%>
         </div>
-        <footer class="dashboard_footer pt30 pb10">
-          <div class="container">
-            <div class="row items-center justify-content-center justify-content-md-between">
-              <div class="col-auto">
-                <div class="copyright-widget">
-                  <p class="text">© Homez - All rights reserved</p>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div class="footer_bottom_right_widgets text-center text-lg-end">
-                  <p><a href="#">Privacy</a>  ·  <a href="#">Terms</a>  ·  <a href="#">Sitemap</a></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </div>
+        <%- include("./partials/footer.ejs") -%>
+
+      </div> 
     </div>
   </div>
   <a class="scrollToHome" href="#"><i class="fas fa-angle-up"></i></a>
@@ -161,6 +154,20 @@
   <!-- script  -->
   <%- include("./partials/script.ejs") -%>
   <!-- script end : -->
+
+  <script>
+    const Listings = Array.from(document.querySelectorAll(".listings"))
+   document.getElementById("sort_").addEventListener("change", sortList)
+   function sortList(e){
+     Listings.forEach(list=>{
+       if(!e.target.value) return list.classList.remove("d-none")
+       list.classList.remove("d-none")
+       if(e.target.value == "complete" && list.getAttribute("complete") == 'true') return list.classList.add("d-none")
+       console.log(e.target.value,list.getAttribute("complete") == 'true', list.getAttribute("complete"))
+       if(e.target.value !== "complete" && list.getAttribute("status") !== e.target.value) return list.classList.add("d-none")
+     })
+   }
+  </script>
 
 
 </html>

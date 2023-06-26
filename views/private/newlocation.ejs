@@ -78,7 +78,7 @@
                     <div class="ps-widget bgc-white bdrs12 p30 overflow-hidden position-relative">
                       <div class="row">
                         <div class="col-sm-12">
-                          <form action="/dashboard/newarea" method="POST">
+                          <form action="/admin/newarea" method="POST">
                               <div class="row">
                                 <div class="col-sm-12">
                                   <div class="mb20">
@@ -100,6 +100,10 @@
                                           <label class="heading-color ff-heading fw600 mb10" id="label"> Add area </label>
                                           <input type="text" name="newarea" required class="form-control" placeholder="New Area">
                                       </div>
+                                      <div class="mb20">
+                                        <label class="heading-color ff-heading fw600 mb10" id="label"> Distance  </label>
+                                        <input type="text" name="distance" required class="form-control" placeholder="Distance from school gate">
+                                    </div>
                                       <div class="mb20 ">
                                         <button class="ud-btn btn-thm mx-auto d-block"  type="submit">Add<i class="fal fa-arrow-right-long"></i></button>
                                       </div>
@@ -148,22 +152,8 @@
 
 
         </div>
-        <footer class="dashboard_footer pt30 pb10">
-          <div class="container">
-            <div class="row items-center justify-content-center justify-content-md-between">
-              <div class="col-auto">
-                <div class="copyright-widget">
-                  <p class="text">© Homez - All rights reserved</p>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div class="footer_bottom_right_widgets text-center text-lg-end">
-                  <p><a href="#">Privacy</a>  ·  <a href="#">Terms</a>  ·  <a href="#">Sitemap</a></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <%- include("./partials/footer.ejs") -%>
+
       </div>
     </div>
   </div>
@@ -181,7 +171,7 @@
           const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
           let html = "" 
           document.getElementById("label").innerHTML = "Add new area to <b>"+ chosen.localgov+"</b>"
-          chosen.group.forEach(g=> html+= "<li class='col-sm-6'> "+ g + "</li>")
+          chosen.map(ob=> ob.junction).group.forEach(g=> html+= "<li class='col-sm-6'> "+ g + "</li>")
           console.log(html)
            document.querySelector("ul[arealist]").innerHTML = html
       }

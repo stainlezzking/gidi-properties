@@ -22,6 +22,20 @@ const { SITE, APARTMENTS } = require("./db")
 //     {localgov : "Ibeju-Lekki", hide : true, group : []}
 // ]
 
+// const awkaLocalgov = [
+//     {localgov : "Amawbia", hide : true, group : []},
+//     {localgov : "Awka-Ifite", hide : true, group : []},
+//     {localgov : "Ezinato", hide : true, group : []},
+//     {localgov : "Isiagu", hide : true, group : []},
+//     {localgov : "Mbaukwu", hide : true, group : []},
+//     {localgov : "Nibo", hide : true, group : []},
+//     {localgov : "Nise", hide : true, group : []},
+//     {localgov : "Okpuno", hide : true, group : []},
+//     {localgov : "Umuawulu", hide : true, group : []},
+// ]
+
+
+
 
 module.exports.amenities = [
     {
@@ -51,10 +65,10 @@ module.exports.amenities = [
 ]
 
 // Pagination function
-module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
+module.exports.getPaginatedData = async function(pageNumber, pageSize, next, query = {}) {
     try {
       const pipeline = [
-      { $match: { } },
+      { $match: { complete : true, approved : true, ...query } },
       { $count: 'count' },
     ];
   
@@ -64,11 +78,11 @@ module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
     const totalCount = result ? result.count : 0;
 
     const paginatedData = await APARTMENTS.aggregate([
-      { $match: { complete : true, approved : true  } },
+      { $match: { complete : true, approved : true, ...query  } },
       { $sort: { createdAt: -1 } },
       { $skip: (pageNumber - 1) * pageSize },
       { $limit: pageSize },
-      {$project : {carousel : 1, _id : 1, proptype : 1, cost : 1, bathrooms : 1, rooms : 1, area : 1, label : 1, localgovs : 1}}
+      {$project : {carousel : 1, _id : 1, proptype : 1, cost : 1, bathrooms : 1, rooms : 1, area : 1, label : 1, localgovs : 1, complete : 1}}
     ]);
     
     return {
@@ -97,6 +111,6 @@ module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
   
 module.exports.contactsSelect = ['Landlord', 'Care-taker', 'Tenant']
 
-module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Duplex'] 
+module.exports.propsSelection = ['Self-contain', 'Apartment'] 
 
-module.exports.listingTypes = [{label : "All listings", code : "listings"},{label : 'House', code : 'homes'}, {label : 'Lands', code : 'lands'}]
+module.exports.listingTypes = [{label : "All listings", code : "listings"},{label : 'Apartments', code : 'apt'}, {label : 'Self-con', code : 'sfc'}]

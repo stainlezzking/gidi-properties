@@ -15,7 +15,7 @@
           <a href="/dashboard/newproperty" class="items-center <%= activeurl.startsWith('/newproperty') ? '-is-active' : '' %>"><i class="flaticon-new-tab mr15"></i>Add New Property</a>
         </div>
         <div class="sidebar_list_item ">
-          <a href="/dashboard/myprops" class="items-center <%= activeurl == '/myprops' ? '-is-active' : '' %>"><i class="flaticon-home mr15"></i>My Listings</a>
+          <a href="/dashboard/myprops" class="items-center <%= activeurl.startsWith('/myprops') ? '-is-active' : '' %>"><i class="flaticon-home mr15"></i>My Listings</a>
         </div>
         <% if(user.admin || user.adminaccess){%>
           <div class="sidebar_list_item ">
@@ -30,10 +30,10 @@
         <div class="sidebar_list_item">
           <a href="/admin/manageaccounts" class="items-center <%= activeurl == '/manageaccounts' ? '-is-active' : '' %>"><i class="flaticon-protection mr15"></i> Manage Accounts </a>
         </div>
-        <%}%>
         <div class="sidebar_list_item">
           <a href="/dashboard/profile" class="items-center <%= activeurl == '/profile' ? '-is-active' : '' %>"><i class="flaticon-user mr15"></i>My Profile</a>
         </div>
+        <%}%>
         <div class="sidebar_list_item ">
           <a href="/logout" class="items-center"><i class="flaticon-logout mr15"></i>Logout</a>
         </div>

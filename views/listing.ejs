@@ -511,7 +511,7 @@
       function switchAreas(e){
           const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
           let html = "<option value=''> Nothing selected </option>" 
-          chosen.group.forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
+          chosen.map(ob=> ob.junction).group.forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
           document.querySelector("select[name='area']").innerHTML = html
           $(".selectpicker").selectpicker("refresh")
       }

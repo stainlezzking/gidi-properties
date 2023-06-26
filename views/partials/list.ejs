@@ -4,6 +4,9 @@
         <img class="w-100" src="<%= listprop.carousel[0].url %>" alt="">
         <%if(listprop.label){%>
           <div class="list-tag fz12"><span class="flaticon-electricity me-2"></span>PROMOTED</div>
+          <%}%>
+          <% if(!listprop.complete){%>
+            <div class="list-tag fz12 bg-danger"><i class="fa-thin fa-triangle-exclamation pe-2"></i>Incomplete</div>
         <%}%>
         <div class="list-price">&#x20A6;<%= listprop.cost.toLocaleString() %> / <span>yr</span></div>
       </div>

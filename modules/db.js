@@ -59,12 +59,9 @@ const apartment = mongoose.Schema({
     complete : {type : Boolean, default : false}
 }, {timestamps : true})
 
-const privateprops = mongoose.Schema({
-    // enum : [duplex, bungalow]
 
-})
 const siteinfo = mongoose.Schema({
-    division : [{localgov : String, hide : Boolean, group : [String]}],
+    division : [{localgov : String, hide : Boolean, group : [{junction : String,distance : Number}]}],
     contacts : [{name : String, number : Number}]
 },{timestamps : true})
 
@@ -81,16 +78,6 @@ const SITE = mongoose.model("siteinfo", siteinfo)
 const ACCS = mongoose.model("account", accounts)
 const APARTMENTS = mongoose.model("apartments", apartment)
 const ACTIVE = mongoose.model("activities", activities)
-// const PRIVATEPROPERTY = mongoose.model("privateprop", privateprops)
 
-// APARTMENTS.aggregate([
-//     {$sort: { createdAt : -1 } },
-//     {$setWindowFields: {output: {totalCount: {$count: {}}}}},
-//     {$skip: 1 },
-//     {$limit: 10 },
-//     {$project : } 
-// ])
-// .then(d=> console.log(d))
-// .catch(d=> console.log(d))
 
 module.exports = {ACCS, APARTMENTS, SITE, ACTIVE}

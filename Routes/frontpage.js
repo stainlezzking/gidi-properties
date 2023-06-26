@@ -1,6 +1,6 @@
 const express = require("express")
 const { APARTMENTS, SITE, ACCS } = require("../modules/db")
-const { getPaginatedData, showPaginatedList} = require("../modules/utilities")
+const { getPaginatedData, showPaginatedList, listingTypes, propsSelection} = require("../modules/utilities")
 const router = express.Router()
 
 const pageSize = 5
@@ -10,7 +10,8 @@ router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
         const user = await ACCS.findOne({email : "bishop@gmail.com"}).lean()
-        if(req.url.startsWith('/listings')){
+        // if listings || apt || sfc
+        if(req.url.startsWith('/listings') || req.url.startsWith('/'+ listingTypes[1].code) || req.url.startsWith('/'+ listingTypes[2].code)){
             res.locals.division =  res.locals.site.division  
             typeof req.query.page == 'object' && req.query.page.length ? req.query.page = req.query.page[req.query.page.length - 1] : null ;
             req.query.page <= 0 || isNaN(req.query.page)  ? req.query.page = 1 : req.query.page = Number(req.query.page)  ;
@@ -31,8 +32,36 @@ router.get("/", function(req,res){
     res.render("index")
 })
 
-router.get("/listings", async function(req,res, next){
+/*
+*All Listings
+Routes
+*/
+
+router.get("/"+ listingTypes[0].code, async function(req,res, next){
     const page = await getPaginatedData(req.query.page, pageSize, next)
+    res.locals.props = page.paginatedData;
+    res.locals.pagination = showPaginatedList(req.query.page,page.pagin.pageList)
+    res.locals.url = null;
+    res.render("listing")
+})
+
+/*
+*Apt Listings
+Route
+*/
+router.get("/" +listingTypes[1].code,async function(req,res, next){
+    const page = await getPaginatedData(req.query.page, pageSize, next, {proptype : propsSelection[1]})
+    res.locals.props = page.paginatedData;
+    res.locals.pagination = showPaginatedList(req.query.page,page.pagin.pageList)
+    res.locals.url = null;
+    res.render("listing")
+})
+/*
+*Self-con Listings
+Route
+*/
+router.get("/" +listingTypes[2].code,async function(req,res, next){
+    const page = await getPaginatedData(req.query.page, pageSize, next, {proptype : propsSelection[0]})
     res.locals.props = page.paginatedData;
     res.locals.pagination = showPaginatedList(req.query.page,page.pagin.pageList)
     res.locals.url = null;

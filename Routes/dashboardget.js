@@ -10,9 +10,13 @@ router.use(async function(req,res,next){
         if(!req.isAuthenticated()) return res.redirect("/")
         res.locals.user = req.user
         if(req.user.disabled) return res.send("Your account has been disabled, contact admin for more info")
-        if(req.url == "/"){
-            res.locals.count =  await APARTMENTS.find().count()
+        if(req.url == "/" && req.user.admin){
+            res.locals.sfcount =  await APARTMENTS.find({proptype : propsSelection[0]}).count()
+            res.locals.aptcount =  await APARTMENTS.find({proptype : propsSelection[1]}).count()
             res.locals.accounts =  await ACCS.find().count()
+        }
+        if(req.url == "/" && !req.user.admin){
+            res.locals.ownprops = await APARTMENTS.find({postedBy : req.user._id}).lean()
         }
         if(req.url.toLowerCase().startsWith("/newproperty") || req.url.startsWith("/newlocation") || req.url.startsWith("/edit") ){
             res.locals.amenities = amenities
@@ -38,7 +42,10 @@ router.use(async function(req,res,next){
 */
 
 router.get("/", function(req,res){
-    res.render("private/dashboard.ejs")
+    if(req.user.admin){
+       return  res.render("private/dashboard.ejs")
+    }
+    return  res.render("private/profile")
 })
 
 router.get("/newproperty", function(req,res){
@@ -60,7 +67,7 @@ router.get("/edit/:id", async function(req,res){
         if(!req.user.admin &&  JSON.stringify(req.user._id) !== JSON.stringify(res.locals.prop.postedBy._id)) return res.redirect("back")
         if(res.locals.prop.edited) res.locals.prop = {...res.locals.prop, ...res.locals.prop.history}
         return res.render("private/editpage")
-
+        
     }catch(e){
         console.log(e)
         return res.send("Internal Error! please report if this error persist ")
@@ -68,7 +75,28 @@ router.get("/edit/:id", async function(req,res){
 })
 
 
+/*
+Approve edited posts -
+*/
+
+router.get("/edited/:id", async function(req,res){
+    // Link back to here from details page under approved button as an underlined edited blue text
+    try{
+        const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true}).populate("postedBy", "name").lean()
+        if(!apt) return res.send("no Property found.. go back and refresh page.")
+        if(!req.user.admin &&  JSON.stringify(req.user._id) !== JSON.stringify(apt.postedBy._id)) return res.redirect("back")
+        res.locals.prop = apt
+        res.render("private/edited")
+    }catch(e){
+          console.log(e)
+          return res.send("Internal Error! please report if this error persist ")
+      }
+  })
+
+
 router.get("/profile", function(req,res){
+    console.log("caught")
+    if(!req.user.admin) return res.redirect("/dashboard")
     res.render("private/profile")
 })
 router.get("/profile/:id", async function(req,res){

@@ -17,14 +17,6 @@ Router.post("/newproperty",  upload.array('images', 12), function(req,res, next)
     // upload the image
 })
 
-Router.post("/newarea", express.urlencoded({extended : false}), function(req,res,next){
-    SITE.updateOne({'division.localgov' : req.body.localgovs}, {
-        $push : {"division.$.group": req.body.newarea}
-    })
-    .then(e=> res.redirect("/dashboard/newlocation"))
-    .catch(e=> next({m : e.message, r : "/dashboard/newproperty", showflash: true}))
-})
-
 Router.post("/search",express.urlencoded({extended : false}), async function(req,res){
     try{
         var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$")
