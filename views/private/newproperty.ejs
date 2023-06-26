@@ -126,40 +126,44 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="mb20">
+                              <label class="heading-color ff-heading fw600 mb10">Name</label>
+                              <input type="text" class="form-control" name="title" placeholder="name of the lodge">
+                            </div>
                             <div class="col-sm-6 col-xl-4">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Price in $</label>
-                                <input type="number" name="cost" required class="form-control" placeholder="Amount">
+                                <input type="number" name="cost"  required class="form-control" placeholder="Amount">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Parlour</label>
-                                <input type="number" name="parlour" required class="form-control" placeholder="How many parlours">
+                                <input type="number" name="parlour" sfc="0" required class="form-control" placeholder="How many parlours">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Kitchen</label>
-                                <input type="number" required name="kitchen" class="form-control" placeholder="How many Kitchens">
+                                <input type="number" required name="kitchen" sfc="1" class="form-control" placeholder="How many Kitchens">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Rooms</label>
-                                <input type="number" name="rooms" required class="form-control" placeholder="How many rooms">
+                                <input type="number" name="rooms" sfc="1" required class="form-control" placeholder="How many rooms">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Bathrooms</label>
-                                <input type="number" required name="bathrooms" class="form-control" placeholder="How many Bathrooms">
+                                <input type="number" required name="bathrooms" sfc="1" class="form-control" placeholder="How many Bathrooms">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Toilets</label>
-                                <input type="number" required name="toilets" class="form-control" placeholder="How many toilets">
+                                <input type="number" required name="toilets" sfc="1" class="form-control" placeholder="How many toilets">
                               </div>
                             </div>
                             <div class="col-sm-12 ps-4 mb10">
@@ -411,6 +415,20 @@
       }
       document.querySelector("select[name='localgovs']").addEventListener("change", switchAreas)
 </script>
+
+<script>
+    // auto fill self-con values
+    const proptypeSelector = document.querySelector("select[name='proptype']")
+    
+    const setSfcdefaultValues = function(e){
+      const sfcElems = Array.from(document.querySelectorAll('input[sfc]'))
+      if(e.target.value == 'Self-contain'){
+        return sfcElems.forEach(inp=>inp.setAttribute("value", inp.getAttribute("sfc")))
+      }
+      return sfcElems.forEach(inp=>inp.setAttribute("value", ""))
+    }
+    proptypeSelector.addEventListener("change", setSfcdefaultValues)
+  </script>
 
 </body>
 
