@@ -171,7 +171,7 @@
           const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
           let html = "" 
           document.getElementById("label").innerHTML = "Add new area to <b>"+ chosen.localgov+"</b>"
-          chosen.map(ob=> ob.junction).group.forEach(g=> html+= "<li class='col-sm-6'> "+ g + "</li>")
+          chosen.group.map(ob=>ob.junction).forEach(g=> html+= "<li class='col-sm-6'> "+ g + "</li>")
           console.log(html)
            document.querySelector("ul[arealist]").innerHTML = html
       }
