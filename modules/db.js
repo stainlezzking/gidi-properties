@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { propsSelection } = require("./utilities");
 require("dotenv").config();
 mongoose.set('strictQuery', false);
 
@@ -23,6 +24,7 @@ const accounts = mongoose.Schema({
 }, {timestamps : true})
 
 const apartmentobject = {
+    title : String,
     label : String,
     rooms : Number,
     bathrooms : Number,

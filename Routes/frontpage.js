@@ -1,6 +1,7 @@
 const express = require("express")
 const { APARTMENTS, SITE, ACCS } = require("../modules/db")
-const { getPaginatedData, showPaginatedList, listingTypes, propsSelection} = require("../modules/utilities")
+const {listingTypes, propsSelection} = require("../modules/utilities")
+const { getPaginatedData, showPaginatedList} = require("../modules/paginatedQueries")
 const router = express.Router()
 
 const pageSize = 5
@@ -9,7 +10,7 @@ const pageSize = 5
 router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
-        const user = await ACCS.findOne({email : "bishop@gmail.com"}).lean()
+        const user = await ACCS.findOne({email : "azukachukwuebuka07@gmail.com"}).lean()
         // if listings || apt || sfc
         if(req.url.startsWith('/listings') || req.url.startsWith('/'+ listingTypes[1].code) || req.url.startsWith('/'+ listingTypes[2].code)){
             res.locals.division =  res.locals.site.division  

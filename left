@@ -14,6 +14,12 @@
 -- Security
     use a library or put a limit on the number of request to view address by agents: 
 
-// once listing edited - in re-edit, the unprocessed edited info should take precedence
 // To add other types of listing - add a prefix to the ID like apt-[ID] to sepereate each
 // Add search to managelisting
+
+
+// DO the  header 
+// new property - selection of roomate
+// home page - find your dream home in three easy steps
+        -- search : --mark as multiple as you want from the comfort of your home : -- Inspect your property : -- own your property
+about
