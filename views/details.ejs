@@ -85,12 +85,12 @@
                 <p class="text fz15 mb-0 pr10 bdrrn-sm"> <%= property.area + ", " + property.localgovs %></p>
               </div>
               <div class="property-meta d-flex align-items-center">
-                <a class="ff-heading text-thm fz15 bdrr1 pr10 bdrrn-sm" href="#"><i class="fas fa-circle fz10 pe-2"></i>For rent</a>
+                <a class="ff-heading text-thm fz15 bdrr1 pr10 bdrrn-sm" data-bs-toggle="tooltip" data-bs-title="<%= property.distance %>KM away from school"><i class="fas fa-circle fz10 pe-2"></i> <%= property.distance %> Km</a>
                 <% if(user && user.admin){%>
                     <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"><i class="far fa-clock pe-2"></i> <%= property.createdAt.toString().slice(4,10) %> </a>
                     <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="<%= user.admin ? '/dashboard/profile/'+property.postedBy.id : '#'%> "><i class="far fa-user pe-2text-capitalize"></i> <%= property.postedBy.name %> </a>
                   <%}%>
-                  <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#"> <%= property._id %> </a>
+                  <a class="ff-heading fz15 pr10 ml10 bdrr1 ml0-sm bdrrn-sm" href="#" onclick="copyText()"> <%= property._id %> </a>
               </div>
             </div>
           </div>
@@ -538,6 +538,7 @@
   
   </div>
 </div>
+
 <!-- Wrapper End --> 
 <script src="/x-x/js/jquery-3.6.4.min.js"></script> 
 <script src="/x-x/js/jquery-migrate-3.0.0.min.js"></script> 
@@ -556,6 +557,9 @@
 <!-- Custom script for all pages --> 
 <script src="/x-x/js/script.js"></script>
 <script>
+
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 //  Fixed sidebar Custom Script For That 
 $(function() {
   var cols = $('.wrap .column');

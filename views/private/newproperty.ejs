@@ -229,6 +229,10 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="mb20 d-none">
+                              <label class="heading-color ff-heading fw600 mb10">distance</label>
+                              <input type="number" class="form-control" name="distance" placeholder="name of the lodge">
+                            </div>
                             <div class="col-sm-12">
                               <div class="mb20">
                                 <label class="heading-color ff-heading fw600 mb10">Address</label>
@@ -398,22 +402,27 @@
 
 <script>
   // local government and area select option changes
-
+    let chosen ;
     const division = JSON.parse(document.querySelector("input[namex='division']").value)
       let html = ""  
       division.filter(h=> !h.hide).forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
       document.querySelector("select[name='localgovs']").innerHTML += html
       $(".selectpicker").selectpicker("refresh")
       
+      function setdistance(e){
+        const chosengroup = division.filter(divi=> divi.localgov == chosen.localgov )[0].group.find(ob=> ob.junction == e.target.value)
+         document.querySelector("input[name='distance']").value = chosengroup.distance;
+      }
       
       function switchAreas(e){
-          const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
+          chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
           let html = "<option value=''> Nothing selected </option>" 
-          chosen.group.map(ob=>ob.junction).forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
+          chosen.group.map(ob=> ob.junction).forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
           document.querySelector("select[name='area']").innerHTML = html
           $(".selectpicker").selectpicker("refresh")
       }
       document.querySelector("select[name='localgovs']").addEventListener("change", switchAreas)
+      document.querySelector("select[name='area']").addEventListener("change", setdistance)
 </script>
 
 <script>

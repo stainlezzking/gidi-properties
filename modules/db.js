@@ -34,6 +34,7 @@ const apartmentobject = {
     address : String,
     localgovs : String,
     area : String,
+    distance : Number,
     carousel : [{url : String, show : { default : true ,type :Boolean}}],
     frontImage : String,
     youtube : String,
@@ -80,6 +81,5 @@ const SITE = mongoose.model("siteinfo", siteinfo)
 const ACCS = mongoose.model("account", accounts)
 const APARTMENTS = mongoose.model("apartments", apartment)
 const ACTIVE = mongoose.model("activities", activities)
-
 
 module.exports = {ACCS, APARTMENTS, SITE, ACTIVE}
