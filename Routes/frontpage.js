@@ -93,10 +93,10 @@ router.get("/listings/filter", async function(req,res, next){
     }
 })
 
-router.get("/details/:id", async function(req,res, next){
+router.get("/details/:_id", async function(req,res, next){
     try{
         // remember to strip of admin info before sending
-        const props = await APARTMENTS.findOne({_id : req.params.id}).populate("postedBy", "name")
+        const props = await APARTMENTS.findOne({_id : req.params._id}).populate("postedBy", "name")
         if(!props) return res.render("404.ejs")
         res.locals.property  = props;
         return res.render("details")
