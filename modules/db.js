@@ -44,6 +44,7 @@ const apartmentobject = {
     proptype : String, // add to all schemas
     amenities : [String],
     privatenote : String,
+    complete : {type : Boolean, default : false}
 }
 
 
@@ -59,7 +60,6 @@ const apartment = mongoose.Schema({
     edited : {type : Boolean, default : false},
     approved : {type : Boolean, default : false},
     // complete means all information are provided clear and correct
-    complete : {type : Boolean, default : false}
 }, {timestamps : true})
 
 

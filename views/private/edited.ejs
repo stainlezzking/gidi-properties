@@ -84,7 +84,7 @@ i.fa-circle-check:hover {
           <div id="liveAlertPlaceholder" class="mt-2"></div>
 
           </div>
-          <form class="row" action="<%= user.admin ? '/admin/approve/edit/'+ prop._id : ''  %>" method="<%= user.admin ? 'POST' : 'GET' %> " >
+          <form class="row" action="/admin/approve/edit/<%= prop._id %>" method="POST" >
             <div class="col-xl-12">
               <div class="ps-widget bgc-white bdrs12 default-box-shadow2 pt30 mb30 overflow-hidden position-relative">
                 <table class="table table-bordered">
@@ -157,6 +157,7 @@ i.fa-circle-check:hover {
                           <%}%>
                         </tr>
                       <%}%>
+                      
                       <%if(typeof prop.history[props] == 'string' ||  typeof prop.history[props] == 'number' ){%>
                         <tr class="eachrow" id="<%=props%>">
                           <td class="decline">
@@ -174,6 +175,32 @@ i.fa-circle-check:hover {
                           </td>
                           <%}%>
                         </tr>
+                        <%}%>
+                        <% if(props == 'complete'){%>
+                          <tr class="eachrow" id="<%=props%>">
+                            <td class="decline">
+                              <%= prop[props] ? 'previously marked as complete' : 'previously marked as incomplete' ; %>
+                              <%if(prop[props]){%>
+                                <input  type="hidden" xname="<%= props %>" value="<%=prop[props]%>">
+                                <%}else{%>
+                                  <input  type="hidden" xname="<%= props %>" >
+                              <%}%>
+                            </td>
+                            <td class="accept">
+                              <%= prop.history[props] ? 'Marked as complete' : 'marked as incomplete' ; %>
+                              <%if(prop.history[props]){%>
+                                <input  type="hidden" xname="<%= props %>" value="<%=prop[props]%>">
+                                <%}else{%>
+                                  <input  type="hidden" xname="<%= props %>" >
+                              <%}%>
+                            </td>
+                            <% if(user.admin){%>
+                              <td>
+                                <i class="fa-sharp fa-solid fa-lg fa-circle-check" target-parent="#<%=props%>" target-choice="accept"></i>
+                              <i class="fa-sharp fa-solid fa-lg fa-circle-xmark" target-parent="#<%=props%>" target-choice="decline"></i>
+                            </td>
+                            <%}%>
+                          </tr>
                         <%}%>
                         <%}%>
                         

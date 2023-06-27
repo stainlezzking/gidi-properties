@@ -250,6 +250,10 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="mb20 d-none">
+                              <label class="heading-color ff-heading fw600 mb10">distance</label>
+                              <input type="number" class="form-control" name="distance" value="<%= prop.distance %>" placeholder="name of the lodge">
+                            </div>
                             <div class="col-sm-12">
                               <div class="mb20">
                                 <label class="heading-color ff-heading fw600 mb10">Address</label>
@@ -315,6 +319,23 @@
                               <div class="mb20">
                                 <label class="heading-color ff-heading fw600 mb10">Leave Note for admins (Optional)</label>
                                 <textarea cols="30" xvalue="<%= prop.privatenote %>" xname="privatenote"  rows="5" placeholder="detailed direction from the area "><%= prop.privatenote %></textarea>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="mb20">
+                                  <div class="switch-style1 mb10">
+                                    <% if(prop.complete){%>
+                                      <div class="form-check form-switch">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault2">COMPLETE</label>
+                                        <input class="form-check-input" checked name="complete" style="cursor: pointer;" type="checkbox" id="flexSwitchCheckDefault2" >
+                                      </div>
+                                      <%}else{%>
+                                        <div class="form-check form-switch">
+                                          <label class="form-check-label" for="flexSwitchCheckDefault2">COMPLETE</label>
+                                          <input class="form-check-input" name="complete" style="cursor: pointer;" type="checkbox" id="flexSwitchCheckDefault2" >
+                                        </div>
+                                    <%}%>
+                                    </div>
                               </div>
                             </div>
                           </form>
@@ -397,7 +418,7 @@
 <script>
   // local government and area select option changes
 
-  const division = JSON.parse(document.querySelector("input[type='hidden']").value)
+  const division = JSON.parse(document.querySelector("input[type='hidden']").value).filter(d=> !d.hide)
       let html = ""  
       division.forEach(d=>{
         if(d.localgov == '<%= prop.localgovs %>'){
@@ -409,18 +430,23 @@
       document.querySelector("select[xname='localgovs']").innerHTML += html
       $(".selectpicker").selectpicker("refresh")
       
-      
+      function setdistance(e){
+        const chosengroup = division.filter(divi=> divi.localgov == chosen.localgov )[0].group.find(ob=> ob.junction == e.target.value)
+         document.querySelector("input[name='distance']").value = chosengroup.distance;
+      }
       function switchAreas(e, f){
           const chosen = division.filter(divi=> f ? divi.localgov == e.value : divi.localgov == e.target.value  )[0]
           let html = "<option value=''> Nothing selected </option>" 
-          chosen.group.forEach(g=>{
+          chosen.group.map(ob=> ob.junction).forEach(g=>{
             if(g== '<%= prop.area %>'){html+= `<option selected value='${g}'> ${g} </option>`}else{html+= `<option value='${g}'> ${g} </option>`}
           })
           document.querySelector("select[xname='area']").innerHTML = html
           $(".selectpicker").selectpicker("refresh")
       }
+      
       switchAreas(document.querySelector("#LGID option[selected]"), true)
       document.querySelector("select[xname='localgovs']").addEventListener("change", switchAreas)
+      document.querySelector("select[xname='area']").addEventListener("change", setdistance)
 </script>
 
 </body>

@@ -70,8 +70,11 @@ Router.post("/approve/edit/:id",express.urlencoded({extended : false}), async fu
     for(props in approvedUpdates){
         if(obnArrys.includes(props))  approvedUpdates[props] = JSON.parse(approvedUpdates[props]);  
     }
+    console.log(req.body)
+    const complete = approvedUpdates.complete  ? {complete : true } : { complete : false};
+    delete approvedUpdates.complete
     try{
-        await APARTMENTS.updateOne({_id : req.params.id}, {...approvedUpdates,edited : false, history : null})
+        await APARTMENTS.updateOne({_id : req.params.id}, {...approvedUpdates,...complete, edited : false, history : null})
         res.redirect("/details/"+req.params.id)
     }catch(e){
         console.log(e)

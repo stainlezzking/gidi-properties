@@ -80,7 +80,6 @@ Approve edited posts -
 */
 
 router.get("/edited/:id", async function(req,res){
-    // Link back to here from details page under approved button as an underlined edited blue text
     try{
         const apt = await APARTMENTS.findOne({_id : req.params.id, edited : true}).populate("postedBy", "name").lean()
         if(!apt) return res.send("no Property found.. go back and refresh page.")

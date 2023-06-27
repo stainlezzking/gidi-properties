@@ -74,17 +74,12 @@ Router.post("/edit/:id", upload.array('images', 8), async function(req,res,next)
             return {url : ca.url, show : false}})
         // upload image to server
         if(req.files.length) req.body.carousel.push(...req.files.map(i=> {return {url : "/uploads/"+i.filename, show : true}}))
-        if(req.user.admin) {
-            await APARTMENTS.updateOne({_id : req.params.id}, {...req.body})
-        }else{
-            await APARTMENTS.updateOne({_id : req.params.id}, {edited : true, history : req.body})
-        }
-        
-        return res.redirect("/details/"+req.params.id)
+            await APARTMENTS.updateOne({_id : req.params.id}, {edited : true, history : {...req.body, complete : Boolean(req.body.complete)}})
+            return res.redirect("/details/"+req.params.id)
 
-}catch(e){
-    next(e)
-}
+        }catch(e){
+            next(e)
+        }
 })
 
 module.exports = Router
