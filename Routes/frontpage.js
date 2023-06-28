@@ -107,6 +107,14 @@ router.get("/details/:_id", async function(req,res, next){
     }
 })
 
+router.get("/contact", function(req,res){
+    res.render("contact")
+})
+
+router.get("/rms", function(req,res){
+    res.render("bestfriends")
+})
+
 router.get("/auth/login", function(req,res){
     res.render("auth.ejs", {login : true})
 })

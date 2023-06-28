@@ -5,10 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="advanced search, agency, agent, classified, directory, house, listing, property, real estate, real estate agency, real estate agent, realestate, realtor, rental">
-<meta name="description" content="Gidi Real Estate Housing">
-<meta name="CreativeLayers" content="ATFN">
-
 <%- include("./partials/headLinks.ejs") -%>
 <!-- Title -->
 <title>Home </title>
@@ -47,6 +43,8 @@
                         <li><a href="/<%= list.code %>"> <%= list.label %></a></li>
                       <%})%>
                     </ul>
+                    <li> <a class="list-item" href="/rms"><span class="title">Best friends</span></a> </li>
+                    <li> <a class="list-item" href="/contact"><span class="title">Contact</span></a> </li>
                 </li>
               </ul>
             </div>
@@ -181,7 +179,7 @@
               <div class="iconbox-content">
                 <h4 class="title">Find a Selfcon</h4>
                 <p class="text">Discover a Diverse Selection of Properties available for rent from Our Extensive Listings.</p>
-                <a href="page-property-single-v1.html" class="ud-btn btn-white2">Find a rental<i class="fal fa-arrow-right-long"></i></a>
+                <a href="/listings/sf" class="ud-btn btn-white2">Find a rental<i class="fal fa-arrow-right-long"></i></a>
               </div>
             </div>
           </div>
@@ -191,7 +189,7 @@
               <div class="iconbox-content">
                 <h4 class="title">Find an Apartment </h4>
                 <p class="text">Secure Your Ownership Today: Explore a Range of Properties Available for Direct Purchase.</p>
-                <a href="page-property-single-v1.html" class="ud-btn btn-white2">Find a home<i class="fal fa-arrow-right-long"></i></a>
+                <a href="/listings/apt" class="ud-btn btn-white2">Find a home<i class="fal fa-arrow-right-long"></i></a>
               </div>
             </div>
           </div>
@@ -201,7 +199,7 @@
               <div class="iconbox-content">
                 <h4 class="title">Find a Roomate</h4>
                 <p class="text">Unlock the Best Value for Your Property Sale with Our Expert Assistance.</p>
-                <a href="page-property-single-v1.html" class="ud-btn btn-white2">Place an ad<i class="fal fa-arrow-right-long"></i></a>
+                <a href="/listings/rms" class="ud-btn btn-white2">Place an ad<i class="fal fa-arrow-right-long"></i></a>
               </div>
             </div>
           </div>

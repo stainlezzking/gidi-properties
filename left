@@ -25,3 +25,11 @@
 
 // About page ?
 // After completion remove auto login
+
+
+// WILl tHIS mail to body work ?
+href="mailto:someone@example.com?subject=Suggestions&body=Your%20suggestions%20are%20really%20important%20to%20us%20,thanks!"
+
+https://stackoverflow.com/questions/11507387/mailto-body-formatting
+
+// update in contact page if it does.
