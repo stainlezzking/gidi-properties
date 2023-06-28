@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Roomates in UNizik</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img {
+    width: 100%;
+    height: 100vh;
+    object-position: center;
+    object-fit: cover;
+}
+        .container{
+            position: relative;
+        }
+        .caption{
+            position: absolute;
+            color: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 8rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+        @media screen  and (max-width:500px){
+            .caption{
+                font-size: 2rem;
+            }
+        
+        }
+        .behind{
+            content: "";
+            background-color: black;
+            opacity: .8;
+            top: 0;
+            position: absolute;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            
+        }
+        a{
+            font-size: .3em;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/x-x/images/coming-soon.jfif" alt="" srcset="">
+        <div class="behind"></div>
+        <h2 class="caption">
+            Roomates Coming Soon
+            <a href="/listings"> Go back Listings</a>
+        </h2>
+    </div>
+</body>
+</html>
