@@ -115,6 +115,11 @@ router.get("/rms", function(req,res){
     res.render("bestfriends")
 })
 
+router.get("/terms", function(req,res){
+    res.render("terms")
+})
+
+
 router.get("/auth/login", function(req,res){
     res.render("auth.ejs", {login : true})
 })
