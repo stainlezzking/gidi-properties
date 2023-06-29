@@ -1,23 +1,43 @@
 const express = require("express")
 const Router = express.Router()
-const upload = require("../modules/fileupload")
+const {upload, cloudinary}= require("../modules/fileupload")
+const multer = require("multer")
+const path = require("path")
 const {APARTMENTS, SITE} = require("../modules/db")
 
+Router.use(function(req,res, next){
+    if(!req.isAuthenticated()) return res.redirect("/listings")
+    return next()
+})
 
-Router.post("/newproperty",  upload.array('images', 12), function(req,res, next){
-   const contacts = [];
-   const {name,reach, incomplete} = req.body
-    req.body.whois.forEach((whois,i)=>{
-        if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
+loc = path.join(__dirname, "../uploads")
+Router.post("/newproperty",  function(req,res, next){
+    return  upload.array('images', 12)(req, res, async function(err) {
+        if (err instanceof multer.MulterError) {
+            return showError(req, "/dashboard/newproperty", err.message, res);
+        } else if (err) {
+            // An unknown error occurred when uploading.
+            return showError(req, "/dashboard/newproperty", err.message, res);
+        }
+        try {
+            const contacts = [];
+            const {name,reach, incomplete} = req.body
+             req.body.whois.forEach((whois,i)=>{
+                 if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
+             })
+            let urls = []
+            for(let i=0; i <req.files.length; i++){
+                const resp = await cloudinary.uploader.upload(loc + "/" + req.files[i].filename, { asset_folder: req.body.area.replace(" ", "-"), use_filename: true })
+                urls.push(resp.secure_url)
+            }
+            req.body.carousel = urls.map(i=> {return{ url :i, show : true}})
+            const d = await APARTMENTS.create({...req.body, complete : Boolean(req.body.complete), contacts, postedBy : req.user._id, approved : (Boolean(req.body.complete) && req.user.admin) })
+            return res.redirect("/details/"+ d.id )
+        } catch (e) {
+            console.log(e)
+            next({m : e.message, r : "/dashboard/newproperty", showflash: true})
+        }
     })
-    req.body.carousel = req.files.map(i=> {return{ url :"/uploads/"+i.filename, show : true}})
-   APARTMENTS.create({...req.body, complete : Boolean(req.body.complete), contacts, postedBy : req.user._id, approved : (Boolean(req.body.complete) && req.user.admin) })
-   .then(d=> res.redirect("/details/"+ d.id ))
-    .catch(e=> {
-        console.log(e)
-        next({m : e.message, r : "/dashboard/newproperty", showflash: true})
-    })
-    // upload the image
 })
 
 Router.post("/search",express.urlencoded({extended : false}), async function(req,res){

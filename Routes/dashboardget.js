@@ -7,7 +7,7 @@ const { amenities, propsSelection, contactsSelect } = require("../modules/utilit
 router.use(async function(req,res,next){
     res.locals.activeurl = req.url;
     try{
-        if(!req.isAuthenticated()) return res.redirect("/")
+        if(!req.isAuthenticated()) return res.redirect("/listings")
         res.locals.user = req.user
         if(req.user.disabled) return res.send("Your account has been disabled, contact admin for more info")
         if(req.url == "/" && req.user.admin){

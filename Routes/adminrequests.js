@@ -4,8 +4,8 @@ const upload = require("../modules/fileupload")
 const {APARTMENTS, SITE, ACCS} = require("../modules/db")
 
 Router.use( async function(req,res,next){
+    if(!req.isAuthenticated()) return res.redirect("/listings")
     res.locals.activeurl = req.url;
-
     if(!req.user.admin) return res.redirect("/dashboard/profile")
     res.locals.user = req.user
     if(req.url.toLowerCase().startsWith("/managelisting")){

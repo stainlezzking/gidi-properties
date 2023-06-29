@@ -6,9 +6,9 @@ mongoose.set('strictQuery', false);
 // local imports
 
 //  connection
-let online = ``
+let online = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@uh-cluster-1.7jqhrpe.mongodb.net/uh-housing`
 let localhost = "mongodb://127.0.0.1:27017/gidi";
-mongoose.connect(localhost, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(online, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(function(req, res) {
     console.log("DB connected successfully");
 })
