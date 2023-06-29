@@ -26,11 +26,14 @@
             </div>
             <div class="col-auto">
               <div class="d-flex align-items-center">
-                  <!-- <a class="login-info d-flex align-items-center" data-bs-toggle="modal" href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a> -->
-                <%if(!activeurl && user.agent ){%>
+              <% if(!user){%>
+                <!-- <a class="login-info d-flex align-items-center" data-bs-toggle="modal" href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a> -->
+                <a class="login-info d-flex align-items-center"  href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a>
+              <%}%>
+                <%if(!activeurl && user?.agent ){%>
                     <a class="login-info d-flex align-items-center"  href="/dashboard" ><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block"> Dashboard</span></a>
                     <%}%>
-                  <% if(activeurl !== '/newproperty' && user.agent){%>
+                  <% if(activeurl !== '/newproperty' && user?.agent){%>
                     <a class="ud-btn btn-transparent add-property bdrs60 mx-2 mx-xl-4" href="page-dashboard-add-property.html">Add Property<i class="fal fa-arrow-right-long"></i></a>
                   <%}%>
               </div>
@@ -137,7 +140,7 @@
           <div class="mobile_menu_bar d-flex justify-content-between align-items-center">
             <a class="menubar" href="#menu"><img src="/x-x/images/mobile-dark-nav-icon.svg" alt=""></a>
             <a class="mobile_logo" href="/"><img src="/x-x/images/unizik-housing-dark.svg" class="w-75" alt=""></a>
-            <%if(!activeurl && user.agent){%>
+            <%if(!activeurl && user?.agent){%>
             <a href="/dashboard"><span class="icon fz18 far fa-user-circle"></span></a>
             <%}%>
           </div>

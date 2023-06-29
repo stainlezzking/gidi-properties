@@ -52,7 +52,7 @@
             <div class="col-auto">
               <div class="d-flex align-items-center">
                 <!-- <a class="login-info d-flex align-items-center" ><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a> -->
-                <% if(user.agent ){%>
+                <% if(user?.agent ){%>
                   <a class="login-info d-flex align-items-center" href="/dashboard" ><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Dashboard</span></a>
                   <a class="ud-btn add-property menu-btn bdrs60 mx-2 mx-xl-4" href="/dashboard/newproperty">Add Property<i class="fal fa-arrow-right-long"></i></a>
                   <%}%>
