@@ -160,6 +160,9 @@
           </li>
           <li> <a class="list-item" href="/rms"><span class="title">Best friends</span></a> </li>
           <li> <a class="list-item" href="/contact"><span class="title">Contact</span></a> </li>
+        <% if(!user){%>
+          <li><a class="list-item"   href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> Login / Register</a></li>
+        <%}%>
         <!-- Only for Mobile View -->
       </ul>
     </nav>
