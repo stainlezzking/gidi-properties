@@ -27,7 +27,7 @@ Router.post("/newproperty",  function(req,res, next){
              })
             let urls = []
             for(let i=0; i <req.files.length; i++){
-                const resp = await cloudinary.uploader.upload(loc + "/" + req.files[i].filename, { asset_folder: req.body.area.replace(" ", "-"), use_filename: true })
+                const resp = await cloudinary.uploader.upload(loc + "/" + req.files[i].filename, { folder: req.body.area.replace(" ", "-"), use_filename: true })
                 urls.push(resp.secure_url)
             }
             req.body.carousel = urls.map(i=> {return{ url :i, show : true}})

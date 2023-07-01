@@ -1,6 +1,6 @@
 const multer = require("multer")
 const path = require("path")
-const cloudinary = require("cloudinary")
+const cloudinary = require("cloudinary").v2;
 
 // Configuration 
 cloudinary.config({
