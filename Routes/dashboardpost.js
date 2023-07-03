@@ -14,10 +14,11 @@ loc = path.join(__dirname, "../uploads")
 Router.post("/newproperty",  function(req,res, next){
     return  upload.array('images', 12)(req, res, async function(err) {
         if (err instanceof multer.MulterError) {
-            return showError(req, "/dashboard/newproperty", err.message, res);
+            return next(err)
         } else if (err) {
             // An unknown error occurred when uploading.
-            return showError(req, "/dashboard/newproperty", err.message, res);
+            console.log(err)
+           return next(err)
         }
         try {
             const contacts = [];
