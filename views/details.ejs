@@ -102,7 +102,7 @@
                 </div>
                 <h3 class="price mb-0">&#x20A6;<%= property.cost.toLocaleString() %></h3>
                 <p class="text space fz15"> 
-                  <% if(user.agent){%>
+                  <% if(user && user.agent){%>
                     <% if(!property.approved || property.edited){%>
                       <span class="pending-style style1">Processing</span>
                       <%}else{%>
@@ -110,7 +110,7 @@
                       <%}%>
                   <%}%>
                 </p>
-                <% if(user.admin){%>
+                <% if(user && user.admin){%>
                   <div class="d-flex justify-content-end mt10">
                     <form class="text space fz15 <%= property.approved ? 'mr10' : '' %>" method="POST" action="/admin/delete/prop/<%= property._id %>">
                       <button class="ud-btn btn-thm" value="<%= property._id %>" type="submit">Delete</i></button>
