@@ -1,7 +1,8 @@
 const md5 = require('md5')
 const express = require("express")
-const {ACCS} = require("./db")
+const {ACCS, online} = require("./db")
 const MongoStore = require('connect-mongo');
+require("dotenv").config();
 
 module.exports = passportAuth = function(app, session, passport, localStrategy, ACCS) {
     // session
@@ -12,7 +13,7 @@ module.exports = passportAuth = function(app, session, passport, localStrategy, 
         cookie: {
             maxAge: 1000 * 60 * 60 * 24
         },
-        store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/session-storage' })
+        store: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@uh-cluster-1.7jqhrpe.mongodb.net/session-storage` })
     }))
 
     app.use(passport.initialize())
