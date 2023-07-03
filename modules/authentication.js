@@ -1,6 +1,8 @@
 const md5 = require('md5')
 const express = require("express")
 const {ACCS} = require("./db")
+const MongoStore = require('connect-mongo');
+
 module.exports = passportAuth = function(app, session, passport, localStrategy, ACCS) {
     // session
     app.use(session({
@@ -9,7 +11,8 @@ module.exports = passportAuth = function(app, session, passport, localStrategy, 
         saveUninitialized: false,
         cookie: {
             maxAge: 1000 * 60 * 60 * 24
-        }
+        },
+        store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/session-storage' })
     }))
 
     app.use(passport.initialize())
