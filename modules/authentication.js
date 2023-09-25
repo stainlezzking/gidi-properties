@@ -35,8 +35,12 @@ module.exports = passportAuth = function(app, session, passport, localStrategy, 
     });
 
     passport.deserializeUser(function(user, done) {
+        console.log(user)
         return ACCS.findById(user.id)
-        .then(user=> done(null,user))
+        .then(user=> {
+            console.log(user)
+            return done(null,user)
+        })
         .catch(e=> done(e))
     });
 

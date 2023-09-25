@@ -31,7 +31,7 @@ app.set("view engine", "ejs")
 app.use(function(req,res,next){
     res.locals.propSelection = propsSelection
     res.locals.amenities = amenities
-    res.locals.user = req.user ? req.user : null;
+    res.locals.user = req.user ? req.user : {};
     res.locals.listingTypes =  listingTypes 
     res.locals.activeurl =  null;
     next()
@@ -69,5 +69,5 @@ app.use(function(req,res,next){
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, function(){
-    console.log("server up and running")
+    console.log("server up and running on "+ PORT)
 })

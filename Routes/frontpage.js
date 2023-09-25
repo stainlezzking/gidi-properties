@@ -9,18 +9,19 @@ const pageSize = 5
 router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
-        const user = await ACCS.findOne({email : "bishop@gmail.com"}).lean()
+        // const user = await ACCS.findOne({email : "bishop@gmail.com"}).lean()
         if(req.url.startsWith('/listings')){
             res.locals.division =  res.locals.site.division  
             typeof req.query.page == 'object' && req.query.page.length ? req.query.page = req.query.page[req.query.page.length - 1] : null ;
             req.query.page <= 0 || isNaN(req.query.page)  ? req.query.page = 1 : req.query.page = Number(req.query.page)  ;
         }
-       return req.login(user, function(e){
-            if(e) console.log(e)
-            if(!user) return res.send("Account not found to be authenticated!")
-            res.locals.user = req.user
-            next() 
-        })
+        next()
+    //    return req.login(user, function(e){
+    //         if(e) console.log(e)
+    //         if(!user) return res.send("Account not found to be authenticated!")
+    //         res.locals.user = req.user
+    //         next() 
+    //     })
     }catch(e){
         console.log(e)
         return res.send("Internal Server Error! please report if error persist")
@@ -37,6 +38,10 @@ router.get("/listings", async function(req,res, next){
     res.locals.pagination = showPaginatedList(req.query.page,page.pagin.pageList)
     res.locals.url = null;
     res.render("listing")
+})
+
+router.get("/terms", function(req,res){
+    res.render("terms")
 })
 
 router.get("/listings/filter", async function(req,res, next){
