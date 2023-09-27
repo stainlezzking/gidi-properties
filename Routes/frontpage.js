@@ -28,7 +28,8 @@ router.use(async function(req,res,next){
     }
 })
 
-router.get("/", function(req,res){
+router.get("/", (req,res)=> res.redirect("/listings"))
+router.get("/home", function(req,res){
     res.render("index")
 })
 
