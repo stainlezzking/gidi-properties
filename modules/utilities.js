@@ -97,6 +97,6 @@ module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
   
 module.exports.contactsSelect = ['Landlord', 'Care-taker', 'Tenant']
 
-module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Duplex'] 
+module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Duplex', "Lands" ] 
 
-module.exports.listingTypes = [{label : "All listings", code : "listings"},{label : 'House', code : 'homes'}, {label : 'Lands', code : 'lands'}]
+module.exports.listingTypes = [{label : "All listings", code : "listings"},{label : 'House', code : 'ls/houses'}, {label : 'Lands', code : 'ls/lands'}]

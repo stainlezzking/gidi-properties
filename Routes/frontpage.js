@@ -10,7 +10,7 @@ router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
         // const user = await ACCS.findOne({email : "bishop@gmail.com"}).lean()
-        if(req.url.startsWith('/listings')){
+        if(req.url.startsWith('/listings') || req.url.startsWith("/ls")){
             res.locals.division =  res.locals.site.division  
             typeof req.query.page == 'object' && req.query.page.length ? req.query.page = req.query.page[req.query.page.length - 1] : null ;
             req.query.page <= 0 || isNaN(req.query.page)  ? req.query.page = 1 : req.query.page = Number(req.query.page)  ;
@@ -40,6 +40,25 @@ router.get("/listings", async function(req,res, next){
     res.locals.url = null;
     res.render("listing")
 })
+router.get("/ls/houses", async function(req,res){
+    console.log(req.url)
+    const mainQ = { proptype : { $ne : req.url.split("/")[2]} }
+    const totalCount = await APARTMENTS.find(mainQ).count()
+    res.locals.props = await APARTMENTS.find(mainQ).sort({createdAt : -1}).skip((req.query.page - 1) * pageSize).limit(pageSize)
+    res.locals.pagination = showPaginatedList(req.query.page,new Array(Math.ceil(totalCount/pageSize)))
+    res.locals.url = req.url
+    res.render("listing")
+})
+
+router.get("/ls/lands", async function(req,res){
+    const mainQ = { proptype : { $eq : req.url.split("/")[2]} }
+    const totalCount = await APARTMENTS.find(mainQ).count()
+    res.locals.props = await APARTMENTS.find(mainQ).sort({createdAt : -1}).skip((req.query.page - 1) * pageSize).limit(pageSize)
+    res.locals.pagination = showPaginatedList(req.query.page,new Array(Math.ceil(totalCount/pageSize)))
+    res.locals.url = req.url
+    res.render("listing")
+})
+
 
 router.get("/terms", function(req,res){
     res.render("terms")
