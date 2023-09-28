@@ -22,6 +22,22 @@ const { SITE, APARTMENTS } = require("./db")
 //     {localgov : "Ibeju-Lekki", hide : true, group : []}
 // ]
 
+/*
+const siteinfo = mongoose.Schema({
+    division : [{localgov : String, hide : Boolean, group : [String]}],
+    contacts : [{name : String, number : Number}]
+},{timestamps : true})
+*/
+
+// SITE.create({
+//   division : localgovs,
+//   contacts : [
+//     { name : "Chidera Precious", number : "+23481048567392"},
+//     { name : "Chukwuebuka Stanley", number : "+2349047933930"}
+//   ]
+// })
+// .then(d=> console.log(d))
+// .catch(d=> console.log(d))
 
 module.exports.amenities = [
     {
@@ -43,6 +59,10 @@ module.exports.amenities = [
     {
         name : "P.O.P",
         value : "pop"
+    },
+    {
+      name : "Lone Tenant",
+      value : "lone tenant"
     },
     {
         name : "Estate",
@@ -97,6 +117,7 @@ module.exports.getPaginatedData = async function(pageNumber, pageSize, next) {
   
 module.exports.contactsSelect = ['Landlord', 'Care-taker', 'Tenant']
 
-module.exports.propsSelection = ['Self-contain', 'Apartment', 'Bungalow', 'Duplex', "Lands" ] 
+// if you change propSelection value for lands and shops : make sure to update the newproperty.ejs, the functions where if say land is selected- some inputs won't be display to the user
+module.exports.propsSelection = ['self-contain', 'apartment', 'bungalow', 'duplex', "lands", 'shops' ] 
 
 module.exports.listingTypes = [{label : "All listings", code : "listings"},{label : 'House', code : 'ls/houses'}, {label : 'Lands', code : 'ls/lands'}]

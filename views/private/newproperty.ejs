@@ -120,43 +120,43 @@
                                   <select class="selectpicker" required name="proptype">
                                     <option value=""> Select..</option>
                                     <% propsSelection.forEach(ps=>{%>
-                                      <option> <%= ps %></option>
+                                      <option value="<%= ps %>"> <%= ps %></option>
                                  <%} )%>
                                   </select>
                                 </div>
                               </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
+                            <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Price in $</label>
                                 <input type="number" name="cost" required class="form-control" placeholder="Amount">
                               </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
+                            <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Parlour</label>
                                 <input type="number" name="parlour" required class="form-control" placeholder="How many parlours">
                               </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
+                            <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Kitchen</label>
                                 <input type="number" required name="kitchen" class="form-control" placeholder="How many Kitchens">
                               </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
+                            <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Rooms</label>
                                 <input type="number" name="rooms" required class="form-control" placeholder="How many rooms">
                               </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
+                            <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Bathrooms</label>
                                 <input type="number" required name="bathrooms" class="form-control" placeholder="How many Bathrooms">
                               </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4">
+                            <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Toilets</label>
                                 <input type="number" required name="toilets" class="form-control" placeholder="How many toilets">
@@ -406,7 +406,28 @@
     pagebuttons.forEach(button=> button.addEventListener("click", handlesubmittion))
 </script>
 
+
 <script>
+  // switching proptype
+  const landNoDisplayProps = document.querySelectorAll("div[no-display]")
+  document.querySelector("select[name='proptype']").addEventListener("change", function(event){
+    // console.log(event.target.value)
+    const nodisplay = landNoDisplayProps[0].getAttribute("no-display").includes(event.target.value)
+    if(nodisplay){
+      return landNoDisplayProps.forEach(div=> {
+        div.querySelector("input").removeAttribute("required")
+        div.classList.add("d-none")
+      })
+    }
+    return landNoDisplayProps.forEach(div=> {
+      div.querySelector("input").setAttribute("required", "")
+      div.classList.remove("d-none")
+    })
+  })
+
+
+
+
   // local government and area select option changes
 
     const division = JSON.parse(document.querySelector("input[namex='division']").value)

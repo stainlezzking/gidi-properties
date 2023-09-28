@@ -41,8 +41,7 @@ router.get("/listings", async function(req,res, next){
     res.render("listing")
 })
 router.get("/ls/houses", async function(req,res){
-    console.log(req.url)
-    const mainQ = { proptype : { $ne : req.url.split("/")[2]} }
+    const mainQ = { proptype : { $ne : "houses"} }
     const totalCount = await APARTMENTS.find(mainQ).count()
     res.locals.props = await APARTMENTS.find(mainQ).sort({createdAt : -1}).skip((req.query.page - 1) * pageSize).limit(pageSize)
     res.locals.pagination = showPaginatedList(req.query.page,new Array(Math.ceil(totalCount/pageSize)))
@@ -51,7 +50,7 @@ router.get("/ls/houses", async function(req,res){
 })
 
 router.get("/ls/lands", async function(req,res){
-    const mainQ = { proptype : { $eq : req.url.split("/")[2]} }
+    const mainQ = { proptype : { $eq : "lands"} }
     const totalCount = await APARTMENTS.find(mainQ).count()
     res.locals.props = await APARTMENTS.find(mainQ).sort({createdAt : -1}).skip((req.query.page - 1) * pageSize).limit(pageSize)
     res.locals.pagination = showPaginatedList(req.query.page,new Array(Math.ceil(totalCount/pageSize)))

@@ -6,7 +6,7 @@ mongoose.set('strictQuery', false);
 
 //  connection
 let online = ``
-let localhost = "mongodb://127.0.0.1:27017/gidi";
+let localhost = "mongodb://127.0.0.1:27017/rollyp";
 mongoose.connect(localhost, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(function(req, res) {
     console.log("DB connected successfully");
@@ -38,7 +38,7 @@ const apartmentobject = {
     cost : Number,
     description : String,
     contacts : [{ name : String, reach : String, whois : String }],
-    proptype : String, // add to all schemas
+    proptype : {type : String, lowercase : true}, // add to all schemas
     amenities : [String],
     privatenote : String,
 }
