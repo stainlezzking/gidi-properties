@@ -3,11 +3,10 @@ require("dotenv").config();
 mongoose.set('strictQuery', false);
 
 // local imports
-
 //  connection
-let online = ``
+let online = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@cluster0.4fhciab.mongodb.net/?retryWrites=true&w=majority`
 let localhost = "mongodb://127.0.0.1:27017/rollyp";
-mongoose.connect(localhost, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(online, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(function(req, res) {
     console.log("DB connected successfully");
 })

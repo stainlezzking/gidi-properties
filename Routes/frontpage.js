@@ -9,19 +9,19 @@ const pageSize = 5
 router.use(async function(req,res,next){
     try{
         res.locals.site = await SITE.findOne().lean()
-        // const user = await ACCS.findOne({email : "bishop@gmail.com"}).lean()
+        // const user = await ACCS.findOne({email : "temenosglobal@gmail.com"}).lean()
         if(req.url.startsWith('/listings') || req.url.startsWith("/ls")){
             res.locals.division =  res.locals.site.division  
             typeof req.query.page == 'object' && req.query.page.length ? req.query.page = req.query.page[req.query.page.length - 1] : null ;
             req.query.page <= 0 || isNaN(req.query.page)  ? req.query.page = 1 : req.query.page = Number(req.query.page)  ;
         }
-        next()
     //    return req.login(user, function(e){
-    //         if(e) console.log(e)
-    //         if(!user) return res.send("Account not found to be authenticated!")
-    //         res.locals.user = req.user
-    //         next() 
-    //     })
+    //          if(e) console.log(e)
+    //          if(!user) return res.send("Account not found to be authenticated!")
+    //          res.locals.user = req.user
+    //          next() 
+    //      })
+        next()
     }catch(e){
         console.log(e)
         return res.send("Internal Server Error! please report if error persist")

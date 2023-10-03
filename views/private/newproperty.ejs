@@ -410,19 +410,24 @@
 <script>
   // switching proptype
   const landNoDisplayProps = document.querySelectorAll("div[no-display]")
-  document.querySelector("select[name='proptype']").addEventListener("change", function(event){
-    // console.log(event.target.value)
-    const nodisplay = landNoDisplayProps[0].getAttribute("no-display").includes(event.target.value)
-    if(nodisplay){
+
+  const PropSelectFxn = function(display){
+    if(display){
       return landNoDisplayProps.forEach(div=> {
         div.querySelector("input").removeAttribute("required")
         div.classList.add("d-none")
       })
     }
-    return landNoDisplayProps.forEach(div=> {
+     landNoDisplayProps.forEach(div=> {
       div.querySelector("input").setAttribute("required", "")
       div.classList.remove("d-none")
     })
+  }
+ 
+  document.querySelector("select[name='proptype']").addEventListener("change", function(event){
+    // do not display certain props when land or shops selected
+    const nodisplay = landNoDisplayProps[0].getAttribute("no-display").includes(event.target.value)
+    landPropSelectFxn(nodisplay)
   })
 
 
