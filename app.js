@@ -31,7 +31,7 @@ app.set("view engine", "ejs")
 app.use(function(req,res,next){
     res.locals.propSelection = propsSelection
     res.locals.amenities = amenities
-    res.locals.user = req.user ? req.user : {};
+    res.locals.user = req.user ? req.user : null;
     res.locals.listingTypes =  listingTypes 
     res.locals.activeurl =  null;
     next()
@@ -44,9 +44,6 @@ app.use("/dashboard", dashRouter)
 app.use("/dashboard", dashPost)
 app.use("/uploads",express.static("uploads"))
 app.use("/admin", adminPost)
-
-
-app.get("/rr", (req,res)=> res.send("seen..."))
 
 app.use(function(err,req,res,next){
     if(err.showflash){

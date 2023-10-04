@@ -1,22 +1,39 @@
 const express = require("express")
 const Router = express.Router()
-const upload = require("../modules/fileupload")
+const {upload, cloudinary}= require("../modules/fileupload")
 const {APARTMENTS, SITE} = require("../modules/db")
+const path = require("path")
 
-
-Router.post("/newproperty",  upload.array('images', 12), function(req,res, next){
-   const contacts = [];
-   const {name,reach, incomplete} = req.body
-    req.body.whois.forEach((whois,i)=>{
-        if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
+loc = path.join(__dirname, "../uploads")
+Router.post("/newproperty",  function(req,res, next){
+    return  upload.array('images', 12)(req, res, async function(err) {
+        if (err instanceof multer.MulterError) {
+            return next(err)
+        } else if (err) {
+            // An unknown error occurred when uploading.
+            console.log(err)
+           return next(err)
+        }
+        try {
+            const contacts = [];
+            const {name,reach, incomplete} = req.body
+             req.body.whois.forEach((whois,i)=>{
+                 if(whois && name[i] && reach[i]) return contacts.push({whois, name : name[i], reach : reach[i]})
+             })
+            let urls = []
+            for(let i=0; i <req.files.length; i++){
+                const resp = await cloudinary.uploader.upload(loc + "/" + req.files[i].filename, { folder: req.body.area.replace(" ", "-"), use_filename: true })
+                urls.push(resp.secure_url)
+            }
+            req.body.carousel = urls.map(i=> {return{ url :i, show : true}})
+            const d = await APARTMENTS.create({...req.body, complete : Boolean(req.body.complete), contacts, postedBy : req.user._id, approved : (Boolean(req.body.complete) && req.user.admin) })
+            return res.redirect("/details/"+ d.id )
+        } catch (e) {
+            console.log(e)
+            next({m : e.message, r : "/dashboard/newproperty", showflash: true})
+        }
     })
-    req.body.carousel = req.files.map(i=> {return{ url :"/uploads/"+i.filename, show : true}})
-   APARTMENTS.create({...req.body, complete : Boolean(req.body.complete), contacts, postedBy : req.user._id })
-   .then(d=> res.redirect("/details/"+ d.id ))
-    .catch(e=>   next({m : e.message, r : "/dashboard/newproperty", showflash: true}))
-    // upload the image
 })
-
 Router.post("/newarea", express.urlencoded({extended : false}), function(req,res,next){
     SITE.updateOne({'division.localgov' : req.body.localgovs}, {
         $push : {"division.$.group": req.body.newarea}

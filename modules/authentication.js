@@ -4,7 +4,7 @@ const {ACCS} = require("./db")
 module.exports = passportAuth = function(app, session, passport, localStrategy, ACCS) {
     // session
     app.use(session({
-        secret: process.env.SESSION_KEY,
+        secret: process.env.RP_SESSION_KEY,
         resave: false,
         saveUninitialized: false,
         cookie: {
