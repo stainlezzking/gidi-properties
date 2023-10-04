@@ -126,7 +126,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-sm-6 col-xl-4" no-display="lands,shops">
+                            <div class="col-sm-6 col-xl-4" no-display="lands,shops" >
                               <div class="mb30">
                                 <label class="heading-color ff-heading fw600 mb10">Price in $</label>
                                 <input type="number" name="cost" required class="form-control" placeholder="Amount">
@@ -134,8 +134,8 @@
                             </div>
                             <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
-                                <label class="heading-color ff-heading fw600 mb10">Parlour</label>
-                                <input type="number" name="parlour" required class="form-control" placeholder="How many parlours">
+                                <label class="heading-color ff-heading fw600 mb10" >Parlour</label>
+                                <input type="number" name="parlour" self-con="0" required class="form-control" placeholder="How many parlours">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4" no-display="lands,shops">
@@ -146,20 +146,20 @@
                             </div>
                             <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
-                                <label class="heading-color ff-heading fw600 mb10">Rooms</label>
-                                <input type="number" name="rooms" required class="form-control" placeholder="How many rooms">
+                                <label class="heading-color ff-heading fw600 mb10" >Rooms</label>
+                                <input type="number" name="rooms" self-con="1" required class="form-control" placeholder="How many rooms">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
-                                <label class="heading-color ff-heading fw600 mb10">Bathrooms</label>
-                                <input type="number" required name="bathrooms" class="form-control" placeholder="How many Bathrooms">
+                                <label class="heading-color ff-heading fw600 mb10" >Bathrooms</label>
+                                <input type="number" required name="bathrooms" self-con="1" class="form-control" placeholder="How many Bathrooms">
                               </div>
                             </div>
                             <div class="col-sm-6 col-xl-4" no-display="lands,shops">
                               <div class="mb30">
-                                <label class="heading-color ff-heading fw600 mb10">Toilets</label>
-                                <input type="number" required name="toilets" class="form-control" placeholder="How many toilets">
+                                <label class="heading-color ff-heading fw600 mb10" >Toilets</label>
+                                <input type="number" required name="toilets" self-con="1" class="form-control" placeholder="How many toilets">
                               </div>
                             </div>
                             <div class="col-sm-12 ps-4 mb10">
@@ -410,6 +410,7 @@
 <script>
   // switching proptype
   const landNoDisplayProps = document.querySelectorAll("div[no-display]")
+  const selfConAutoInputs = document.querySelectorAll("input[self-con]")
 
   const PropSelectFxn = function(display){
     if(display){
@@ -427,7 +428,14 @@
   document.querySelector("select[name='proptype']").addEventListener("change", function(event){
     // do not display certain props when land or shops selected
     const nodisplay = landNoDisplayProps[0].getAttribute("no-display").includes(event.target.value)
-    landPropSelectFxn(nodisplay)
+    // removing properties when land and shops selected
+    PropSelectFxn(nodisplay)
+    if(event.target.value == 'self-contain'){
+      selfConAutoInputs.forEach(input=> input.value = input.getAttribute('self-con'))
+    }else{
+      selfConAutoInputs.forEach(input=> input.value = "")
+    }
+    // auto filling properties when self-contain selected
   })
 
 

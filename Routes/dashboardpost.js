@@ -3,6 +3,7 @@ const Router = express.Router()
 const {upload, cloudinary}= require("../modules/fileupload")
 const {APARTMENTS, SITE} = require("../modules/db")
 const path = require("path")
+const multer = require("multer")
 
 loc = path.join(__dirname, "../uploads")
 Router.post("/newproperty",  function(req,res, next){
