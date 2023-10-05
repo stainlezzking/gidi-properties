@@ -3,7 +3,7 @@ const { APARTMENTS, SITE, ACCS } = require("../modules/db")
 const { getPaginatedData, showPaginatedList} = require("../modules/utilities")
 const router = express.Router()
 
-const pageSize = 5
+const pageSize = 15
 
 
 router.use(async function(req,res,next){
