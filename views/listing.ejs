@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
-<!-- Mirrored from creativelayers.net/themes/homez-html/page-property-3-col.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 03 May 2023 13:11:27 GMT -->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -504,18 +502,18 @@
     const division = JSON.parse(document.querySelector("input[namex='division']").value)
       let html = ""  
       division.filter(h=> !h.hide).forEach(d=> html += `<option value='${d.localgov}'> ${d.localgov} </option>`)
-      document.querySelector("select[name='localgovs']").innerHTML += html
+      document.querySelectorAll("select[xlocalgovs-selector]").forEach(el=> el.innerHTML += html)
       $(".selectpicker").selectpicker("refresh")
       
       
       function switchAreas(e){
           const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
           let html = "<option value=''> Nothing selected </option>" 
-          chosen.group.forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
-          document.querySelector("select[name='area']").innerHTML = html
+          chosen.group.map(ob=>ob.junction).forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
+          document.querySelector(`select[${e.target.getAttribute('xlocalgovs-selector')}]`).innerHTML = html
           $(".selectpicker").selectpicker("refresh")
       }
-      document.querySelector("select[name='localgovs']").addEventListener("change", switchAreas)
+      document.querySelectorAll("select[xlocalgovs-selector]").forEach(s=> s.addEventListener("change", switchAreas))
 </script>
 </body>
 

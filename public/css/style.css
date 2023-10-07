@@ -7444,6 +7444,7 @@ li.mm-listitem:focus {
   opacity: 1;
   left: 0px;
   visibility: visible;
+  overflow-y: scroll;
 }
 
 .signin-hidden-sidebar-content .rightside-hidden-bar {

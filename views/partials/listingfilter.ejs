@@ -1,46 +1,34 @@
 
   <!-- Filter Content In Hiddn SideBar -->
-  <div class="lefttside-hidden-bar">
-    <div class="hsidebar-header">
-      <div class="sidebar-close-icon"><span class="far fa-times"></span></div>
-    </div>
-    <div class="hsidebar-content">
-      <div class="widget-wrapper">
-        <h6 class="list-title">Find your home</h6>
-        <div class="search_area">
-          <input type="text" class="form-control" placeholder="What are you looking for?">
-          <label><span class="flaticon-search"></span></label>
-        </div>
-      </div>
-      <div class="widget-wrapper">
-        <h6 class="list-title">Listing Status</h6>
+  <form class="lefttside-hidden-bar px-3" method="GET" action="/listings/filter" >
+    <div class="widget-wrapper mt40">
+      <h6 class="list-title">Listing Status</h6>
+      <%propSelection.forEach((property, i)=>{%>
         <div class="radio-element">
           <div class="form-check d-flex align-items-center mb10">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
-            <label class="form-check-label" for="flexRadioDefault4">Buy</label>
+            <input class="form-check-input" type="radio" name="proptype" id="<%= property.split('')[0] + i %>">
+            <label class="form-check-label" for="<%= property.split('')[0] + i %>"> <%= property %></label>
           </div>
-          <div class="form-check d-flex align-items-center mb10">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked="checked">
-            <label class="form-check-label" for="flexRadioDefault5">Rent</label>
           </div>
-          <div class="form-check d-flex align-items-center">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault6">
-            <label class="form-check-label" for="flexRadioDefault6">Sold</label>
+      <%})%>
+    </div>
+      <div class="widget-wrapper">
+        <!-- <h6 class="list-title">Price Range</h6> -->
+        <!-- Range Slider Desktop Version -->
+        <div class="range-slider-style large-version">
+          <div class="range-wrapper">
+            <!-- <div class="slider-range mb30 mt35"></div> -->
+            <div class="row">
+              <div class="d-inline-block col-11 col-sm-10">
+                  <h6 class="list-title">Max Budget</h6>
+                  <input type="number" class="amount2 w-100"  name="max" placeholder="&#x20A6;150000">
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="widget-wrapper">
-        <h6 class="list-title">Property Type</h6>
-        <%propSelection.forEach(property=>{%>
-          <div class="checkbox-style1">
-            <label class="custom_checkbox"> <%= property %>
-              <input type="checkbox">
-              <span class="checkmark"></span>
-            </label>
-            </div>
-        <%})%>
-      </div>
-      <div class="widget-wrapper">
+
+      <div class="widget-wrapper d-none">
         <h6 class="list-title">Price Range</h6>
         <!-- Range Slider Mobile Version -->
         <div class="range-slider-style2">
@@ -53,105 +41,87 @@
           </div>
         </div>
       </div>
+  
       <div class="widget-wrapper">
         <h6 class="list-title">Bedrooms</h6>
         <div class="d-flex">
           <div class="selection">
-            <input id="any2" name="rooms" type="radio" checked>
-            <label for="any2">any</label>
+            <input id="xany" name="rooms" value="0" type="radio" checked>
+            <label for="xany">any</label>
           </div>
           <div class="selection">
-            <input id="oneplus2" name="rooms" type="radio">
-            <label for="oneplus2">1+</label>
+            <input id="xoneplus" name="rooms" value="1" type="radio">
+            <label for="xoneplus">1+</label>
           </div>
           <div class="selection">
-            <input id="twoplus2" name="rooms" type="radio">
-            <label for="twoplus2">2+</label>
+            <input id="xtwoplus" name="rooms" value="2" type="radio">
+            <label for="xtwoplus">2+</label>
           </div>
           <div class="selection">
-            <input id="threeplus2" name="rooms" type="radio">
-            <label for="threeplus2">3+</label>
+            <input id="xthreeplus" name="rooms" value="3" type="radio">
+            <label for="xthreeplus">3+</label>
           </div>
           <div class="selection">
-            <input id="fourplus2" name="rooms" type="radio">
-            <label for="fourplus2">4+</label>
+            <input id="xfourplus" name="rooms" value="4" type="radio">
+            <label for="xfourplus">4+</label>
           </div>
           <div class="selection">
-            <input id="fiveplus2" name="rooms" type="radio">
-            <label for="fiveplus2">5+</label>
+            <input id="xfiveplus" name="rooms" value="5" type="radio">
+            <label for="xfiveplus">5+</label>
           </div>
         </div>
       </div>
+      
       <div class="widget-wrapper">
         <h6 class="list-title">Bathrooms</h6>
         <div class="d-flex">
           <div class="selection">
-            <input id="bathany2" name="bathrooms" type="radio" checked>
-            <label for="bathany2">any</label>
+            <input id="yany" name="bathrooms" value="0" type="radio" checked>
+            <label for="yany">any</label>
           </div>
           <div class="selection">
-            <input id="bathoneplus2" name="bathrooms" type="radio">
-            <label for="bathoneplus2">1+</label>
+            <input id="yoneplus" name="bathrooms" value="1" type="radio">
+            <label for="yoneplus">1+</label>
           </div>
           <div class="selection">
-            <input id="bathtwoplus2" name="bathrooms" type="radio">
-            <label for="bathtwoplus2">2+</label>
+            <input id="ytwoplus" name="bathrooms" value="2" type="radio">
+            <label for="ytwoplus">2+</label>
           </div>
           <div class="selection">
-            <input id="baththreeplus2" name="bathrooms" type="radio">
-            <label for="baththreeplus2">3+</label>
+            <input id="ythreeplus" name="bathrooms" value="3" type="radio">
+            <label for="ythreeplus">3+</label>
           </div>
           <div class="selection">
-            <input id="bathfourplus2" name="bathrooms" type="radio">
-            <label for="bathfourplus2">4+</label>
+            <input id="yfourplus" name="bathrooms" value="4" type="radio">
+            <label for="yfourplus">4+</label>
           </div>
           <div class="selection">
-            <input id="bathfiveplus2" name="bathrooms" type="radio">
-            <label for="bathfiveplus2">5+</label>
+            <input id="yfiveplus" name="bathrooms" value="5" type="radio">
+            <label for="yfiveplus">5+</label>
           </div>
         </div>
       </div>
-      <div class="widget-wrapper advance-feature-modal">
-        <h6 class="list-title">Location</h6>
-        <div class="form-style2 input-group">
-          <select class="selectpicker" data-width="100%">
-            <option>All Cities</option>
-            <option data-tokens="California">California</option>
-            <option data-tokens="Chicago">Chicago</option>
-            <option data-tokens="LosAngeles">Los Angeles</option>
-            <option data-tokens="Manhattan">Manhattan</option>
-            <option data-tokens="NewJersey">New Jersey</option>
-            <option data-tokens="NewYork">New York</option>
-            <option data-tokens="SanDiego">San Diego</option>
-            <option data-tokens="SanFrancisco">San Francisco</option>
-            <option data-tokens="Texas">Texas</option>
-          </select>
-        </div>
-      </div>
-      <div class="widget-wrapper">
-        <h6 class="list-title">Square Feet</h6>
-        <div class="space-area">
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="form-style1">
-              <input type="text" class="form-control" placeholder="Min.">
-            </div>
-            <span class="dark-color">-</span>
-            <div class="form-style1">
-              <input type="text" class="form-control" placeholder="Max">
+
+      <div class="row">
+        <div class="col-sm-12 mb20">
+          <div class="widget-wrapper">
+            <h6 class="list-title">Local Governments</h6>
+            <div class="form-style2 input-group">
+              <select class="selectpicker" xlocalgovs-selector="xareaTarget-1" name="localgovs" data-live-search="true" data-width="100%">
+                <option value="">All Local Governments</option>
+          
+              </select>
             </div>
           </div>
         </div>
-      </div>
-      <div class="widget-wrapper">
-        <h6 class="list-title">Year Built</h6>
-        <div class="space-area">
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="form-style1">
-              <input type="text" class="form-control" placeholder="2019">
-            </div>
-            <span class="dark-color">-</span>
-            <div class="form-style1">
-              <input type="text" class="form-control" placeholder="2022">
+        <div class="col-sm-12 mb20">
+          <div class="widget-wrapper">
+            <h6 class="list-title">CITY</h6>
+            <div class="form-style2 input-group">
+              <select class="selectpicker" name="area"  xareaTarget-1 data-live-search="true" data-width="100%">
+                <option value=""> All Cities</option>
+          
+              </select>
             </div>
           </div>
         </div>
@@ -165,62 +135,14 @@
               </h2>
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample2">
                 <div class="accordion-body p-0 mt15">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="checkbox-style1">
-                        <label class="custom_checkbox">Attic
-                          <input type="checkbox">
+                  <div class="widget-wrapper mb20">
+                    <div class="checkbox-style1 row px-2">
+                      <% amenities.forEach(amenity=>{%>
+                        <label class="custom_checkbox col-sm-6"> <%= amenity.name %>
+                          <input type="checkbox" name="amenities" value="<%= amenity.value %>">
                           <span class="checkmark"></span>
                         </label>
-                        <label class="custom_checkbox">Basketball court
-                          <input type="checkbox" checked="checked">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Air Conditioning
-                          <input type="checkbox" checked="checked">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Lawn
-                          <input type="checkbox" checked="checked">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">TV Cable
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Dryer
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="checkbox-style1">
-                        <label class="custom_checkbox">Outdoor Shower
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Washer
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Lake view
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Wine cellar
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Front yard
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                        <label class="custom_checkbox">Refrigerator
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                      </div>
+                    <%})%>
                     </div>
                   </div>
                 </div>
@@ -229,17 +151,16 @@
           </div>
         </div>
       </div>
-      <div class="widget-wrapper mb60">
+      <div class="widget-wrapper mb20">
         <div class="btn-area d-grid align-items-center">
-          <button class="ud-btn btn-thm"><span class="flaticon-search align-text-top pr10"></span>Search</button>
+          <button class="ud-btn btn-thm" type="submit"><span class="flaticon-search align-text-top pr10"></span>Search</button>
         </div>
       </div>
       <div class="reset-area d-flex align-items-center justify-content-between">
-        <a class="reset-button" href="#"><span class="flaticon-turn-back"></span><u>Reset all filters</u></a>
-        <a class="reset-button" href="#"><span class="flaticon-favourite"></span><u>Save Search</u></a>
+        <a class="reset-button" href="/listings"><span class="flaticon-turn-back"></span><u>Reset all filters</u></a>
+        <!-- <a class="reset-button" href="#"><span class="flaticon-favourite"></span><u>Save Search</u></a> -->
       </div>
-    </div>
-  </div>
+  </form>
   <!--End Filter Content In Hiddn SideBar -->
 
 
@@ -363,7 +284,7 @@
                 <div class="widget-wrapper">
                   <h6 class="list-title">Local Governments</h6>
                   <div class="form-style2 input-group">
-                    <select class="selectpicker" name="localgovs" data-live-search="true" data-width="100%">
+                    <select class="selectpicker" xlocalgovs-selector="xareaTarget-2" name="localgovs" data-live-search="true" data-width="100%">
                       <option value="">All Local Governments</option>
                 
                     </select>
@@ -374,7 +295,7 @@
                 <div class="widget-wrapper">
                   <h6 class="list-title">CITY</h6>
                   <div class="form-style2 input-group">
-                    <select class="selectpicker" name="area" data-live-search="true" data-width="100%">
+                    <select class="selectpicker" name="area" xareaTarget-2 data-live-search="true" data-width="100%">
                       <option value=""> All Cities</option>
                 
                     </select>
