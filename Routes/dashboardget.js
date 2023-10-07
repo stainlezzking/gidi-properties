@@ -90,5 +90,11 @@ router.get("/myprops", function(req,res){
     res.render("private/myproperties")
 })
 
+router.get("/logout", (req, res)=>{
+    req.logOut(async function(e) {
+        if(e) return res.send("An error occured Loggin you out")
+        res.redirect("/listings")
+    })
+})
 
 module.exports = router

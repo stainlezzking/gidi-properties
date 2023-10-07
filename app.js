@@ -54,12 +54,6 @@ app.use(function(err,req,res,next){
     console.log("error called ", err)
     return res.send(err.message)
 })
-app.get("/logout", (req, res)=>{
-    req.logOut(async function(e) {
-        if(e) return res.send("An error occured Loggin you out")
-        res.redirect("/listings")
-    })
-})
 app.use(function(req,res,next){
     res.render("404")
 })
