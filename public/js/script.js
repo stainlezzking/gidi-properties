@@ -219,7 +219,6 @@
 
     /*** ====  Right Side Hidden Sidebar Start ==== ***/
     //Side Content Toggle
-    console.log($('.filter-btn-right'))
     if($('.filter-btn-right').length){
       //Show Form
       $('.filter-btn-right').on('click', function(e) {

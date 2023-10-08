@@ -9369,7 +9369,8 @@ input:focus-visible {
   display: block;
   height: 40px;
   line-height: 40px;
-  position: absolute;
+  /* position: absolute; */
+  margin-left: auto !important;
   right: 0;
   text-align: center;
   top: 0;
