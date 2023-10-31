@@ -17,8 +17,7 @@ const storage = multer.diskStorage({
       cb(null, loc)
     },
     filename: function (req, file, cb) {
-        // change name to include street name and localgov
-        const filename =   req.body.localgovs +"--"+ req.body.area + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname)
+        const filename =   Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname)
       cb(null, filename )
     }
   })
