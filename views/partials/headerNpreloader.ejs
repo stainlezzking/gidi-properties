@@ -23,20 +23,20 @@
                   <li> <a class="list-item" href="/contact"><span class="title">Contact</span></a> </li>
               </ul>
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
               <div class="d-flex align-items-center">
-              <% if(!user){%>
-                <!-- <a class="login-info d-flex align-items-center" data-bs-toggle="modal" href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a> -->
+              <%# if(!user){%>
+                ## <a class="login-info d-flex align-items-center" data-bs-toggle="modal" href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a> 
                 <a class="login-info d-flex align-items-center"  href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block">Login / Register</span></a>
-              <%}%>
-                <%if(!activeurl && user?.agent ){%>
+             <%#}%> 
+                <%#if(!activeurl && user?.agent ){%>
                     <a class="login-info d-flex align-items-center"  href="/dashboard" ><i class="far fa-user-circle fz16 me-2"></i> <span class="d-none d-xl-block"> Dashboard</span></a>
-                    <%}%>
-                  <% if(activeurl !== '/newproperty' && user?.agent){%>
+                    <%#}%>
+                  <%# if(activeurl !== '/newproperty' && user?.agent){%>
                     <a class="ud-btn btn-transparent add-property bdrs60 mx-2 mx-xl-4" href="/dashboard/newproperty">Add Property<i class="fal fa-arrow-right-long"></i></a>
-                  <%}%>
+                  <%#}%>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </nav>
@@ -149,7 +149,7 @@
     <!-- /.mobile-menu -->
     <nav id="menu" class="">
       <ul>
-        <li> <a class="list-item" href="/"><span class="title">Home</span></a> </li>
+        <li> <a class="list-item" href="/home"><span class="title">Home</span></a> </li>
         <li><span>Listings</span>
           <ul>
             <% listingTypes.forEach(list=>{%>
@@ -158,9 +158,9 @@
             </ul>
           </li>
           <li> <a class="list-item" href="/contact"><span class="title">Contact</span></a> </li>
-        <% if(!user){%>
-          <li><a class="list-item"   href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> Login / Register</a></li>
-        <%}%>
+        <%# if(!user){%>
+          <!-- <li><a class="list-item"   href="/auth/login"><i class="far fa-user-circle fz16 me-2"></i> Login / Register</a></li> -->
+        <%#}%>
         <!-- Only for Mobile View -->
       </ul>
     </nav>
