@@ -512,7 +512,8 @@
       function switchAreas(e){
           const chosen = division.filter(divi=> divi.localgov == e.target.value )[0]
           let html = "<option value=''> Nothing selected </option>" 
-          chosen.group.map(ob=>ob.junction).forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
+          console.log(chosen)
+          chosen.group.map(ob=>ob).forEach(g=> html+= `<option value='${g}'> ${g} </option>`)
           document.querySelector(`select[${e.target.getAttribute('xlocalgovs-selector')}]`).innerHTML = html
           $(".selectpicker").selectpicker("refresh")
       }
