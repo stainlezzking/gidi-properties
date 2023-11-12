@@ -70,7 +70,6 @@ Router.post("/approve/edit/:id",express.urlencoded({extended : false}), async fu
     for(props in approvedUpdates){
         if(obnArrys.includes(props))  approvedUpdates[props] = JSON.parse(approvedUpdates[props]);  
     }
-    console.log(req.body)
     const complete = approvedUpdates.complete  ? {complete : true } : { complete : false};
     delete approvedUpdates.complete
     try{

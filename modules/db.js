@@ -82,6 +82,4 @@ const ACCS = mongoose.model("account", accounts)
 const APARTMENTS = mongoose.model("apartments", apartment)
 const ACTIVE = mongoose.model("activities", activities)
 
-ACCS.find()
-.then(d=> console.log(d))
 module.exports = {ACCS, APARTMENTS, SITE, ACTIVE}
