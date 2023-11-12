@@ -1062,7 +1062,16 @@ h2 {
   -ms-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
+  height: 200px;
+  object-fit: cover;
 }
+
+@media screen and (max-width : 500px) {
+  .listing-style1 img {
+    height: 300px;
+  }
+}
+
 .listing-style1 .list-agent {
   position: absolute;
   right: 30px;
